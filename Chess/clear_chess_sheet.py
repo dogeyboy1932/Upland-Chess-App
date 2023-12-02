@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from FIXED_CHESS_VARIABLES import cfilepath
+from Chess.FIXED_CHESS_VARIABLES import cfilepath
 
 
 def run():

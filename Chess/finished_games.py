@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
-from FIXED_CHESS_VARIABLES import cfilepath
-from __isGameFinished import isGameFinished
+from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from Chess.__isGameFinished import isGameFinished
 
 
 def FindAndRemoveRow(gameID):

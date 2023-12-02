@@ -1,5 +1,5 @@
-from FIXED_CHESS_VARIABLES import client
-from setup_file import requests
+from Chess.FIXED_CHESS_VARIABLES import client
+import requests
 
 # import berserk
 #

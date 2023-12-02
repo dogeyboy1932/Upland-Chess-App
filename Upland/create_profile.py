@@ -1,8 +1,8 @@
 from Upland.append_profile import AppendProfile
-from fill_profile import FillProfile
-from query_uplandID_index import QueryUplandIDRow
-from get_user_profile import GetUserProfile
-from get_user_balance import GetUserBalance
+from Upland.fill_profile import FillProfile
+from Upland.query_uplandID_index import QueryUplandIDRow
+from Upland.get_user_profile import GetUserProfile
+from Upland.get_user_balance import GetUserBalance
 
 
 def CreateProfile(access_token, user_id):

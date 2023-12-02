@@ -1,8 +1,8 @@
-from FIXED_VARIABLES import filepath
+from Upland.FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 from Chess.__collect_lichess_info import GetLichessID
 from Chess.get_chess_rating import GetLichessRating
-from query_uplandID_index import QueryUplandIDRow
+from Upland.query_uplandID_index import QueryUplandIDRow
 
 
 def FillProfile(uplandID):

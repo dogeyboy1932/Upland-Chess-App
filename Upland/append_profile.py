@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from FIXED_VARIABLES import filepath
+from Upland.FIXED_VARIABLES import filepath
 
 
 def AppendProfile(data):

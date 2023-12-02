@@ -28,8 +28,8 @@ def verify(app_id, key):
 
 
 def run():
-    app_id = "232"
-    key = "ec21effe-62d9-403f-8177-1087c1be6bcc"
+    app_id = "232" # Change based on app code 
+    key = "ec21effe-62d9-403f-8177-1087c1be6bcc" # Change based on app key
 
     verify(app_id, key)
 
