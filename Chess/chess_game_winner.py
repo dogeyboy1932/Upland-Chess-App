@@ -1,5 +1,5 @@
 from FIXED_CHESS_VARIABLES import client
-from setup_file import requests
+# from setup_file import requests
 
 # import berserk
 #
@@ -18,6 +18,7 @@ def GameWinner(gameID):
 
     whiteId = thisGame.get('players').get('white').get('user').get('id')
     blackId = thisGame.get('players').get('black').get('user').get('id')
+    # blackId = "blank"
 
     if thisGame.get('status') == 'draw':
         return [whiteId, blackId, "DRAW"]
@@ -35,15 +36,15 @@ def GameWinner(gameID):
             return "{}"
 
 
-# def run():
-#     # game_id = "MVqBvxRe"
-#     # print(GameWinner(game_id))
-#
-#     game_id = "RLyFq9MX"
-#     print(GameWinner(game_id))
-#
-#
-# run()
+def run():
+    # game_id = "MVqBvxRe"
+    # print(GameWinner(game_id))
+
+    game_id = "rL3ou9hv"
+    print(GameWinner(game_id))
+
+
+run()
 
 
 

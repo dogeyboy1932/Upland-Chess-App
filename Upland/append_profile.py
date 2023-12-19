@@ -2,6 +2,7 @@ from openpyxl import load_workbook
 from FIXED_VARIABLES import filepath
 
 
+
 def AppendProfile(data):
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']

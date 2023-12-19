@@ -13,6 +13,12 @@ from Upland.query_uplandID_index import QueryUplandIDRow
 from query_challenge_idx import GetChallengeIdx
 from Upland.query_for_eosId import QueryForEOSID
 from Upland.get_escrow_container import GetEscrowContainer
+import pandas as pd
+from finished_games import RemoveAndResolveFinishedGames
+from __render_database import Iterate
+
+
+
 
 # FRONTEND DEPENDENT
 
@@ -20,9 +26,11 @@ workbook1 = load_workbook(cfilepath)
 chessWorksheet = workbook1['Sheet']
 
 workbook2 = load_workbook(filepath)
-uplandWorksheet = workbook1['Sheet']
+uplandWorksheet = workbook2['Sheet']
+
 
 def challengeButtonClicked():
+    # print("START")
 
     # First check if user is valid...check the uplandDatabase if his profile exists <- This should always be true...
     # if you create a profile to join the game, your profile should be in there
@@ -31,20 +39,19 @@ def challengeButtonClicked():
     # INSTRUCTION
     # While loop (while challenge not valid or cancel button isn't clicked pop up shows)
     # Display popup to extract all parameters
-    #
+
     challenger = "trashboatsr"  # <- Need to extract this detail on front end
     speed = "rapid"  # <- Placeholder
     increment = 0  # <- Placeholder
     rated = "No"   # <- Placeholder
     variant = "standard"  # <- Placeholder
     name = "Akhil vs His Team"  # <- Placeholder
-    wager = 10  # <- Placeholder [wager must be less than challenger balance...otherwise]
+    wager = 100  # <- Placeholder [wager must be less than challenger balance...otherwise]
 
     # valid = isChallengeValid(challenger, wager) Queries upland ID and checks balance if wager < balance (it is valid)
     ############################
 
-    print("here")
-
+    # print("here")
 
     # Challenge under terms is created
     thisGame = CreateOpenChallenge(challenger=challenger, speed=speed, increment=increment, variant=variant,
@@ -54,16 +61,41 @@ def challengeButtonClicked():
     gameID = AppendChallenge(challenger, wager, thisGame)
 
     # print(thisGame)
-    print("here")
+    # print("here")
+
 
     # Join Escrow Container of this game
     uplandID = QueryForUplandID(challenger)
     bearer = GetBearerToken(uplandID)
 
+    # print(uplandID)
+    # print(bearer)
+
     # If bearer is -1, that means the Upland profile was somehow not added. <- This should never happen
 
     challengeIdx = GetChallengeIdx(gameID)
-    eid = chessWorksheet[challengeIdx][5]
+    # print(challengeIdx)
+
+    df1 = pd.read_excel(r"/Users/gogin/Desktop/Metaverse/ChessApp Pycharm Code/ChallengeMap.xlsx")
+    # print(df1)
+
+    # print(chessWorksheet[1][0].value)
+
+    # print("THERE")
+    # print(chessWorksheet.max_row + 1)
+
+    workbook9 = load_workbook(cfilepath)
+    chessWorksheet1 = workbook9['Sheet']
+
+    eid = str(chessWorksheet1[challengeIdx][5].value)
+    eid = int(eid)
+
+    # print(eid)
+    # print(wager)
+    # print(bearer)
+
+    wager = int(wager)
+    # print(eid)
 
     JoinEscrow(bearer, eid, wager)
 
@@ -140,6 +172,11 @@ def gameEnded(gameID):
     # ResolveEscrow(eid, winnerID, loserID, drawStatus)
 
     ############################
+
+
+def resetButtonClicked():
+    RemoveAndResolveFinishedGames()
+    Iterate()
 
 
 def run():

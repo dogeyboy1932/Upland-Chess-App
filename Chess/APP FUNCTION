@@ -5,7 +5,7 @@ URL TAKES ME TO A FRONTEND DOMAIN:
  - Create Challenge Button -> When I click button, I need to enter wager amount
  - Box to enter lichessID (it verifies and saves to profile)
  - Reset Button -> Updates everything (database, accounts, etc)
- - Cancel Button -> Cancel a challenge the user made...USER ONLY (param: userID, gameID) <- NEED TO IMPROVE BY ADDING A CANCEL BUTTON FOR EACH CHALLENGE BUT THAT'S FOR AN UPDATED VERSION
+ - OPTIONAL: Cancel Button -> Cancel a challenge the user made...USER ONLY (param: userID, gameID) <- NEED TO IMPROVE BY ADDING A CANCEL BUTTON FOR EACH CHALLENGE BUT THAT'S FOR AN UPDATED VERSION
 
 When joining app:
  - Player records are added to the profile database

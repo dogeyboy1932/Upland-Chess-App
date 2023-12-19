@@ -1,6 +1,7 @@
 from openpyxl import load_workbook
 from FIXED_CHESS_VARIABLES import cfilepath
-from __isGameFinished import isGameFinished
+from isGameFinished import isGameFinished
+from __run_chess_app import gameEnded
 
 
 def FindAndRemoveRow(gameID):
@@ -15,7 +16,7 @@ def FindAndRemoveRow(gameID):
     workbook.close()
 
 
-def RemoveFinishedGames():
+def RemoveAndResolveFinishedGames():
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
 
@@ -29,6 +30,7 @@ def RemoveFinishedGames():
         return -1
 
     for game in finishedGames:
+        gameEnded(game)
         FindAndRemoveRow(game)
 
     return finishedGames

@@ -7,7 +7,7 @@ from get_user_balance import GetUserBalance
 
 def CreateProfile(access_token, user_id):
     user_profile = GetUserProfile(access_token, user_id)
-    balance = GetUserBalance(access_token, user_id)
+    balance = GetUserBalance(access_token)
 
     # uplandID = user_profile['id']
     uplandUsername = user_profile['username']
@@ -24,6 +24,8 @@ def CreateProfile(access_token, user_id):
     # Fills out the blanks in profile: [BLANK_ID; BLANK_RATING] or Updates Lichess Info
     # ONE LICHESS ACCOUNT PER UPLAND USER...IF HE KEEPS CHANGING HIS ACCOUNT HE'LL BE REMOVED!
     FillProfile(uplandID=uplandUsername)
+
+
 
 
 

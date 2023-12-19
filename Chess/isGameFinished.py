@@ -2,7 +2,6 @@ from FIXED_CHESS_VARIABLES import client
 
 
 def isGameFinished(gameID):
-
     try:
         client.games.export(gameID)
         return True
@@ -10,5 +9,4 @@ def isGameFinished(gameID):
         return False
 
 
-# if gameID == "39TVRlxw" or gameID == "mDJmq7Gi":
-#     return True
+# AKHIL NOTE: THIS IS PROLLY INEFFICIENT FOR DETERMINING IF A GAME IS OVER OR NOT...MIGHT NEED TO UPDATE

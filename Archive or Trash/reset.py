@@ -12,9 +12,7 @@
 #
 # This feature might need to get automated in the future
 
-from finished_games import RemoveFinishedGames
 
 
-def resetButtonClicked():
-    RemoveFinishedGames()
+
 

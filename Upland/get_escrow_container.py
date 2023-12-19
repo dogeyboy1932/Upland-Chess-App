@@ -1,26 +1,51 @@
-import requests
+# from FIXED_VARIABLES import conn
+import json
+
+import http.client
+conn = http.client.HTTPSConnection("api.sandbox.upland.me")
 
 
 def GetEscrowContainer(eid):
-    url = ("https://api.sandbox.upland.me/developers-api/containers/" + str(eid))
-    # print(url)
+    payload = json.dumps({
+        "expirationPeriodHours": 24
+    })
 
     headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic MjMyOmVjMjFlZmZlLTYyZDktNDAzZi04MTc3LTEwODdjMWJlNmJjYw==',
-      'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
+        'Authorization': 'Basic MjMyOmFkMzMxMDkxLTQ3NjItNGZlMS1iNDBmLTFkNGNhMGQwMmQ5Zg==',
+        'Cookie': 'sticky-session-1=1701556690.435.2069.742375|9a5cc3e4d08faea009d8e16f5c97bee9'
     }
 
-    response = requests.request("GET", url, headers=headers)
-    data = response.json()
+    url = "/developers-api/containers/" + str(eid)
+
+    conn.request("GET", url, payload, headers)
+    res = conn.getresponse()
+    data = json.loads(res.read().decode("utf-8"))
 
     # print(data)
 
     return data
 
 
-# def run():
-#     GetEscrowContainer(1885)
+def run():
+    GetEscrowContainer(1960)
+
+
+run()
+
+
+
+# OLD CODE:
+#     url = ("https://api.sandbox.upland.me/developers-api/containers/" + str(eid))
+#     # print(url)
 #
+#     headers = {
+#       'Content-Type': 'application/json',
+#       'Authorization': 'Basic MjMyOmVjMjFlZmZlLTYyZDktNDAzZi04MTc3LTEwODdjMWJlNmJjYw==',
+#     }
 #
-# run()
+#     response = requests.request("GET", url, headers=headers)
+#     data = response.json()
+#
+#     # print(data)
+#
+#     return data

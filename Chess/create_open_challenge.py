@@ -28,18 +28,18 @@ def CreateOpenChallenge(challenger, speed, increment, variant, rated, name):
     return newChallenge
 
 
-# def run():
-#     challenger = "trashboatsr"
-#     speed = "rapid"
-#     increment = 0
-#     variant = "standard"
-#     rated = "No"
-#     name = "Akhil vs His Team"
-#
-#     game = CreateOpenChallenge(challenger, speed, increment, variant, rated, name)
-#     print(game)
-#
-#
+def run():
+    challenger = "trashboatsr"
+    speed = "rapid"
+    increment = 0
+    variant = "standard"
+    rated = "No"
+    name = "Akhil vs His Team"
+
+    game = CreateOpenChallenge(challenger, speed, increment, variant, rated, name)
+    print(game)
+
+
 # run()
 
 

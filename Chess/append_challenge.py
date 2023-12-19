@@ -13,10 +13,10 @@ def AppendChallenge(challenger, wager, thisGame):
     rating = GetLichessRating(challenger, "rapid")
     link = thisGame['challenge']['url']
     escrowID = CreateEscrowContainer()
-    accepter = "Blank"
+    # accepter = "Blank"
 
     # Making data
-    data = [gameID, challenger, rating, wager, link, escrowID, accepter]
+    data = [gameID, challenger, rating, wager, link, escrowID]
 
     # Appending data to spreadsheet
     worksheet.append(data)
@@ -25,6 +25,3 @@ def AppendChallenge(challenger, wager, thisGame):
     workbook.close()
 
     return gameID
-
-
-

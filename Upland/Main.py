@@ -3,6 +3,7 @@ from FIXED_VARIABLES import filepath
 import pandas as pd
 from Upland.append_profile import AppendProfile
 from create_profile import CreateProfile
+from Upland.query_uplandID_index import QueryUplandIDRow
 
 app = Flask(__name__)
 
@@ -15,9 +16,9 @@ def respond():
         user_id = data['data']['userId']
         access_token = data['data']['accessToken']
 
-        CreateProfile(access_token, user_id)
+        # print(data['data']['accessToken'])
 
-        print(access_token)
+        CreateProfile(access_token, user_id)
 
         df = pd.read_excel(filepath)
         print(df)
@@ -26,9 +27,9 @@ def respond():
 
 
 def AddInitial():
-    # filepath = r"/Users/gogin/Desktop/Metaverse/ChessApp Pycharm Code/ChessDatabase1.xlsx"
     data = ["Lichess ID", "Upland Username", "Lichess Rating", "Balance", "Bearer Token", "Eos Upland ID"]
-    AppendProfile(data)
+    if QueryUplandIDRow("Upland Username") == -1:
+        AppendProfile(data)
 
 
 if __name__ == '__main__':
@@ -47,3 +48,11 @@ if __name__ == '__main__':
 
 # print("MAIN PRINT")
 # print("IT WORKS")
+
+
+# import http.client
+#
+# conn = http.client.HTTPSConnection('eot5eeu5bgtksf7.m.pipedream.net')
+# conn.request("POST", "/", '{"test": "event"}', {'Content-Type': 'application/json'})
+
+# filepath = r"/Users/gogin/Desktop/Metaverse/ChessApp Pycharm Code/ChessDatabase1.xlsx"

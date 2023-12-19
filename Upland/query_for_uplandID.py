@@ -1,4 +1,4 @@
-from FIXED_VARIABLES import filepath
+from Upland.FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 from Chess.chess_game_winner import GameWinner
 
@@ -12,7 +12,7 @@ def QueryForUplandID(lichessID):
 
     for i in range(1, worksheet.max_row + 1):
         if worksheet[i][0].value == lichessID:
-            return worksheet[i][2].value
+            return worksheet[i][1].value
 
     return -1
 

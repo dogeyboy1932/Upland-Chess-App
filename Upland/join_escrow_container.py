@@ -1,5 +1,9 @@
 import requests
 import json
+import http.client
+# from FIXED_VARIABLES import conn
+
+
 # from FIXED_VARIABLES import filepath
 # from openpyxl import load_workbook
 # from Upland.get_escrow_container import GetEscrowContainer
@@ -8,42 +12,76 @@ import json
 
 
 def JoinEscrow(bearerToken, containerId, upxAmount):
-    url = "https://api.sandbox.upland.me/developers-api/User/join"
+    conn = http.client.HTTPSConnection("api.sandbox.upland.me")
 
     payload = json.dumps({
-      "containerId": containerId,
-      "upxAmount": upxAmount,
-      "sparkAmount": 0,
-      "assets": [],
+        "containerId": containerId,
+        "upxAmount": upxAmount,
+        "sparkAmount": 0,
+        "assets": [],
     })
 
-    bearer = 'Bearer ' + bearerToken
+    bearer = 'Bearer ' + str(bearerToken)
     # print(bearer)
+    # print("FIN")
 
     headers = {
-      # 'Authorization': str(bearer),
-      'Authorization': bearer,
-      'Content-Type': 'application/json',
-      'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
+        # 'Authorization': str(bearer),
+        'Authorization': bearer,
+        'Content-Type': 'application/json',
+        'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
     }
 
-    response = requests.request("POST", url, headers=headers, data=payload)
+    conn.request("POST", "/developers-api/User/join", payload, headers)
+    res = conn.getresponse()
 
-    print(response.text)
+    if res.status == 200 or res.status == 201:
+        data = json.loads(res.read().decode("utf-8"))
+        print(data)
+    else:
+        print(f'Request failed with status code {res.status}')
 
 
 def run():
-    # eid = CreateEscrowContainer()
-    # eid = 1902
+    # print("HERE")
+    eid = 1971
 
-    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiZGYyYjM2ZGMtOGM3OS00NzcxLTljZWYtZWNlOThhZGFmMDYxIiwiaWF0IjoxNzAwOTY4MTIxfQ.iJmZdWkwsYDVx6ZzhhwA9i9ai26oq8-7CtJipDdh0wk'
+    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiYWJiMDFmYWYtMDdmNS00NTZlLTk0M2QtYjI1NTRmNTRhNDZiIiwiaWF0IjoxNzAxNTY4MDk5fQ.jEgPzWXIBAcLHtLirig1X3MNgz1OnlqmVHHf0eDrh-0'
     # bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwOTQ4ZGE1MC04N2Q0LTExZWUtYjBjMi02MzM4M2I3OTUzNjAiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiZmFlZjMzMmQtNGVlNy00ODAyLTljZGUtYjExNTBlM2U5ZWRhIiwiaWF0IjoxNzAwOTYwNTU0fQ.JuoXMTrzYsS3UJ5ALFaT2Zs3gqjxZXR41-WFh0UGi4I'
 
-    # JoinEscrow(bearer, eid, 200)
+    JoinEscrow(bearer, eid, 200)
     # print(GetEscrowContainer(eid))
 
 
-run()
+# run()
+
+
+# Old Code:
+# url = "https://api.sandbox.upland.me/developers-api/User/join"
+#
+# payload = json.dumps({
+#     "containerId": containerId,
+#     "upxAmount": upxAmount,
+#     "sparkAmount": 0,
+#     "assets": [],
+# })
+#
+# bearer = 'Bearer ' + bearerToken
+# # print(bearer)
+#
+# headers = {
+#     # 'Authorization': str(bearer),
+#     'Authorization': bearer,
+#     'Content-Type': 'application/json',
+#     'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
+# }
+#
+# response = requests.request("POST", url, headers=headers, data=payload)
+#
+# print(response.text)
+
+
+
 
 
 
