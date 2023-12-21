@@ -1,8 +1,8 @@
-# from FIXED_VARIABLES import conn
+from Upland.FIXED_VARIABLES import conn
 import json
 
-import http.client
-conn = http.client.HTTPSConnection("api.sandbox.upland.me")
+# import http.client
+# conn = http.client.HTTPSConnection("api.sandbox.upland.me")
 
 
 def GetEscrowContainer(eid):
@@ -30,7 +30,7 @@ def run():
     GetEscrowContainer(1960)
 
 
-run()
+# run()
 
 
 

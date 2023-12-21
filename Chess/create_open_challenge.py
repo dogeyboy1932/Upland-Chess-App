@@ -6,13 +6,10 @@ def CreateOpenChallenge(challenger, speed, increment, variant, rated, name):
     if name == "":
         name = (challenger, "'s Game")
 
-    if speed == "rapid":
-        speed = 600
+    if speed == "rapid": speed = 600
 
-    if rated == "Yes":
-        rated = True
-    else:
-        rated = False
+    if rated == "Yes": rated = True
+    else: rated = False
 
     client.challenges.create_open()
 

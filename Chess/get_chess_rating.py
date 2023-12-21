@@ -1,5 +1,4 @@
 from Chess.FIXED_CHESS_VARIABLES import client
-# from get_chess_account import getAccount
 
 
 def getAccount(userID):

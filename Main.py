@@ -1,8 +1,9 @@
 from flask import Flask, request
-from FIXED_VARIABLES import filepath
 import pandas as pd
+
+from Upland.FIXED_VARIABLES import filepath
 from Upland.append_profile import AppendProfile
-from create_profile import CreateProfile
+from Upland.create_profile import CreateProfile
 from Upland.query_uplandID_index import QueryUplandIDRow
 
 app = Flask(__name__)
@@ -16,7 +17,7 @@ def respond():
         user_id = data['data']['userId']
         access_token = data['data']['accessToken']
 
-        # print(data['data']['accessToken'])
+        print(access_token)
 
         CreateProfile(access_token, user_id)
 

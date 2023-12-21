@@ -11,4 +11,4 @@ def run():
     gameId = "7qPDmgrN"
     print(AcceptChallenge(gameId))
 
-run()
+# run()

@@ -1,4 +1,4 @@
-import requests
+# import requests
 import base64
 from FIXED_VARIABLES import conn
 import json
@@ -36,31 +36,30 @@ run()
 
 
 # Old Code:
-# app_id_ = app_id
-# secret_key_ = key
 #
-# credential = base64.b64encode(f'{app_id_}:{secret_key_}'.encode('utf-8')).decode('utf-8')
+# def run():
+#   app_id_ = app_id
+#   secret_key_ = key
 #
-# url = 'https://api.sandbox.upland.me/developers-api/auth/otp/init'
+#   credential = base64.b64encode(f'{app_id_}:{secret_key_}'.encode('utf-8')).decode('utf-8')
 #
-# headers = {
-#     'Authorization': f'Basic {credential}',
-# }
 #
-# response = requests.post(url, headers=headers)
+# def verify(credential):
 #
-# if response.status_code == 201 or response.status_code == 200:
-#     data = response.json()
-#     code = data['code']
-#     print(f"{code}")
+#   url = 'https://api.sandbox.upland.me/developers-api/auth/otp/init'
 #
-# else:
-#     # If the request was not successful, print the status code
-#     print(f'request failed status code {response.status_code}')
-#     # print(response.json())
-
-
-# print(credential)
-# 'accept': 'application/json',
-
-# print(response)
+#   headers = {
+#       'Authorization': f'Basic {credential}',
+#   }
+#
+#   response = requests.post(url, headers=headers)
+#
+#   if response.status_code == 201 or response.status_code == 200:
+#       data = response.json()
+#       code = data['code']
+#       print(f"{code}")
+#
+#   else:
+#       # If the request was not successful, print the status code
+#       print(f'request failed status code {response.status_code}')
+#       # print(response.json())

@@ -2,7 +2,7 @@ from openpyxl import Workbook
 import openpyxl
 import pandas as pd
 
-from FIXED_VARIABLES import filepath
+from Upland.FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 
 

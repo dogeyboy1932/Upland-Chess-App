@@ -11,11 +11,3 @@ def QueryUplandIDRow(uplandID):
             return i
 
     return -1
-
-
-# compareValue = worksheet[i][3].value
-#         print("UPLAND ID: ", uplandID)
-#         print("COMPARE VALUE ", i, " ", compareValue)
-#
-#         print("TRUE ", i)
-#         print("FALSE")

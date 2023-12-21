@@ -2,7 +2,6 @@ from Upland.FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 from Chess.chess_game_winner import GameWinner
 
-
 def QueryForEOSID(lichessID):
     if lichessID == "{}":
         return -1
@@ -17,12 +16,12 @@ def QueryForEOSID(lichessID):
     return -1
 
 
-# def run():
-#     gameID = "RLyFq9MX"
-#     winner = GameWinner(gameID=gameID)
-#     corr_uplandID = QueryForEOSID(winner)
-#
-#     print(corr_uplandID)
-#
-#
+def run():
+    gameID = "rL3ou9hv"
+    winner = GameWinner(gameID=gameID)
+    corr_uplandID = QueryForEOSID(winner[0])
+
+    print(corr_uplandID)
+
+
 # run()

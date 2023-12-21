@@ -1,7 +1,8 @@
 from openpyxl import load_workbook
-from FIXED_CHESS_VARIABLES import cfilepath
-from isGameFinished import isGameFinished
-from __run_chess_app import gameEnded
+import pandas as pd
+from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from Chess.isGameFinished import isGameFinished
+from Chess.game_ended import gameEnded
 
 
 def FindAndRemoveRow(gameID):
@@ -16,11 +17,12 @@ def FindAndRemoveRow(gameID):
     workbook.close()
 
 
-def RemoveAndResolveFinishedGames():
+def HandleFinishedGames():
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
 
     finishedGames = []
+
 
     for i in range(1, worksheet.max_row + 1):
         if isGameFinished(worksheet[i][0].value):
@@ -33,16 +35,17 @@ def RemoveAndResolveFinishedGames():
         gameEnded(game)
         FindAndRemoveRow(game)
 
+
     return finishedGames
 
 
-# def run():
-#     df = pd.read_excel(filepath)
-#     print(df)
-#
-#     RemoveFinishedGames()
-#
-#
+def run():
+    df = pd.read_excel(cfilepath)
+    print(df)
+
+    HandleFinishedGames()
+
+
 # run()
 
 

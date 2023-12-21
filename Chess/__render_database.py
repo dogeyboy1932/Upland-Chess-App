@@ -11,8 +11,13 @@ def Iterate():
     # in form of a database
     ######################
 
-    df = pd.read_excel(cfilepath)
+
+    df = pd.read_excel(cfilepath, usecols='B:E,')
     print(df)
+
+
+    # for ind in df.index:
+    #     print(df[ind]['A'], df['B'][ind], df['C'][ind], df['D'][ind], df['F'][ind])
 
 
 def run():

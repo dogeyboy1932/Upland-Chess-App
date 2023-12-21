@@ -1,23 +1,27 @@
-import Upland.join_escrow_container
-from FIXED_CHESS_VARIABLES import client
-from FIXED_CHESS_VARIABLES import cfilepath
+# import Upland.join_escrow_container
+
+# from Chess.FIXED_CHESS_VARIABLES import client
+
+# from Chess.FIXED_CHESS_VARIABLES import cfilepath
 from Upland.FIXED_VARIABLES import filepath
-from create_open_challenge import CreateOpenChallenge
-from append_challenge import AppendChallenge
+
+from Chess.create_open_challenge import CreateOpenChallenge
+from Chess.append_challenge import AppendChallenge
+from Chess.append_challenge import AppendInitial
 # from chess_game_winner import GameWinner
 from openpyxl import load_workbook
 from Upland.join_escrow_container import JoinEscrow
 from Upland.get_bearer_token import GetBearerToken
 from Upland.query_for_uplandID import QueryForUplandID
 from Upland.query_uplandID_index import QueryUplandIDRow
-from query_challenge_idx import GetChallengeIdx
+from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.query_for_eosId import QueryForEOSID
 from Upland.get_escrow_container import GetEscrowContainer
 import pandas as pd
-from finished_games import RemoveAndResolveFinishedGames
-from __render_database import Iterate
+from Chess.handle_finished_games import HandleFinishedGames
+from Chess.__render_database import Iterate
 
-
+cfilepath = "/Users/gogin/Desktop/ChessApp/ChessApp Pycharm Code/ChallengeMap.xlsx"
 
 
 # FRONTEND DEPENDENT
@@ -76,7 +80,7 @@ def challengeButtonClicked():
     challengeIdx = GetChallengeIdx(gameID)
     # print(challengeIdx)
 
-    df1 = pd.read_excel(r"/Users/gogin/Desktop/Metaverse/ChessApp Pycharm Code/ChallengeMap.xlsx")
+    df1 = pd.read_excel(filepath)
     # print(df1)
 
     # print(chessWorksheet[1][0].value)
@@ -101,6 +105,9 @@ def challengeButtonClicked():
 
     print(GetEscrowContainer(eid))
 
+    df = pd.read_excel(cfilepath)
+    print(df)
+
     # POP-UP THAT DISPLAYS (GO TO UPLAND ACCOUNT TO ACCEPT WAGER TRANSACTION)
     # User must hit reset button for updates
 
@@ -112,7 +119,16 @@ def challengeButtonClicked():
 
 
 # TEST STATEMENT:
-challengeButtonClicked()
+def minirun():
+    
+    added = True
+
+    if not added:
+        AppendInitial()
+
+    # challengeButtonClicked()
+
+minirun()
 
 def challengeAccepted(gameID, challenger):  # <- Accept Button clicked
     return 0
@@ -124,6 +140,7 @@ def challengeAccepted(gameID, challenger):  # <- Accept Button clicked
     # Need function to let us know when the game starts!!
     # Get lichessId of the challenge creator (Player 1) [Query spreadsheet w/ gameID]
     # challenger cannot be the same lichessID as Player 1 -> otherwise throw a rejection pop-up when clicked
+    # CHALLENGER MUST HAVE A VALID LICHESS ID
     # Add challenger lichessID to the challenge [params gameID & challenger]
     # Need to run stream_board_game_state once it does start to get the details of players
     # Call QueryForUplandID and extract respective uplandID of both lichess accounts
@@ -150,32 +167,12 @@ def challengeAccepted(gameID, challenger):  # <- Accept Button clicked
     # Need function to let us know when the game ends!! This triggers gameEnded function
     ############################
 
+# EID 2241 GameID pf9XoRNn
 
-def gameEnded(gameID):
-    return 0
-
-    ############################
-    # INSTRUCTION
-    # gameResult = GameWinner(gameID)
-    # winner = gameResult[0]
-    # loser = gameResult[1]
-    # drawStatus = gameResult[2]
-
-    # winnerID = QueryForEOSID(winner)
-    # loserID = QueryForEOSID(loser)
-
-    # Resolve escrow container favoring the winner
-    # Once game ends, resolve the wager and currencies <- calls function (pass in escrow_ID)
-
-    # challengeIdx = GetChallengeIdx(gameID)
-    # eid = chessWorksheet[challengeIdx][5]
-    # ResolveEscrow(eid, winnerID, loserID, drawStatus)
-
-    ############################
 
 
 def resetButtonClicked():
-    RemoveAndResolveFinishedGames()
+    HandleFinishedGames()
     Iterate()
 
 

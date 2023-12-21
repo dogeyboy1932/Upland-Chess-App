@@ -9,7 +9,7 @@ def GetLichessID():
     # We need to verify these accounts exist: verify_lichessID(lid) && verify_uplandID(id)
     # Write function for this that collects the details and verifies
 
-    lichessID = "trashboatsr"  # <- Placeholder
+    lichessID = "RichDogeyBoy"  # <- Placeholder
     #####################
 
     ## Call FillProfile everytime you need to update rating...user needs to (sign in) again
