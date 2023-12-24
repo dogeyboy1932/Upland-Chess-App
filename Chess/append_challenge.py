@@ -3,6 +3,7 @@ from Chess.FIXED_CHESS_VARIABLES import cfilepath
 from Chess.get_chess_rating import GetLichessRating
 from Upland.create_escrow_container import CreateEscrowContainer
 
+import pandas as pd
 
 def AppendChallenge(challenger, wager, thisGame):
     workbook = load_workbook(cfilepath)

@@ -3,6 +3,7 @@ from Upland.FIXED_VARIABLES import filepath
 from Upland.query_uplandID_index import QueryUplandIDRow
 
 def ReplaceProfile(userId, profile):
+    print("REPLACE CALLED")
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']
 

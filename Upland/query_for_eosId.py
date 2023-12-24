@@ -1,6 +1,6 @@
 from Upland.FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
-from Chess.chess_game_winner import GameWinner
+from Chess.game_winner import GameWinner
 
 def QueryForEOSID(lichessID):
     if lichessID == "{}":

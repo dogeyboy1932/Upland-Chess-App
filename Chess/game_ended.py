@@ -1,7 +1,7 @@
 from Chess.FIXED_CHESS_VARIABLES import cfilepath
 from Chess.FIXED_CHESS_VARIABLES import credential
 from openpyxl import load_workbook
-from Chess.chess_game_winner import GameWinner
+from Chess.game_winner import GameWinner
 from Upland.query_for_eosId import QueryForEOSID
 from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.resolve_escrow_container import ResolveEscrow
@@ -23,7 +23,7 @@ def gameEnded(gameID):
     challengeIdx = GetChallengeIdx(gameID)
     eid = chessWorksheet[challengeIdx][5].value
 
-    # ResolveEscrow(eid, winnerID, loserID, drawStatus, credential)
+    ResolveEscrow(eid, winnerID, loserID, drawStatus, credential)
 
 
 def run():

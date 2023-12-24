@@ -2,7 +2,7 @@
 
 # from Chess.FIXED_CHESS_VARIABLES import client
 
-# from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from Chess.FIXED_CHESS_VARIABLES import cfilepath
 from Upland.FIXED_VARIABLES import filepath
 
 from Chess.create_open_challenge import CreateOpenChallenge
@@ -12,16 +12,16 @@ from Chess.append_challenge import AppendInitial
 from openpyxl import load_workbook
 from Upland.join_escrow_container import JoinEscrow
 from Upland.get_bearer_token import GetBearerToken
-from Upland.query_for_uplandID import QueryForUplandID
+from Chess.query_for_uplandID import QueryForUplandID
 from Upland.query_uplandID_index import QueryUplandIDRow
 from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.query_for_eosId import QueryForEOSID
 from Upland.get_escrow_container import GetEscrowContainer
 import pandas as pd
 from Chess.handle_finished_games import HandleFinishedGames
-from Chess.__render_database import Iterate
+from Chess.render_database import Iterate
 
-cfilepath = "/Users/gogin/Desktop/ChessApp/ChessApp Pycharm Code/ChallengeMap.xlsx"
+# cfilepath = "/Users/gogin/Desktop/ChessApp/ChessApp Pycharm Code/ChallengeMap.xlsx"
 
 
 # FRONTEND DEPENDENT
@@ -29,11 +29,13 @@ cfilepath = "/Users/gogin/Desktop/ChessApp/ChessApp Pycharm Code/ChallengeMap.xl
 workbook1 = load_workbook(cfilepath)
 chessWorksheet = workbook1['Sheet']
 
-workbook2 = load_workbook(filepath)
-uplandWorksheet = workbook2['Sheet']
+
 
 
 def challengeButtonClicked():
+    workbook2 = load_workbook(filepath)
+    uplandWorksheet = workbook2['Sheet']
+
     # print("START")
 
     # First check if user is valid...check the uplandDatabase if his profile exists <- This should always be true...
@@ -56,6 +58,8 @@ def challengeButtonClicked():
     ############################
 
     # print("here")
+    # df = pd.read_excel(cfilepath)
+    # print(df)
 
     # Challenge under terms is created
     thisGame = CreateOpenChallenge(challenger=challenger, speed=speed, increment=increment, variant=variant,
@@ -66,6 +70,11 @@ def challengeButtonClicked():
 
     # print(thisGame)
     # print("here")
+
+    # df = pd.read_excel(cfilepath)
+    # print(df)
+
+    # print(challenger)
 
 
     # Join Escrow Container of this game
@@ -91,8 +100,12 @@ def challengeButtonClicked():
     workbook9 = load_workbook(cfilepath)
     chessWorksheet1 = workbook9['Sheet']
 
+    # print(chessWorksheet1[challengeIdx][3].value)
+
     eid = str(chessWorksheet1[challengeIdx][5].value)
-    eid = int(eid)
+    # eid = int(eid)
+
+    # print("BREAK")
 
     # print(eid)
     # print(wager)
@@ -105,8 +118,7 @@ def challengeButtonClicked():
 
     print(GetEscrowContainer(eid))
 
-    df = pd.read_excel(cfilepath)
-    print(df)
+    
 
     # POP-UP THAT DISPLAYS (GO TO UPLAND ACCOUNT TO ACCEPT WAGER TRANSACTION)
     # User must hit reset button for updates
@@ -126,7 +138,7 @@ def minirun():
     if not added:
         AppendInitial()
 
-    # challengeButtonClicked()
+    challengeButtonClicked()
 
 minirun()
 

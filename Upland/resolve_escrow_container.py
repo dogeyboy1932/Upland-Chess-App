@@ -2,9 +2,6 @@ import json
 import base64
 from Upland.FIXED_VARIABLES import primeEOS
 from Upland.FIXED_VARIABLES import conn
-from Upland.lock_escrow import LockEscrow
-
-
 from Upland.get_escrow_container import GetEscrowContainer
 
 
@@ -86,9 +83,9 @@ def DrawResolveEscrow(escrowId, winnerId, loserId, credential):
 def ResolveEscrow(eid, winner, loser, drawStatus, credential):
     eid = str(eid)
     if drawStatus == "DRAW":
-        DrawResolveEscrow(eid, winner, loser, credential)
+        DrawResolveEscrow(eid, str(winner), str(loser), credential)
     else:
-        WinResolveEscrow(eid, winner, loser, credential)
+        WinResolveEscrow(eid, str(winner), str(loser), credential)
 
 
 def run():

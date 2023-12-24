@@ -1,5 +1,6 @@
 import json
 import http.client
+from Upland.create_escrow_container import CreateEscrowContainer
 
 
 def JoinEscrow(bearerToken, containerId, upxAmount):
@@ -13,8 +14,8 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
     })
 
     bearer = 'Bearer ' + str(bearerToken)
+
     # print(bearer)
-    # print("FIN")
 
     headers = {
         # 'Authorization': str(bearer),
@@ -26,6 +27,8 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
     conn.request("POST", "/developers-api/User/join", payload, headers)
     res = conn.getresponse()
 
+    # print(res.getheaders())
+
     if res.status == 200 or res.status == 201:
         data = json.loads(res.read().decode("utf-8"))
         print("Joined Escrow! Transaction Hash:", data["transactionId"])
@@ -34,10 +37,12 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
 
 
 def run():
-    # print("HERE")
-    eid = 2245
+    # eid = 2283
+    eid = CreateEscrowContainer()
+    print(eid)
 
-    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwOTQ4ZGE1MC04N2Q0LTExZWUtYjBjMi02MzM4M2I3OTUzNjAiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiNDRmMmU1NjEtNmJkNS00NjIyLTkzMzEtMWYwODZkN2NmYTg0IiwiaWF0IjoxNzAzMTMxMDgwfQ.zR2L5ybvc2CkbSXWinJHk6w4KgbIqI4Wl5XCshe3zq8'
+
+    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiOTA4MDBmNTQtODJiOS00MjhkLWFhNjAtZjFjMmEyYjViYWRkIiwiaWF0IjoxNzAzMzAwMzA3fQ.dwlDpoQzpSexJ7UYey7iSpzqmmxAooOiOs1pNsci36o'
 
 
     JoinEscrow(bearer, eid, 100)

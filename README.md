@@ -1,5 +1,6 @@
 To do:
  - Test game_ended
+ - Finish Frontend
 
  
 URL TAKES ME TO A FRONTEND DOMAIN:
@@ -8,6 +9,7 @@ URL TAKES ME TO A FRONTEND DOMAIN:
  - Create Challenge Button -> When I click button, I need to enter wager amount
  - Box to enter lichessID (it verifies and saves to profile)
  - Reset Button -> Updates everything (database, accounts, etc)
+ - Not signed in? get auth code button + enter lichess code
  - OPTIONAL: Cancel Button -> Cancel a challenge the user made...USER ONLY (param: userID, gameID) <- NEED TO IMPROVE BY ADDING A CANCEL BUTTON FOR EACH CHALLENGE BUT THAT'S FOR AN UPDATED VERSION
 
 When joining app:
@@ -63,6 +65,13 @@ Backup chess development links:
  - https://www.youtube.com/watch?v=OpL0Gcfn4B4
  -
 
+FRONEND DEV LINKS:
+- https://www.youtube.com/watch?v=p5AtOUyf250
+
+`https://www.youtube.com/watch?v=7LNl2JlZKHA
 
 
-`
+
+
+Run the button_clicks python file
+Run the frontend... npm start inside FRONTEND directory on cmd

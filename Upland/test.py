@@ -2,7 +2,7 @@ from openpyxl import Workbook
 import openpyxl
 import pandas as pd
 
-from Upland.FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 
 
@@ -21,15 +21,7 @@ from openpyxl import load_workbook
 
 
 def run():
-    workbook = load_workbook(filepath)
-    worksheet = workbook['Sheet']
-
-    # Grabbing Details
-    print(worksheet[4][0].value)
-    print(worksheet[4][1].value)
-    print(worksheet[4][2].value)
-    print(worksheet[4][3].value)
-    print(worksheet[4][4].value)
-    print(worksheet[4][5].value)
+    df = pd.read_excel(filepath)
+    print(df)
 
 run()
