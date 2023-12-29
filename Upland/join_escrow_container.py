@@ -32,8 +32,10 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
     if res.status == 200 or res.status == 201:
         data = json.loads(res.read().decode("utf-8"))
         print("Joined Escrow! Transaction Hash:", data["transactionId"])
+        return "success"
     else:
         print(f'Request failed with status code {res.status}')
+        return "error"
 
 
 def run():

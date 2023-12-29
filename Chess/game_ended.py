@@ -6,12 +6,14 @@ from Upland.query_for_eosId import QueryForEOSID
 from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.resolve_escrow_container import ResolveEscrow
 
+from Upland.get_escrow_container import GetEscrowContainer
 
 workbook1 = load_workbook(cfilepath)
 chessWorksheet = workbook1['Sheet']
 
 
 def gameEnded(gameID):
+    # print("CALLED")
     gameResult = GameWinner(gameID)
     winner = gameResult[0]
     loser = gameResult[1]
@@ -23,11 +25,14 @@ def gameEnded(gameID):
     challengeIdx = GetChallengeIdx(gameID)
     eid = chessWorksheet[challengeIdx][5].value
 
+    print(GetEscrowContainer(eid))
+
     ResolveEscrow(eid, winnerID, loserID, drawStatus, credential)
+    # print("END")
 
 
 def run():
-    gameId = "8s1uE1np"
+    gameId = "W26Ykr8M"
     gameEnded(gameID=gameId)
 
 # run()

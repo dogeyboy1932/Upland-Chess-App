@@ -10,7 +10,7 @@ def run():
     print("Maximum rows before removing:", sheet.max_row)
 
     if sheet.max_row != 0:
-        sheet.delete_rows(0, sheet.max_row)
+        sheet.delete_rows(2, sheet.max_row)
 
     print("Maximum rows after removing:", sheet.max_row)
 

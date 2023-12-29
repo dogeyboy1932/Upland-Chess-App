@@ -11,8 +11,6 @@ def CreateOpenChallenge(challenger, speed, increment, variant, rated, name):
     if rated == "Yes": rated = True
     else: rated = False
 
-    client.challenges.create_open()
-
     newChallenge = client.challenges.create_open(
         clock_limit=speed,
         clock_increment=increment,

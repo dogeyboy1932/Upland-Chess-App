@@ -18,8 +18,9 @@ from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.query_for_eosId import QueryForEOSID
 from Upland.get_escrow_container import GetEscrowContainer
 import pandas as pd
-from Chess.handle_finished_games import HandleFinishedGames
+from Chess.__handle_finished_games import HandleFinishedGames
 from Chess.render_database import Iterate
+# from Chess.chess_challenge import ChallengeButtonClicked
 
 # cfilepath = "/Users/gogin/Desktop/ChessApp/ChessApp Pycharm Code/ChallengeMap.xlsx"
 
@@ -29,94 +30,89 @@ from Chess.render_database import Iterate
 workbook1 = load_workbook(cfilepath)
 chessWorksheet = workbook1['Sheet']
 
+# def ChallengeButtonClicked(uplandID_, rated_, wager_):
+
+#     # print("START")
+
+#     # First check if user is valid...check the uplandDatabase if his profile exists <- This should always be true...
+#     # if you create a profile to join the game, your profile should be in there
+
+#     ############################
+#     # INSTRUCTION
+#     # While loop (while challenge not valid or cancel button isn't clicked pop up shows)
+#     # Display popup to extract all parameters
+
+#     challenger = "trashboatsr"  # <- Need to extract this detail on front end
+#     speed = "rapid"  # <- Placeholder
+#     increment = 0  # <- Placeholder
+#     rated = rated_   # <- Placeholder
+#     variant = "standard"  # <- Placeholder
+#     name = ("Challenge by ", uplandID_)  # <- Placeholder
+#     wager = wager_  # <- Placeholder [wager must be less than challenger balance...otherwise]
+
+#     # valid = isChallengeValid(challenger, wager) Queries upland ID and checks balance if wager < balance (it is valid)
+#     ############################
+
+#     # print("here")
+#     # df = pd.read_excel(cfilepath)
+#     # print(df)
+
+#     # Challenge under terms is created
+#     thisGame = CreateOpenChallenge(challenger=challenger, speed=speed, increment=increment, variant=variant,
+#                                    rated=rated, name=name)
+
+#     # Challenge is appended to spreadsheet (database) + Escrow is created & appended + Challenge ID is extracted
+#     gameID = AppendChallenge(challenger, wager, thisGame)
+
+#     # print(thisGame)
+#     # print("here")
+
+#     # df = pd.read_excel(cfilepath)
+#     # print(df)
+
+#     # print(challenger)
 
 
+#     # Join Escrow Container of this game
+#     uplandID = QueryForUplandID(challenger)
+#     bearer = GetBearerToken(uplandID)
 
-def challengeButtonClicked():
-    workbook2 = load_workbook(filepath)
-    uplandWorksheet = workbook2['Sheet']
+#     # print(uplandID)
+#     # print(bearer)
 
-    # print("START")
+#     # If bearer is -1, that means the Upland profile was somehow not added. <- This should never happen
 
-    # First check if user is valid...check the uplandDatabase if his profile exists <- This should always be true...
-    # if you create a profile to join the game, your profile should be in there
+#     challengeIdx = GetChallengeIdx(gameID)
+#     # print(challengeIdx)
 
-    ############################
-    # INSTRUCTION
-    # While loop (while challenge not valid or cancel button isn't clicked pop up shows)
-    # Display popup to extract all parameters
+#     df1 = pd.read_excel(filepath)
+#     # print(df1)
 
-    challenger = "trashboatsr"  # <- Need to extract this detail on front end
-    speed = "rapid"  # <- Placeholder
-    increment = 0  # <- Placeholder
-    rated = "No"   # <- Placeholder
-    variant = "standard"  # <- Placeholder
-    name = "Akhil vs His Team"  # <- Placeholder
-    wager = 100  # <- Placeholder [wager must be less than challenger balance...otherwise]
+#     # print(chessWorksheet[1][0].value)
 
-    # valid = isChallengeValid(challenger, wager) Queries upland ID and checks balance if wager < balance (it is valid)
-    ############################
+#     # print("THERE")
+#     # print(chessWorksheet.max_row + 1)
 
-    # print("here")
-    # df = pd.read_excel(cfilepath)
-    # print(df)
+#     workbook9 = load_workbook(cfilepath)
+#     chessWorksheet1 = workbook9['Sheet']
 
-    # Challenge under terms is created
-    thisGame = CreateOpenChallenge(challenger=challenger, speed=speed, increment=increment, variant=variant,
-                                   rated=rated, name=name)
+#     # print(chessWorksheet1[challengeIdx][3].value)
 
-    # Challenge is appended to spreadsheet (database) + Escrow is created & appended + Challenge ID is extracted
-    gameID = AppendChallenge(challenger, wager, thisGame)
+#     eid = str(chessWorksheet1[challengeIdx][5].value)
+#     # eid = int(eid)
 
-    # print(thisGame)
-    # print("here")
+#     # print("BREAK")
 
-    # df = pd.read_excel(cfilepath)
-    # print(df)
+#     # print(eid)
+#     # print(wager)
+#     # print(bearer)
 
-    # print(challenger)
+#     wager = int(wager)
+#     # print(eid)
 
+#     JoinEscrow(bearer, eid, wager)
 
-    # Join Escrow Container of this game
-    uplandID = QueryForUplandID(challenger)
-    bearer = GetBearerToken(uplandID)
-
-    # print(uplandID)
-    # print(bearer)
-
-    # If bearer is -1, that means the Upland profile was somehow not added. <- This should never happen
-
-    challengeIdx = GetChallengeIdx(gameID)
-    # print(challengeIdx)
-
-    df1 = pd.read_excel(filepath)
-    # print(df1)
-
-    # print(chessWorksheet[1][0].value)
-
-    # print("THERE")
-    # print(chessWorksheet.max_row + 1)
-
-    workbook9 = load_workbook(cfilepath)
-    chessWorksheet1 = workbook9['Sheet']
-
-    # print(chessWorksheet1[challengeIdx][3].value)
-
-    eid = str(chessWorksheet1[challengeIdx][5].value)
-    # eid = int(eid)
-
-    # print("BREAK")
-
-    # print(eid)
-    # print(wager)
-    # print(bearer)
-
-    wager = int(wager)
-    # print(eid)
-
-    JoinEscrow(bearer, eid, wager)
-
-    print(GetEscrowContainer(eid))
+#     print(GetEscrowContainer(eid))
 
     
 
@@ -129,7 +125,6 @@ def challengeButtonClicked():
     # Add challenger name + challenger rating + link in game variable
     ############################
 
-
 # TEST STATEMENT:
 def minirun():
     
@@ -138,48 +133,16 @@ def minirun():
     if not added:
         AppendInitial()
 
-    challengeButtonClicked()
 
-minirun()
+    
 
-def challengeAccepted(gameID, challenger):  # <- Accept Button clicked
-    return 0
+    # ChallengeButtonClicked()
 
-    ############################
-    # INSTRUCTION
-    # AFTER BOTH PLAYERS ACCEPT GAME WILL START...WHEN GAME STARTS DO THIS NEXT
-    # Game needs 2 players to start it
-    # Need function to let us know when the game starts!!
-    # Get lichessId of the challenge creator (Player 1) [Query spreadsheet w/ gameID]
-    # challenger cannot be the same lichessID as Player 1 -> otherwise throw a rejection pop-up when clicked
-    # CHALLENGER MUST HAVE A VALID LICHESS ID
-    # Add challenger lichessID to the challenge [params gameID & challenger]
-    # Need to run stream_board_game_state once it does start to get the details of players
-    # Call QueryForUplandID and extract respective uplandID of both lichess accounts
-    #
-    #```
-    # Challenger will also be made to join the escrow account when he clicks accept button
-    #
-    # uplandID = QueryForUplandID(challenger)
-    # bearer = GetBearerToken(uplandID)
-    #
-    # challengeIdx = GetChallengeIdx(gameID)
-    # eid = chessWorksheet[challengeIdx][5]
-    #
-    # wager = chessWorksheet[challengeIdx][3]
-    #
-    # joinEscrow(bearer, eid, wager)
-    # ```
-    #
-    # POP-UP THAT DISPLAYS (GO TO UPLAND ACCOUNT TO ACCEPT WAGER TRANSACTION)
-    # TAKE ME TO CHESS GAME BUTTON -> When clicked get redirect to chessgame link (chessWorksheet[challengeIdx][4])
-    # User must hit reset button for updates
-    # balances are deducted from accounts
+# minirun()
 
-    # Need function to let us know when the game ends!! This triggers gameEnded function
-    ############################
+AppendInitial()
 
-# EID 2241 GameID pf9XoRNn
+
 
 
 

@@ -34,10 +34,18 @@ def HandleFinishedGames():
         return -1
 
     for game in finishedGames:
-        # gameEnded(game)
+        gameEnded(game)
         FindAndRemoveRow(game)
+    
 
+    # isGameValid() if not, remove from list and refund escrow container
 
+    # for i in range(1, worksheet.max_row + 1):
+    #     if not isGameValid(worksheet[i][0].value):
+    #         refundEscrowContainer(worksheet[i][5].value)
+    #         FindAndRemoveRow(worksheet[i][0].value)
+
+    
     return finishedGames
 
 
