@@ -6,13 +6,13 @@ from Chess.query_for_uplandID import QueryForUplandID
 
 
 def Iterate():
-    df = pd.read_excel(cfilepath, usecols='B:E,')
+    df = pd.read_excel(cfilepath, usecols='B:G,')
     res = []
 
     for index, row in df.iterrows():
         uplandID = QueryForUplandID(row.iloc[0])
-        res.append([row.iloc[0], row.iloc[1], row.iloc[2], row.iloc[3], uplandID])
-        
+        res.append([row.iloc[0], row.iloc[1], row.iloc[2], row.iloc[3], uplandID, row.iloc[5]])
+    
     return res
 
 

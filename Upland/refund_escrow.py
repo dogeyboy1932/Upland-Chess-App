@@ -1,5 +1,5 @@
-from FIXED_VARIABLES import conn
-from FIXED_VARIABLES import credential
+from Upland.FIXED_VARIABLES import conn
+from Upland.FIXED_VARIABLES import credential
 import json;
 
 def RefundEscrowContainer(escrowId):
@@ -13,8 +13,15 @@ def RefundEscrowContainer(escrowId):
 
     conn.request("POST", url=url, headers=headers)
     res = conn.getresponse()
-    data = json.loads(res.read().decode("utf-8"))
-    print(data)
+
+    if res.status == 200 or res.status == 201:
+        data = json.loads(res.read().decode("utf-8"))
+        print("Refunded Escrow! Transaction Hash:", data["transactionId"])
+        return "success"
+    else:
+        print(f'Request failed with status code {res.status}')
+        print(res.getheaders())
+        return "error"
 
 
 def run():

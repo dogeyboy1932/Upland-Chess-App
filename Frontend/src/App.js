@@ -1,24 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ChessChallengesTable = ({ challenges }) => {
+const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
   const [acceptedChallenge, setAcceptedChallenges] = useState([]);
-  
+  const [hasAcceptedChallenge, setHasAcceptedChallenge] = useState(false);
+
   const AcceptChallenge = async (link, index) => {
     window.open(link, '_blank');
-    console.log("ACCEPTED")
-    setAcceptedChallenges([acceptedChallenge, index]);
-
+    
     try {
-      axios.post('/accepted', {
+      await axios.post('/accepted', {
         link
       });
-    
+
+      // Update the acceptedChallenge array with the new index
+      setAcceptedChallenges([...acceptedChallenge, index]);
+      setHasAcceptedChallenge(true);
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  
+
+  const CancelChallenge = async (link, index) => {
+    // Remove the index from the acceptedChallenge array
+    const updatedAcceptedChallenges = acceptedChallenge.filter((acceptedIndex) => acceptedIndex !== index);
+    
+    try {
+      // Call your backend API to cancel the challenge
+      await axios.post('/cancel', { link });
+      setAcceptedChallenges(updatedAcceptedChallenges);
+      setHasAcceptedChallenge(false);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const DeleteChallenge = async (link) => {
+    try {
+      await axios.post('/delete', { link });
+      setHasAcceptedChallenge(true);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
   return (
     <table
       style={{
@@ -35,6 +61,7 @@ const ChessChallengesTable = ({ challenges }) => {
           <th style={{ border: '3px solid #3498db', padding: '10px' }}>Lichess ID</th>
           <th style={{ border: '3px solid #3498db', padding: '10px' }}>Lichess Rating</th>
           <th style={{ border: '3px solid #3498db', padding: '10px' }}>Wager Amount</th>
+          <th style={{ border: '3px solid #3498db', padding: '10px' }}>Link</th>
           <th style={{ border: '3px solid #3498db', padding: '10px' }}>Accept Challenge</th>
         </tr>
       </thead>
@@ -52,28 +79,42 @@ const ChessChallengesTable = ({ challenges }) => {
             <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.lichessID}</td>
             <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db'}}>{challenge.opponentRating}</td>
             <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.wageramt}</td>
-            <td style={{ padding: '10px', borderBottom: '2px solid #3498db' }}>
+            <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>
               <a href={challenge.link} target="_blank" rel="noopener noreferrer">
                 {challenge.link}
               </a>
             </td>
-            <td style={{ padding: '10px', borderBottom: '2px solid #ddd' }}>
-              {!acceptedChallenge.includes(index) ? (
+
+            <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>
+              {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && (
                 <button
                   onClick={() => AcceptChallenge(challenge.link, index)}
-                  style={{backgroundColor: '#3498db', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer'}}
+                  style={{ backgroundColor: '#a52a2a', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
                 >
                   Accept
                 </button>
-              ) : (
+              )}
+
+              {!acceptedChallenge.includes(index) && currentUserUplandID === challenge.uplandID && (
                 <button
-                  style={{backgroundColor: '#2ecc71', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'not-allowed'}}
-                  disabled
+                  onClick={() => DeleteChallenge(challenge.link, index)}
+                  style={{ backgroundColor: 'red', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
                 >
-                  Accepted
+                  Delete
+                </button>
+              )}
+
+              {acceptedChallenge.includes(index) || challenge.accepted && (
+                <button
+                  onClick={() => CancelChallenge(challenge.link, index)}
+                  style={{ backgroundColor: '#3498db', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
+                >
+                  Cancel
                 </button>
               )}
             </td>
+
+            <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.accepted.toString()}</td>
           </tr>
         ))}
       </tbody>
@@ -83,18 +124,15 @@ const ChessChallengesTable = ({ challenges }) => {
 
 
 const submitDetails = async (rated, wager, upland) => {
+  console.log("Submit 2")
   try {
     const response = await axios.post('/submit-details', {
       rated, 
       wager,
       upland
     });
-
-    if (response.status === 200) {
-      console.log('Details submitted successfully');
-    }
     
-    return response
+    return response.data
   } catch (error) {
     console.error('Error:', error);
   }
@@ -103,8 +141,8 @@ const submitDetails = async (rated, wager, upland) => {
 
 const challengeDatabase = async () => {
   try {
-      const response = await axios.post('/database');
       console.log("RESET BUTTON CLICKED")
+      const response = await axios.post('/database');
       console.log(response)
       
       return response.data.array;
@@ -124,6 +162,8 @@ const App = () => {
   const [wager, setWager] = useState('');
   const [uplandID, setUpland] = useState('');
   const [success, setSuccess] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [currentUserUplandID, setCurrentUserUplandID] = useState('BLANK');
 
   const openModal = () => {
     setModalOpen(true);
@@ -134,10 +174,21 @@ const App = () => {
     setModalOpen(false);
   };
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const saveVariable = () => {
+    setCurrentUserUplandID(inputValue);
+    console.log('Variable saved:', inputValue);
+  };
+  
+
   const handleDetailsSubmit = async () => {
     const response = await submitDetails(rated, wager, uplandID);
+    console.log(response)
 
-    if (response.status === 200) {
+    if (response === 1) {
       closeModal();
       setSuccess(true);
       setTimeout(() => setSuccess(false), 5000);
@@ -165,36 +216,39 @@ const App = () => {
         uplandID: challengeTable[i][4],
         lichessID: challengeTable[i][0],
         wageramt: challengeTable[i][2],
+        accepted: challengeTable[i][5]
       }
+
       challenge_data2.push(data)
     }
   }
-    
 
   return (
     <>
       <div style={{ textAlign: 'center', margin: '10px' }}>
         <h1 style={{ color: '#333', marginBottom: '0' }}>UPLAND CHESS</h1>
         <h4 style={{ color: '#333', marginTop: '0' }}>by dogeyboy19</h4>
-        <h6 style={{ color: '#333', marginTop: '10' }}>**If your chess challenge expires, it will be removed from the list and you'll be refunded**</h6>
+        <h6 style={{ color: '#333', marginTop: '10' }}>**If your chess challenge expires, HIT DELETE and it will be removed from the list and you'll be refunded**</h6>
 
         
         <div style={{ margin: '10px' }}>
-          {/* <button onClick={createChallengeButton}>Create Challenge</button> */}
           <span style={{ margin: '5px' }}></span>
           <button onClick={challengeDatabase}>Reset</button>
         </div>
         <div style={{ margin: '20px' }}>
           <label>
-            Enter Lichess ID:
-            <input
-              type="text" />
+            Enter Upland ID:
+            <input type="text" value={inputValue} onChange={handleInputChange} />
           </label>
+          <button onClick={saveVariable}>Save</button>
+        </div>
+        <div>
+            {currentUserUplandID}
         </div>
       </div>
 
       <div>
-        <ChessChallengesTable challenges={challenge_data2} />
+        <ChessChallengesTable challenges={challenge_data2} currentUserUplandID={currentUserUplandID}/>
       </div>
     
       <div style={{ textAlign: 'center', margin: '10px' }}>

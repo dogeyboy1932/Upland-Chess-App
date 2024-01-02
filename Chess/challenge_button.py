@@ -13,30 +13,40 @@ from Upland.get_user_balance import GetUserBalanceOnSheet
 
 # FRONTEND DEPENDENT
 
-def ChallengeButtonClicked(uplandID, rated_, wager_):
+# RETURN -1 and -2 specifics
 
+def ChallengeButtonClicked(uplandID, rated_, wager_):
+    
     if QueryForLichessID(uplandID) == -1:
         print("UPLAND-ID DOES NOT EXIST")
         return -1
     
+    if not (rated_ == "No" or rated_ == "Yes"):
+        print("Invalid Rated")
+        return -2
+    
+    if type(int(wager_)) is not int:
+        print("Invalid Wager")
+        return -3
 
     if (int(wager_) > GetUserBalanceOnSheet(uplandID)):
         print("NOT ENOUGH BALANCE")
-        return -2
+        return -4
     
-
+   
     challenger = QueryForLichessID(uplandID)
     speed = "rapid"  
     increment = 0 
     rated = rated_
     variant = "standard"
     name = "Challenge by " + uplandID
-    wager = wager_
+    wager = int(wager_)
+
 
     # Challenge under terms is created
     thisGame = CreateOpenChallenge(challenger=challenger, speed=speed, increment=increment, variant=variant,
                                    rated=rated, name=name)
-
+    
     # Challenge is appended to spreadsheet (database) + Escrow is created & appended + Challenge ID is extracted
     gameID = AppendChallenge(challenger, wager, thisGame)
     challengeIdx = GetChallengeIdx(gameID)
@@ -50,7 +60,9 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
     eid = str(workbook[challengeIdx][5].value)
     wager = int(wager)
 
-    # JoinEscrow(bearer, eid, wager)
+    JoinEscrow(bearer, eid, wager)
+
+    return 1
     
 
 def run():
@@ -60,4 +72,5 @@ def run():
 
     ChallengeButtonClicked(uplandID, rated, wager)
 
-# run()
+# for i in range(10):
+#     run()

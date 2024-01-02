@@ -11,9 +11,11 @@ from Upland.query_uplandID_index import QueryUplandIDRow
 
 from Chess.FIXED_CHESS_VARIABLES import NumpyArrayEncoder
 from Chess.render_database import Iterate
-from Chess.__handle_finished_games import HandleFinishedGames
+from Chess.handle_finished_games import HandleFinishedGames
 from Chess.challenge_button import ChallengeButtonClicked
-from Chess.__accept_button import ChallengeAccepted
+from Chess.accept_button import ChallengeAccepted
+from Chess.cancel_button import ChallengeCanceled
+from Chess.handle_finished_games import ChallengeDeleted
 
 from flask_cors import CORS 
 
@@ -23,8 +25,15 @@ app.logger.disabled = True
 
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
-    HandleFinishedGames()
-    arr = Iterate()
+    # print("DATABASE")
+    went = False
+
+    if not went:
+        arr = Iterate()
+        went = True
+    else:
+        HandleFinishedGames() 
+        arr = Iterate()
 
     encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
 
@@ -32,13 +41,41 @@ def ChallengeDatabase():
 
 @app.route('/accepted', methods=['POST'])
 def Accepted():
+    print("Accepted")
+    Iterate()
+
     link = request.get_json().get('link')
-    AcceptButtonClicked(link)
+    challenger = "dogeyboy19"
+    
+    ChallengeAccepted(link, challenger)
+
+    return ChallengeDatabase()
+
+    # return jsonify({'message': 'Details received successfully'})
+
+@app.route('/cancel', methods=['POST'])
+def Cancel():
+    print("Cancel")
+
+    link = request.get_json().get('link')
+    
+    ChallengeCanceled(link)
+
+    return jsonify({'message': 'Details received successfully'})
+
+@app.route('/delete', methods=['POST'])
+def Deleted():
+    print("Cancel")
+
+    link = request.get_json().get('link')
+    
+    ChallengeDeleted(link)
 
     return jsonify({'message': 'Details received successfully'})
     
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
+    print("SUBMITTED")
     data = request.get_json()
 
     uplandID = data.get('upland')
@@ -47,9 +84,14 @@ def ChallengeButton():
 
     print(f"Received details: Name - {rated}, Email - {wager}, UplandID - {uplandID}")
 
-    ChallengeButtonClicked(uplandID, rated, wager)
+    res = ChallengeButtonClicked(uplandID, rated, wager)
 
-    return jsonify({'message': 'Details received successfully'})
+    # -1 means ID does not exist...
+    # -2 means invalid Rated input
+    # -3 means invalid Wager input
+    # -4 means wager is more than balance
+
+    return jsonify(res)
 
 @app.route('/', methods=['POST'])
 def respond():

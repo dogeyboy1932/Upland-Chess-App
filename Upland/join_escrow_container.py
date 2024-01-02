@@ -15,7 +15,7 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
 
     bearer = 'Bearer ' + str(bearerToken)
 
-    # print(bearer)
+    print(bearer)
 
     headers = {
         # 'Authorization': str(bearer),
@@ -39,17 +39,13 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
 
 
 def run():
-    # eid = 2283
-    eid = CreateEscrowContainer()
+    eid = 2283
+    # eid = CreateEscrowContainer()
     print(eid)
 
-
-    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiOTA4MDBmNTQtODJiOS00MjhkLWFhNjAtZjFjMmEyYjViYWRkIiwiaWF0IjoxNzAzMzAwMzA3fQ.dwlDpoQzpSexJ7UYey7iSpzqmmxAooOiOs1pNsci36o'
-
+    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwOTQ4ZGE1MC04N2Q0LTExZWUtYjBjMi02MzM4M2I3OTUzNjAiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiNDE0YTdlYTAtMzE1My00YzZlLTk0MmItMjQ4N2FhZjdjNDQ1IiwiaWF0IjoxNzAzOTU0OTY5fQ.gYBD1eGIaV5ipOJPJUaAkH715hhkxMVPDwwn8GNddrY'
 
     JoinEscrow(bearer, eid, 100)
-
-
 
 # run()
 

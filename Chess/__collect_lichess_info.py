@@ -10,7 +10,7 @@ def GetLichessID():
     # Write function for this that collects the details and verifies
 
     # lichessID = "RichDogeyBoy"  # <- Placeholder
-    lichessID = "trashboatsr"  # <- Placeholder
+    lichessID = "RichDogeyBoy"  # <- Placeholder
     #####################
 
     print(lichessID)

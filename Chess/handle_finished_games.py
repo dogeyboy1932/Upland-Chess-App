@@ -3,9 +3,31 @@ import pandas as pd
 from Chess.FIXED_CHESS_VARIABLES import cfilepath
 from Chess.isGameFinished import isGameFinished
 from Chess.game_ended import gameEnded
+from Upland.refund_escrow import RefundEscrowContainer
+
+from Upland.get_escrow_container import GetEscrowContainer
 
 workbook = load_workbook(cfilepath)
 worksheet = workbook['Sheet']
+
+def ChallengeDeleted(link):  # <- Accept Button clicked
+    workbook = load_workbook(cfilepath)
+    worksheet = workbook['Sheet']
+    
+    challengeIdx = -1
+    
+    for i in range(1, worksheet.max_row + 1):
+        if worksheet[i][4].value == link:
+            challengeIdx = i
+            break
+    
+    eid = worksheet[challengeIdx][5].value
+    RefundEscrowContainer(eid)
+
+    worksheet.delete_rows(challengeIdx)
+
+    workbook.save(cfilepath)
+    workbook.close()
 
 def FindAndRemoveRow(gameID):
     # workbook = load_workbook(cfilepath)
@@ -26,7 +48,7 @@ def HandleFinishedGames():
 
     finishedGames = []
 
-    for i in range(1, worksheet.max_row + 1):
+    for i in range(2, worksheet.max_row + 1):
         if isGameFinished(worksheet[i][0].value):
             finishedGames.append(worksheet[i][0].value)
 
@@ -36,7 +58,6 @@ def HandleFinishedGames():
     for game in finishedGames:
         gameEnded(game)
         FindAndRemoveRow(game)
-    
 
     # isGameValid() if not, remove from list and refund escrow container
 
@@ -45,7 +66,6 @@ def HandleFinishedGames():
     #         refundEscrowContainer(worksheet[i][5].value)
     #         FindAndRemoveRow(worksheet[i][0].value)
 
-    
     return finishedGames
 
 

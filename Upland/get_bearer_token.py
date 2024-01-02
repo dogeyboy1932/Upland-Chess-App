@@ -10,14 +10,9 @@ def GetBearerToken(uplandID):
 
     # df = pd.read_excel(filepath, usecols="E")
     # print(df)
-    # print("HERE")
-
-
 
     for i in range(1, worksheet.max_row + 1):
-        # print(worksheet[i][4].value)
-        # print("BLANK")
-        if worksheet[i][1].value == uplandID:
+        if worksheet[i][1].value == uplandID.lower():
             return worksheet[i][4].value
 
     return -1
