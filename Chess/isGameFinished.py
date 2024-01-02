@@ -2,8 +2,6 @@ from Chess.FIXED_CHESS_VARIABLES import client
 
 
 def isGameFinished(gameID):
-    print("THERE")
-    print(gameID)
     try:
         client.games.export(gameID)
         return True

@@ -16,7 +16,7 @@ def AppendChallenge(challenger, wager, thisGame):
     escrowID = CreateEscrowContainer()
 
     # Making data
-    data = [gameID, challenger, rating, wager, link, escrowID, False]
+    data = [gameID, challenger, rating, wager, link, escrowID, False, "blank"]
 
     # Appending data to spreadsheet
     worksheet.append(data)
@@ -30,7 +30,7 @@ def AppendInitial():
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
 
-    data = ["gameID", "challenger", "rating", "wager", "link", "escrowID", "accepted?"]
+    data = ["gameID", "challenger", "rating", "wager", "link", "escrowID", "accepted?", "accepter"]
 
     worksheet.append(data)
 

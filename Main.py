@@ -16,6 +16,8 @@ from Chess.challenge_button import ChallengeButtonClicked
 from Chess.accept_button import ChallengeAccepted
 from Chess.cancel_button import ChallengeCanceled
 from Chess.handle_finished_games import ChallengeDeleted
+from Chess.handle_finished_games import GetStatusWithLink
+
 
 from flask_cors import CORS 
 
@@ -23,14 +25,17 @@ app = Flask(__name__)
 CORS(app)
 app.logger.disabled = True
 
+went = False
+
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
     # print("DATABASE")
-    went = False
+    global went
 
     if not went:
         arr = Iterate()
         went = True
+        print(went)
     else:
         HandleFinishedGames() 
         arr = Iterate()
@@ -44,10 +49,14 @@ def Accepted():
     print("Accepted")
     Iterate()
 
+    accepter = request.get_json().get('currentUserUplandID')
     link = request.get_json().get('link')
     challenger = "dogeyboy19"
     
-    ChallengeAccepted(link, challenger)
+    # print(accepter)
+    # print(challenger)
+
+    ChallengeAccepted(link, challenger, accepter)
 
     return ChallengeDatabase()
 
@@ -69,9 +78,15 @@ def Deleted():
 
     link = request.get_json().get('link')
     
-    ChallengeDeleted(link)
+    # print(str(GetStatusWithLink(link)))
 
-    return jsonify({'message': 'Details received successfully'})
+    if (str(GetStatusWithLink(link)) == "False"):
+        ChallengeDeleted(link)
+        return "Success"
+    else:
+        return "Already Accepted"
+
+    # return jsonify({'message': 'Details received successfully'})
     
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
@@ -106,8 +121,8 @@ def respond():
 
         CreateProfile(access_token, user_id)
 
-        df = pd.read_excel(filepath)
-        print(df)
+        # df = pd.read_excel(filepath)
+        # print(df)
 
     return "success"
 

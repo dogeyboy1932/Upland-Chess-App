@@ -7,10 +7,19 @@ from Upland.refund_escrow import RefundEscrowContainer
 
 from Upland.get_escrow_container import GetEscrowContainer
 
-workbook = load_workbook(cfilepath)
-worksheet = workbook['Sheet']
 
-def ChallengeDeleted(link):  # <- Accept Button clicked
+def GetStatusWithLink(link):  # <- Delete Button clicked
+    workbook = load_workbook(cfilepath)
+    worksheet = workbook['Sheet']
+    
+    for i in range(1, worksheet.max_row + 1):
+        if worksheet[i][4].value == link:
+            return worksheet[i][6].value
+    
+    return -1
+
+
+def ChallengeDeleted(link):  # <- Delete Button clicked
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
     
@@ -29,9 +38,10 @@ def ChallengeDeleted(link):  # <- Accept Button clicked
     workbook.save(cfilepath)
     workbook.close()
 
+
 def FindAndRemoveRow(gameID):
-    # workbook = load_workbook(cfilepath)
-    # worksheet = workbook['Sheet']
+    workbook = load_workbook(cfilepath)
+    worksheet = workbook['Sheet']
 
     for i in range(1, worksheet.max_row + 1):
         if worksheet[i][0].value == gameID:
@@ -43,12 +53,13 @@ def FindAndRemoveRow(gameID):
 
 
 def HandleFinishedGames():
-    # workbook = load_workbook(cfilepath)
-    # worksheet = workbook['Sheet']
+    workbook = load_workbook(cfilepath)
+    worksheet = workbook['Sheet']
 
     finishedGames = []
 
     for i in range(2, worksheet.max_row + 1):
+        # print(worksheet[i][0].value)
         if isGameFinished(worksheet[i][0].value):
             finishedGames.append(worksheet[i][0].value)
 
@@ -58,13 +69,6 @@ def HandleFinishedGames():
     for game in finishedGames:
         gameEnded(game)
         FindAndRemoveRow(game)
-
-    # isGameValid() if not, remove from list and refund escrow container
-
-    # for i in range(1, worksheet.max_row + 1):
-    #     if not isGameValid(worksheet[i][0].value):
-    #         refundEscrowContainer(worksheet[i][5].value)
-    #         FindAndRemoveRow(worksheet[i][0].value)
 
     return finishedGames
 
@@ -77,31 +81,3 @@ def run():
 
 
 # run()
-
-
-
-
-# def RemovedFinishedGames(finishedGames):
-# print("GameID", gameID)
-# print("comparable", worksheet[i][0].value)
-
-# print(i)
-# print(worksheet[i][0].value)
-
-# print(game)
-
-# import pandas as pd
-# df = pd.read_excel(filepath)
-# print(df)
-    
-# df = pd.read_excel(cfilepath)
-# print(df)
-    
-# print("1 ",worksheet[i][0].value)
-# print("2 ", gameID)
-
-# workbook = load_workbook(cfilepath)
-# worksheet = workbook['Sheet']
-
-# workbook.save(cfilepath)
-# workbook.close()

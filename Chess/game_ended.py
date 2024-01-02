@@ -13,10 +13,10 @@ chessWorksheet = workbook1['Sheet']
 
 
 def gameEnded(gameID):
-    # print("CALLED")
+    print("GAME ENDED")
     gameResult = GameWinner(gameID)
     winner = gameResult[0]
-    loser = gameResult[1]
+    loser = gameResult[1] # loser = "trashboatsr"
     drawStatus = gameResult[2]
 
     winnerID = QueryForEOSID(winner)
