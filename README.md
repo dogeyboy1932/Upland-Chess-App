@@ -1,6 +1,5 @@
 To do:
  - Test game_ended
- - Finish Frontend
 
  
 URL TAKES ME TO A FRONTEND DOMAIN:
@@ -75,7 +74,3 @@ FRONEND DEV LINKS:
 
 Run the button_clicks python file
 Run the frontend... npm start inside FRONTEND directory on cmd
-
-
-
-Build a logout button

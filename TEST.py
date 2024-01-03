@@ -8,5 +8,5 @@ import pandas as pd
 # df = pd.read_excel(cfilepath)
 # print(df)
 
-# df = pd.read_excel(filepath)
-# print(df)
+df = pd.read_excel(filepath)
+print(df)

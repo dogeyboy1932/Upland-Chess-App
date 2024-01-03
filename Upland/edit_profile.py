@@ -3,15 +3,23 @@ from Upland.FIXED_VARIABLES import filepath
 from Upland.query_spreadsheet import QueryUplandIDRow
 
 
-def ReplaceProfile(userId, profile):
-   print("REPLACE CALLED")
+def ReplaceProfileSmall(uplandIdx, lichessID):
    workbook = load_workbook(filepath)
    worksheet = workbook['Sheet']
 
-   index = QueryUplandIDRow(userId)
+   worksheet[uplandIdx][0].value = lichessID
 
-   for col_num, new_value in enumerate(profile, start=1):
-      worksheet.cell(row=index, column=col_num, value=new_value)
+   workbook.save(filepath)
+   workbook.close()
+
+
+def ReplaceProfileBig(uplandIdx, lichessID, lichessRating, password):
+   workbook = load_workbook(filepath)
+   worksheet = workbook['Sheet']
+
+   worksheet[uplandIdx][0].value = lichessID 
+   worksheet[uplandIdx][2].value = lichessRating   
+   worksheet[uplandIdx][6].value = password 
 
    workbook.save(filepath)
    workbook.close()
