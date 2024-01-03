@@ -5,8 +5,8 @@ from Chess.FIXED_CHESS_VARIABLES import client
 from openpyxl import load_workbook
 import pandas as pd
 
-df = pd.read_excel(cfilepath)
-print(df)
+# df = pd.read_excel(cfilepath)
+# print(df)
 
-df = pd.read_excel(filepath)
-print(df)
+# df = pd.read_excel(filepath)
+# print(df)

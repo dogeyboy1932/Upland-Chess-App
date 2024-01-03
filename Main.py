@@ -1,18 +1,18 @@
-# Hit the run button ^^^
-
 from flask import Flask, request, jsonify
 import pandas as pd
 import json
 
 from openpyxl import load_workbook
+from Chess.FIXED_CHESS_VARIABLES import cfilepath
 
 from Upland.FIXED_VARIABLES import credential
 from Upland.FIXED_VARIABLES import filepath
-from Upland.append_profile import AppendProfile
+from Upland.edit_profile import AppendProfile
 from Upland.create_profile import CreateProfile
 from Upland.query_spreadsheet import QueryUplandIDRow
 from Upland.auth_code import Verify
 from Upland.query_spreadsheet import GetPassword
+from Upland.fill_profile import FillProfile
 
 from Chess.FIXED_CHESS_VARIABLES import NumpyArrayEncoder
 from Chess.render_database import Iterate
@@ -27,7 +27,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 app.logger.disabled = True
-
 went = False
 
 @app.route('/database', methods=['POST'])
@@ -53,9 +52,9 @@ def Auth():
 
 @app.route('/password', methods=['POST'])
 def Password():
-    username = request.get_json().get('username')
+    uplandID = request.get_json().get('uplandID')
 
-    return GetPassword(username)
+    return GetPassword(uplandID)
 
 
 @app.route('/accepted', methods=['POST'])
@@ -89,28 +88,11 @@ def Deleted():
 
 @app.route('/credentials', methods=['POST'])
 def Credentials():
-    username = request.get_json().get('username')
+    uplandID = request.get_json().get('uplandID')
+    lichessID = request.get_json().get('lichessID')
     password = request.get_json().get('password')
 
-    workbook = load_workbook(filepath)
-    worksheet = workbook['Sheet']
-
-    prof_pass = -1
-    for i in range(1, worksheet.max_row + 1):
-        if worksheet[i][1].value == username:
-            prof_pass = worksheet[i][6].value
-
-    if (prof_pass == -1):
-        return 'no profile found'
-    elif (prof_pass == "null"):
-        worksheet[i][6].value = password 
-    else:
-        return 'profile exists'        
-
-    workbook.save(filepath)
-    workbook.close()
-
-    return 'success'
+    return FillProfile(uplandID, lichessID, password)   
 
 
 @app.route('/submit-details', methods=['POST'])
@@ -152,23 +134,3 @@ if __name__ == '__main__':
     AddInitial()
     app.run(host="0.0.0.0", port=5000, debug=True)
 
-
-
-
-
-
-
-
-# print(user_id)
-# print(access_token)
-
-# print("MAIN PRINT")
-# print("IT WORKS")
-
-
-# import http.client
-#
-# conn = http.client.HTTPSConnection('eot5eeu5bgtksf7.m.pipedream.net')
-# conn.request("POST", "/", '{"test": "event"}', {'Content-Type': 'application/json'})
-
-# filepath = r"/Users/gogin/Desktop/Metaverse/ChessApp Pycharm Code/ChessDatabase1.xlsx"

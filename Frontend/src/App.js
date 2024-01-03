@@ -191,7 +191,8 @@ const challengeDatabase = async () => {
 
 const App = () => {
   const [authKey, setAuth] = useState('')
-  const [username, setUsername] = useState('');
+  const [uplandID, setUplandID] = useState('');
+  const [lichessID, setLichessID] = useState('');
   const [password, setPassword] = useState('');
 
   const [isChallengeOpen, setChallengeOpen] = useState(false);
@@ -201,13 +202,15 @@ const App = () => {
   const [isCreateOpen, setCreateOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [profileCreated, setProfileCreated] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInNotif, setLoggedIn] = useState(false);
   const [CreateError, setCreateError] = useState("default")
   const [LoginError, setLoginError] = useState(false)
 
+  const [LogoutButton, setLogoutButton] = useState(false)
+  const [needLogin, setNeedLogin] = useState(false)
+  
   const [rated, setRated] = useState('');
   const [wager, setWager] = useState('');
-  const [uplandID, setUpland] = useState('');
   
   const [currentUserUplandID, setCurrentUserUplandID] = useState('BLANK');
   const [challengeData, setChallengesData] = useState([]);
@@ -215,6 +218,12 @@ const App = () => {
 
 
   const openChallengeModal = () => {
+    if (currentUserUplandID == "BLANK") {
+      setNeedLogin(true)
+      setTimeout(() => setNeedLogin(false), 3000);
+      return 
+    }
+
     setChallengeOpen(true);
   };
 
@@ -235,7 +244,9 @@ const App = () => {
   };
 
   const handleCreateProfile = async () => {
-    const res = (await axios.post('/credentials', {username, password})).data;
+    const res = (await axios.post('/credentials', {uplandID, lichessID, password})).data;
+
+    // console.log(res)
 
     if (res == "profile exists") {
       setCreateError(res)
@@ -260,18 +271,29 @@ const App = () => {
   };
 
   const handleLogin = async () => {
-    const realPassword = (await axios.post('/password', {username})).data;
+    const realPassword = (await axios.post('/password', {uplandID})).data;
 
     if (password == realPassword) {
       setLoggedIn(true)
       setTimeout(() => setLoggedIn(false), 3000);      
-      setCurrentUserUplandID(username)
+      setCurrentUserUplandID(uplandID)
+      setLogoutButton(true)
       closeLoginModal();
+
+      // console.log("HERE")
+      // console.log(LogoutButton)
     } else {
       setLoginError(true)
       setTimeout(() => setLoginError(false), 3000);
     }
   };
+
+  const Logout = async () => {
+    setCurrentUserUplandID("BLANK")
+
+    setLogoutButton(false)
+    setTimeout(() => setLogoutButton(true), 5000);
+  }
 
   const handleChallengeSubmit = async () => {
     const res = await submitDetails(rated, wager, uplandID);
@@ -311,9 +333,16 @@ const App = () => {
             Create Profile
           </button>
 
-          <button onClick={openLoginModal} style={{ backgroundColor: '#7fffd4', marginLeft: '70px', color: '#000000' }}>
-            Login
-          </button>
+          {LogoutButton ? (
+            <button onClick={Logout} style={{ backgroundColor: '#7fffd4', marginLeft: '70px', color: '#000000' }}>
+              Logout
+            </button>
+          ) : (
+            <button onClick={openLoginModal} style={{ backgroundColor: '#7fffd4', marginLeft: '70px', color: '#000000' }}>
+              Login
+            </button>
+          )}
+          
         </div>
 
         <button onClick={resetChallenges} style={{ backgroundColor: 'green', color: '#fff' }}>
@@ -331,12 +360,19 @@ const App = () => {
           <div style={{marginLeft: "20px"}}>
             <span className="close" onClick={closeCreateProfileModal}>&times;</span>
             <h2>Create Profile</h2>
+            
             <label htmlFor="create-username">Upland ID: </label>
-            <input type="text" id="create-username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input type="text" id="create-username" value={uplandID} onChange={(e) => setUplandID(e.target.value)} />
             <br />
+
+            <label htmlFor="create-username">Lichess ID: : </label>
+            <input type="text" id="create-username" value={lichessID} onChange={(e) => setLichessID(e.target.value)} />
+            <br />
+
             <label htmlFor="create-password">Password: </label>
             <input type="password" id="create-password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <br />
+            
             <button onClick={handleCreateProfile}>Submit</button>
           </div>
         </div>
@@ -349,7 +385,7 @@ const App = () => {
           <h2>Login</h2>
           
           <label htmlFor="login-username">Upland ID: </label>
-          <input type="text" id="login-username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <input type="text" id="login-username" value={uplandID} onChange={(e) => setUplandID(e.target.value)} />
           <br />
           
           <label htmlFor="login-password">Password: </label>
@@ -373,10 +409,6 @@ const App = () => {
           <div>
             <span className="close" onClick={closeChallengeModal}> &times; </span>
             <h2>Enter Details</h2>
-            
-            <label htmlFor="name">Upland ID? </label>
-            <input type="text" id="wager" value={uplandID} onChange={(e) => setUpland(e.target.value)} />
-            <br />
             
             <label htmlFor="name">Rated? </label>
             <input type="text" id="name" value={rated} onChange={(e) => setRated(e.target.value)} />
@@ -420,15 +452,23 @@ const App = () => {
         </div>
       )}
 
+      {needLogin && (
+        <div className={`notification notification-error`}>
+          <div backgroundColor="blue">
+            Need to be logged in!
+          </div>
+        </div>
+      )}
+
       {LoginError && (
         <div className={`notification notification-error`}>
           <div className="notification-content" backgroundColor="red">
-            Incorrect Username/Password
+            Incorrect UplandID or Password
           </div>
         </div>
       )}  
 
-      {loggedIn && (
+      {loggedInNotif && (
         <div className={`notification notification-success`}>
           <div className="notification-content">
             Logged In!

@@ -1,135 +1,136 @@
-      /* <div> {challengeTable} </div> */
+# /*
+# /* <div> {challengeTable} </div> */
 
-      // console.log(challengeTableData);
+#       // console.log(challengeTableData);
 
-      // console.log(response.data);
-      // console.log(response.data.array);
+#       // console.log(response.data);
+#       // console.log(response.data.array);
 
-// console.log("THIS");
-  // console.log(challenge_data2);
+# // console.log("THIS");
+#   // console.log(challenge_data2);
   
-  // challenge_data2.then(challengeTable => {
-  //   console.log(challengeTable);
-  // });
+#   // challenge_data2.then(challengeTable => {
+#   //   console.log(challengeTable);
+#   // });
 
-    // console.log(challengeTable);
-  // console.log(challengeTable.length);
+#     // console.log(challengeTable);
+#   // console.log(challengeTable.length);
 
-  // console.log(challengeTable[0][0])
-  // console.log(challengeTable[0][1])
-  // console.log(challengeTable[0][2])
-  // console.log(challengeTable[0][3])
+#   // console.log(challengeTable[0][0])
+#   // console.log(challengeTable[0][1])
+#   // console.log(challengeTable[0][2])
+#   // console.log(challengeTable[0][3])
 
-    //   challenge_data2.
-  // }  
+#     //   challenge_data2.
+#   // }  
 
-  // const challenge_data = [
-  //   {
-  //     name: 'Challenge 1',
-  //     link: 'testlink.com',
-  //     opponentRating: 1500,
-  //     uplandID: 346462367,
-  //     lichessID: 23671273,
-  //     wageramt: '$134',
-  //   },
-  //   {
-  //     name: 'Challenge 2',
-  //     link: 'testlink.com',
-  //     opponentRating: 1600,
-  //     uplandID: 346462367,
-  //     lichessID: 23671273,
-  //     wageramt: '$432',
-  //   },
-  // ];
+#   // const challenge_data = [
+#   //   {
+#   //     name: 'Challenge 1',
+#   //     link: 'testlink.com',
+#   //     opponentRating: 1500,
+#   //     uplandID: 346462367,
+#   //     lichessID: 23671273,
+#   //     wageramt: '$134',
+#   //   },
+#   //   {
+#   //     name: 'Challenge 2',
+#   //     link: 'testlink.com',
+#   //     opponentRating: 1600,
+#   //     uplandID: 346462367,
+#   //     lichessID: 23671273,
+#   //     wageramt: '$432',
+#   //   },
+#   // ];
 
-        // <><div> {challengeTable} </div>
-      /* // <> */
-      /* <div>
-        <RawDataToTable rawData={challengeTable} />
-      </div> */
-      /* <div>
-        <ColorfulTable dataArray={challengeTable} />
-      </div> */
+#         // <><div> {challengeTable} </div>
+#       /* // <> */
+#       /* <div>
+#         <RawDataToTable rawData={challengeTable} />
+#       </div> */
+#       /* <div>
+#         <ColorfulTable dataArray={challengeTable} />
+#       </div> */
 
 
 
-        // const challenge_data1 = challengeDatabase();
-  // const [challengeTable, setChallengeTable] = useState(null);
+#         // const challenge_data1 = challengeDatabase();
+#   // const [challengeTable, setChallengeTable] = useState(null);
   
-  // const challenge_data2 = []
+#   // const challenge_data2 = []
 
-  // useEffect(() => {
-  //     challenge_data1.then(challengeTableData => {
-  //     setChallengeTable(challengeTableData);
-  //   });
-  // }, []);
+#   // useEffect(() => {
+#   //     challenge_data1.then(challengeTableData => {
+#   //     setChallengeTable(challengeTableData);
+#   //   });
+#   // }, []);
 
 
-  // const challenge_data2 = []
+#   // const challenge_data2 = []
 
-  // if (challengeTable != null) {
-  //   for (let i = 0; i < challengeTable.length; i++) {
-  //     let data = {
-  //       name: 'Challenge ' + (i + 1),
-  //       link: challengeTable[i][3],
-  //       opponentRating: challengeTable[i][1],
-  //       uplandID: challengeTable[i][4],
-  //       lichessID: challengeTable[i][0],
-  //       wageramt: challengeTable[i][2],
-  //       accepted: challengeTable[i][5],
-  //       accepter: challengeTable[i][6]
-  //     }
+#   // if (challengeTable != null) {
+#   //   for (let i = 0; i < challengeTable.length; i++) {
+#   //     let data = {
+#   //       name: 'Challenge ' + (i + 1),
+#   //       link: challengeTable[i][3],
+#   //       opponentRating: challengeTable[i][1],
+#   //       uplandID: challengeTable[i][4],
+#   //       lichessID: challengeTable[i][0],
+#   //       wageramt: challengeTable[i][2],
+#   //       accepted: challengeTable[i][5],
+#   //       accepter: challengeTable[i][6]
+#   //     }
 
-  //     challenge_data2.push(data)
-  //   }
-  // }
+#   //     challenge_data2.push(data)
+#   //   }
+#   // }
 
-  // // console.log("1234")
-  // // console.log(challenge_data1)
-  // console.log("HERE")
-  // console.log(challenge_data2)
-  // console.log("THIS")
-  // console.log(challengeTable)
+#   // // console.log("1234")
+#   // // console.log(challenge_data1)
+#   // console.log("HERE")
+#   // console.log(challenge_data2)
+#   // console.log("THIS")
+#   // console.log(challengeTable)
 
-  // console.log("TEST")
-  // console.log(test)
+#   // console.log("TEST")
+#   // console.log(test)
 
-  // console.log("RESULT")
-  // console.log(challengeData)
+#   // console.log("RESULT")
+#   // console.log(challengeData)
 
-//////////////////////////////////
+# //////////////////////////////////
 
-  // const res = challengeDatabase()
+#   // const res = challengeDatabase()
   
-  // useEffect(() => {
-  //   res.then(challengeTableData => {
-  //     setChallengesData(challengeTableData);
-  //   });
-  // }, []);
-  
-
-// const GetAuth = async () => {
-//   return (await axios.post('/auth')).data;
-// }
-
-// const AddCredentials = async (username, password) => {
-//   const response = await axios.post('/credentials', {
-//     username,
-//     password
-//   });
-//   console.log(response.data)
-//   return response.data
-// }
-
-// const GetPassword = async (username) => {
+#   // useEffect(() => {
+#   //   res.then(challengeTableData => {
+#   //     setChallengesData(challengeTableData);
+#   //   });
+#   // }, []);
   
 
-//   return response.data
-// }
+# // const GetAuth = async () => {
+# //   return (await axios.post('/auth')).data;
+# // }
+
+# // const AddCredentials = async (username, password) => {
+# //   const response = await axios.post('/credentials', {
+# //     username,
+# //     password
+# //   });
+# //   console.log(response.data)
+# //   return response.data
+# // }
+
+# // const GetPassword = async (username) => {
+  
+
+# //   return response.data
+# // }
 
 
 
-/*
+# /*
 # import pandas as pd
 # from FIXED_CHESS_VARIABLES import cfilepath
 # from FIXED_CHESS_VARIABLES import client
@@ -304,4 +305,21 @@
 
 # run()
 
-*/
+# print(user_id)
+# print(access_token)
+
+# print("MAIN PRINT")
+# print("IT WORKS")
+
+
+# import http.client
+#
+# conn = http.client.HTTPSConnection('eot5eeu5bgtksf7.m.pipedream.net')
+# conn.request("POST", "/", '{"test": "event"}', {'Content-Type': 'application/json'})
+
+# filepath = r"/Users/gogin/Desktop/Metaverse/ChessApp Pycharm Code/ChessDatabase1.xlsx"
+
+
+            # {/* <label htmlFor="name">Upland ID? </label>
+            # <input type="text" id="wager" value={uplandID} onChange={(e) => setUpland(e.target.value)} />
+            # <br /> */}
