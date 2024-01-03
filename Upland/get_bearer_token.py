@@ -2,14 +2,9 @@ from Upland.FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 import pandas as pd
 
-pd.set_option('display.max_colwidth', None)
-
 def GetBearerToken(uplandID):
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']
-
-    # df = pd.read_excel(filepath, usecols="E")
-    # print(df)
 
     for i in range(1, worksheet.max_row + 1):
         if worksheet[i][1].value == uplandID.lower():

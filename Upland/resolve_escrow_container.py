@@ -9,7 +9,6 @@ def WinResolveEscrow(escrowId, winnerId, loserId, credential):
     url = "/developers-api/containers/" + escrowId + "/resolve"
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
-    # print(totalUpx)
 
     payload = json.dumps({
         "actions": [
@@ -56,7 +55,6 @@ def DrawResolveEscrow(escrowId, winnerId, loserId, credential):
     url = "/developers-api/containers/" + escrowId + "/resolve"
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
-    # print(totalUpx)
 
     payload = json.dumps({
         "actions": [

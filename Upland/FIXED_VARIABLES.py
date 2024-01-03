@@ -1,5 +1,6 @@
 import http.client
 import base64
+import pandas as pd
 conn = http.client.HTTPSConnection("api.sandbox.upland.me")
 
 appID = "232"
@@ -9,3 +10,4 @@ credential = base64.b64encode(f'{appID}:{accessKey}'.encode('utf-8')).decode('ut
 filepath = r"/Users/gogin/Desktop/ChessApp/ChessApp VS Code/XL Spreadsheets/ProfileDatabase.xlsx"
 primeEOS = "mp4n4f2mq3ca"
 
+pd.set_option('display.max_colwidth', None)

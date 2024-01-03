@@ -1,16 +1,15 @@
 from Upland.append_profile import AppendProfile
 from Upland.fill_profile import FillProfile
-from Upland.query_uplandID_index import QueryUplandIDRow
+from Upland.query_spreadsheet import QueryUplandIDRow
 from Upland.get_user_profile import GetUserProfile
 from Upland.get_user_balance import GetUserBalance
 from Upland.replace_profile import ReplaceProfile
 
 
 def CreateProfile(access_token, user_id):
-    user_profile = GetUserProfile(access_token, user_id)
+    user_profile = GetUserProfile(access_token)
     balance = GetUserBalance(access_token)
 
-    # uplandID = user_profile['id']
     uplandUsername = user_profile['username']
     bearer_token = access_token
     eosId = user_profile['eosId']

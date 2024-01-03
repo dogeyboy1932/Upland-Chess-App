@@ -75,3 +75,7 @@ FRONEND DEV LINKS:
 
 Run the button_clicks python file
 Run the frontend... npm start inside FRONTEND directory on cmd
+
+
+
+Build a logout button

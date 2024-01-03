@@ -1,11 +1,8 @@
-import json
-import http.client
 from Upland.create_escrow_container import CreateEscrowContainer
-
+from Upland.FIXED_VARIABLES import conn
+import json
 
 def JoinEscrow(bearerToken, containerId, upxAmount):
-    conn = http.client.HTTPSConnection("api.sandbox.upland.me")
-
     payload = json.dumps({
         "containerId": containerId,
         "upxAmount": upxAmount,
@@ -14,8 +11,6 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
     })
 
     bearer = 'Bearer ' + str(bearerToken)
-
-    print(bearer)
 
     headers = {
         # 'Authorization': str(bearer),
@@ -26,8 +21,6 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
 
     conn.request("POST", "/developers-api/User/join", payload, headers)
     res = conn.getresponse()
-
-    # print(res.getheaders())
 
     if res.status == 200 or res.status == 201:
         data = json.loads(res.read().decode("utf-8"))

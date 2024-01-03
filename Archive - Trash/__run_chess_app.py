@@ -13,9 +13,9 @@ from openpyxl import load_workbook
 from Upland.join_escrow_container import JoinEscrow
 from Upland.get_bearer_token import GetBearerToken
 from Chess.query_for_uplandID import QueryForUplandID
-from Upland.query_uplandID_index import QueryUplandIDRow
+# from Upland.query_uplandID_index import QueryUplandIDRow
 from Chess.query_challenge_idx import GetChallengeIdx
-from Upland.query_for_eosId import QueryForEOSID
+# from Upland.query_for_eosId import QueryForEOSID
 from Upland.get_escrow_container import GetEscrowContainer
 import pandas as pd
 from Chess.handle_finished_games import HandleFinishedGames

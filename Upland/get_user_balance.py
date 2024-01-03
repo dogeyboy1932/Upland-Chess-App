@@ -15,8 +15,6 @@ def GetUserBalance(upland_access_token):
     data = json.loads(res.read().decode("utf-8"))
 
     if res.status == 200:
-
-        # print(data)
         return data['availableUpx']
     else:
         print(f'Request failed with status code {res.status}')

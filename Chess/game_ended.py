@@ -2,7 +2,7 @@ from Chess.FIXED_CHESS_VARIABLES import cfilepath
 from Chess.FIXED_CHESS_VARIABLES import credential
 from openpyxl import load_workbook
 from Chess.game_winner import GameWinner
-from Upland.query_for_eosId import QueryForEOSID
+from Upland.query_spreadsheet import QueryForEOSID
 from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.resolve_escrow_container import ResolveEscrow
 
@@ -13,7 +13,6 @@ chessWorksheet = workbook1['Sheet']
 
 
 def gameEnded(gameID):
-    print("GAME ENDED")
     gameResult = GameWinner(gameID)
     winner = gameResult[0]
     loser = gameResult[1] # loser = "trashboatsr"
@@ -25,10 +24,9 @@ def gameEnded(gameID):
     challengeIdx = GetChallengeIdx(gameID)
     eid = chessWorksheet[challengeIdx][5].value
 
-    print(GetEscrowContainer(eid))
+    # print(GetEscrowContainer(eid))
 
     ResolveEscrow(eid, winnerID, loserID, drawStatus, credential)
-    # print("END")
 
 
 def run():

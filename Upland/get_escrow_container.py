@@ -1,9 +1,6 @@
 from Upland.FIXED_VARIABLES import conn
 import json
 
-# import http.client
-# conn = http.client.HTTPSConnection("api.sandbox.upland.me")
-
 
 def GetEscrowContainer(eid):
     payload = json.dumps({

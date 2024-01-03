@@ -8,16 +8,6 @@ from Upland.refund_escrow import RefundEscrowContainer
 from Upland.get_escrow_container import GetEscrowContainer
 
 
-def GetStatusWithLink(link):  # <- Delete Button clicked
-    workbook = load_workbook(cfilepath)
-    worksheet = workbook['Sheet']
-    
-    for i in range(1, worksheet.max_row + 1):
-        if worksheet[i][4].value == link:
-            return worksheet[i][6].value
-    
-    return -1
-
 
 def ChallengeDeleted(link):  # <- Delete Button clicked
     workbook = load_workbook(cfilepath)

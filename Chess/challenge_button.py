@@ -7,7 +7,7 @@ from Chess.query_challenge_idx import GetChallengeIdx
 
 from Upland.join_escrow_container import JoinEscrow
 from Upland.get_bearer_token import GetBearerToken
-from Upland.query_lichessID import QueryForLichessID
+from Upland.query_spreadsheet import QueryForLichessID
 from Upland.get_user_balance import GetUserBalanceOnSheet
 
 
@@ -18,19 +18,19 @@ from Upland.get_user_balance import GetUserBalanceOnSheet
 def ChallengeButtonClicked(uplandID, rated_, wager_):
     
     if QueryForLichessID(uplandID) == -1:
-        print("UPLAND-ID DOES NOT EXIST")
+        # print("UPLAND-ID DOES NOT EXIST")
         return -1
 
     if not (rated_ == "No" or rated_ == "Yes"):
-        print("Invalid Rated")
+        # print("Invalid Rated")
         return -2
     
     if not wager_.isnumeric():
-        print("Invalid Wager")
+        # print("Invalid Wager")
         return -3
 
     if (int(wager_) > GetUserBalanceOnSheet(uplandID)):
-        print("NOT ENOUGH BALANCE")
+        # print("NOT ENOUGH BALANCE")
         return -4
     
    

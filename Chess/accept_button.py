@@ -21,12 +21,11 @@ def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
     workbook.save(cfilepath)
     workbook.close()
 
-    creator = QueryForUplandID(worksheet[challengeIdx][1].value)
     
-    # if (creator == challenger):
+    # if (challenger == accepter):
     #     return -1 # You can't accept your own challenge!
 
-    bearer = GetBearerToken(challenger)
+    bearer = GetBearerToken(accepter)
     eid = worksheet[challengeIdx][5].value
     wager = worksheet[challengeIdx][3].value
     

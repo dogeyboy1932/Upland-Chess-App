@@ -7,13 +7,14 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
   const [successfullyDeleted, setsuccessfullyDeleted] = useState(false);
   
 
-  const AcceptChallenge = async (link, index) => {
+  const AcceptChallenge = async (UplandID, link, index) => {
     window.open(link, '_blank');
     
     try {
       await axios.post('/accepted', {
         link,
-        currentUserUplandID
+        currentUserUplandID,
+        UplandID
       });
 
       setAcceptedChallenges([acceptedChallenge, index]);
@@ -95,7 +96,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
               <td>
                 {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && (
                   <button
-                    onClick={() => AcceptChallenge(challenge.link, index)}
+                    onClick={() => AcceptChallenge(challenge.uplandID, challenge.link, index)}
                     style={{backgroundColor: '#a52a2a'}}
                   >
                     Accept
@@ -372,47 +373,21 @@ const App = () => {
           <div>
             <span className="close" onClick={closeChallengeModal}> &times; </span>
             <h2>Enter Details</h2>
+            
             <label htmlFor="name">Upland ID? </label>
             <input type="text" id="wager" value={uplandID} onChange={(e) => setUpland(e.target.value)} />
             <br />
+            
             <label htmlFor="name">Rated? </label>
             <input type="text" id="name" value={rated} onChange={(e) => setRated(e.target.value)} />
             <br />
+            
             <label htmlFor="name">Wager? </label>
             <input type="text" id="wager" value={wager} onChange={(e) => setWager(e.target.value)} />
             <br />
+            
             <button onClick={handleChallengeSubmit}>Submit</button>
           </div>
-        )}
-
-        {challengeSubmitted && (
-            <div className="success-popup" style={{ backgroundColor: '#2ecc71', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-              Challenge Submitted!
-            </div>
-        )}
-
-        {challengeError === -1 && (
-            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-              Invalid Upland ID...
-            </div>
-        )}
-
-        {challengeError === -2 && (
-            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-              Invalid Rating...
-            </div>
-        )}
-
-        {challengeError === -3 && (
-            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-              Invalid Wager...
-            </div>
-        )}
-
-        {challengeError === -4 && (
-            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-              Sorry, but the amount you wagered exceeds your balance!
-            </div>
         )}
       </div>
 
@@ -421,7 +396,6 @@ const App = () => {
       </div>
 
       
-
       {CreateError == "profile exists" && (
         <div className={`notification notification-error`}>
           <div className="notification-content">
@@ -461,8 +435,38 @@ const App = () => {
           </div>
         </div>
       )}
+      
+      {challengeSubmitted && (
+        <div className={`notification notification-success`}>
+          <div className="notification-content">
+            Challenge Submitted!!
+          </div>
+        </div>
+      )}
 
+      {challengeError === -1 && (
+        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+          Invalid Upland ID...
+        </div>
+      )}
 
+      {challengeError === -2 && (
+        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+          Invalid Rating...
+        </div>
+      )}
+
+      {challengeError === -3 && (
+        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+          Invalid Wager...
+        </div>
+      )}
+
+      {challengeError === -4 && (
+        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+          Sorry, but the amount you wagered exceeds your balance!
+        </div>
+      )}
       
 
 
@@ -477,7 +481,6 @@ const App = () => {
           Fonts 
         </a>
       </div>
-
     </>
   );
 };

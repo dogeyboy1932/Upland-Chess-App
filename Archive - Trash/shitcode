@@ -1,0 +1,307 @@
+      /* <div> {challengeTable} </div> */
+
+      // console.log(challengeTableData);
+
+      // console.log(response.data);
+      // console.log(response.data.array);
+
+// console.log("THIS");
+  // console.log(challenge_data2);
+  
+  // challenge_data2.then(challengeTable => {
+  //   console.log(challengeTable);
+  // });
+
+    // console.log(challengeTable);
+  // console.log(challengeTable.length);
+
+  // console.log(challengeTable[0][0])
+  // console.log(challengeTable[0][1])
+  // console.log(challengeTable[0][2])
+  // console.log(challengeTable[0][3])
+
+    //   challenge_data2.
+  // }  
+
+  // const challenge_data = [
+  //   {
+  //     name: 'Challenge 1',
+  //     link: 'testlink.com',
+  //     opponentRating: 1500,
+  //     uplandID: 346462367,
+  //     lichessID: 23671273,
+  //     wageramt: '$134',
+  //   },
+  //   {
+  //     name: 'Challenge 2',
+  //     link: 'testlink.com',
+  //     opponentRating: 1600,
+  //     uplandID: 346462367,
+  //     lichessID: 23671273,
+  //     wageramt: '$432',
+  //   },
+  // ];
+
+        // <><div> {challengeTable} </div>
+      /* // <> */
+      /* <div>
+        <RawDataToTable rawData={challengeTable} />
+      </div> */
+      /* <div>
+        <ColorfulTable dataArray={challengeTable} />
+      </div> */
+
+
+
+        // const challenge_data1 = challengeDatabase();
+  // const [challengeTable, setChallengeTable] = useState(null);
+  
+  // const challenge_data2 = []
+
+  // useEffect(() => {
+  //     challenge_data1.then(challengeTableData => {
+  //     setChallengeTable(challengeTableData);
+  //   });
+  // }, []);
+
+
+  // const challenge_data2 = []
+
+  // if (challengeTable != null) {
+  //   for (let i = 0; i < challengeTable.length; i++) {
+  //     let data = {
+  //       name: 'Challenge ' + (i + 1),
+  //       link: challengeTable[i][3],
+  //       opponentRating: challengeTable[i][1],
+  //       uplandID: challengeTable[i][4],
+  //       lichessID: challengeTable[i][0],
+  //       wageramt: challengeTable[i][2],
+  //       accepted: challengeTable[i][5],
+  //       accepter: challengeTable[i][6]
+  //     }
+
+  //     challenge_data2.push(data)
+  //   }
+  // }
+
+  // // console.log("1234")
+  // // console.log(challenge_data1)
+  // console.log("HERE")
+  // console.log(challenge_data2)
+  // console.log("THIS")
+  // console.log(challengeTable)
+
+  // console.log("TEST")
+  // console.log(test)
+
+  // console.log("RESULT")
+  // console.log(challengeData)
+
+//////////////////////////////////
+
+  // const res = challengeDatabase()
+  
+  // useEffect(() => {
+  //   res.then(challengeTableData => {
+  //     setChallengesData(challengeTableData);
+  //   });
+  // }, []);
+  
+
+// const GetAuth = async () => {
+//   return (await axios.post('/auth')).data;
+// }
+
+// const AddCredentials = async (username, password) => {
+//   const response = await axios.post('/credentials', {
+//     username,
+//     password
+//   });
+//   console.log(response.data)
+//   return response.data
+// }
+
+// const GetPassword = async (username) => {
+  
+
+//   return response.data
+// }
+
+
+
+/*
+# import pandas as pd
+# from FIXED_CHESS_VARIABLES import cfilepath
+# from FIXED_CHESS_VARIABLES import client
+# # from game_ended import gameEnded
+
+
+
+# def isGameFinished(gameID):
+#     print("THERE")
+#     print(gameID)
+#     try:
+#         client.games.export(gameID)
+#         return True
+#     except:
+#         return False
+    
+
+# def FindAndRemoveRow(gameID):
+#     workbook = load_workbook(cfilepath)
+#     worksheet = workbook['Sheet']
+
+#     for i in range(1, worksheet.max_row + 1):
+#         if worksheet[i][0].value == gameID:
+#             worksheet.delete_rows(i)
+#             break
+
+#     workbook.save(cfilepath)
+#     workbook.close()
+
+
+# def HandleFinishedGames():
+#     workbook = load_workbook(cfilepath)
+#     worksheet = workbook['Sheet']
+
+#     finishedGames = []
+#     print("HERE1")
+
+#     for i in range(2, worksheet.max_row + 1):
+#         if isGameFinished(worksheet[i][0].value):
+#             print("here")
+#             finishedGames.append(worksheet[i][0].value)
+
+#     if not finishedGames:
+#         return -1
+
+#     for game in finishedGames:
+#         print(game)
+#         # gameEnded(game)
+#         FindAndRemoveRow(game)
+
+#     return finishedGames
+
+
+# def run():
+# df = pd.read_excel(cfilepath)
+# print(df)
+
+#     HandleFinishedGames()
+
+
+# def AppendInitial():
+#     workbook = load_workbook(cfilepath)
+#     worksheet = workbook['Sheet']
+
+#     data = ["gameID", "challenger", "rating", "wager", "link", "escrowID", "accepted?", "accepter"]
+
+#     worksheet.append(data)
+
+#     workbook.save(cfilepath)
+#     workbook.close()
+
+# AppendInitial()
+
+
+# def isGameFinished(gameID):
+#     print("THERE")
+#     print(gameID)
+#     try:
+#         client.games.export(gameID)
+#         return True
+#     except:
+#         return False
+#     # print("THERE2")
+
+# # AKHIL NOTE: THIS IS PROLLY INEFFICIENT FOR DETERMINING IF A GAME IS OVER OR NOT...MIGHT NEED TO UPDATE
+
+# def run():
+#     gameID = "JR0l3LfF"
+#     print(isGameFinished(gameID))
+
+# run()
+
+# df = pd.read_excel(cfilepath)
+# print(df)
+
+# import berserk
+
+# # Replace 'your_client_id' and 'your_client_secret' with your actual Lichess API credentials
+# client_id = 'your_client_id'
+# client_secret = 'your_client_secret'
+
+# # Specify the required scopes, e.g., 'board:write'
+# scopes = ['board:write']
+
+# # Obtain a token with the specified scopes
+# # token = berserk.auth.create_session(client_id, client_secret, scopes)
+# token = berserk.Client()
+
+# # from FIXED_CHESS_VARIABLES import token
+# # import berserk
+# # client = berserk.Client()
+# client = berserk.Client(session=token)
+
+# # headers = {"Authorization": f"Bearer {token}"}
+
+# client.board.post_message("1yizMtMm", "TESTING", True)
+
+# # for challenge in challenges:
+# #     print(challenge)
+
+# from FIXED_VARIABLES import conn
+# import json
+
+
+# def GetEscrowContainer(eid):
+#     payload = json.dumps({
+#         "expirationPeriodHours": 24
+#     })
+
+#     headers = {
+#         'Authorization': 'Basic MjMyOmFkMzMxMDkxLTQ3NjItNGZlMS1iNDBmLTFkNGNhMGQwMmQ5Zg==',
+#         'Cookie': 'sticky-session-1=1701556690.435.2069.742375|9a5cc3e4d08faea009d8e16f5c97bee9'
+#     }
+
+#     url = "/developers-api/containers/" + str(eid)
+
+#     conn.request("GET", url, payload, headers)
+#     res = conn.getresponse()
+#     data = json.loads(res.read().decode("utf-8"))
+
+#     # print(data)
+
+#     return data
+
+# print(GetEscrowContainer(2875))
+
+# def QueryForEOSID(lichessID):
+#     if lichessID == "{}":
+#         return -1
+
+#     workbook = load_workbook(filepath)
+#     worksheet = workbook['Sheet']
+
+#     print(lichessID)
+#     for i in range(1, worksheet.max_row + 1):
+#         print(worksheet[i][0].value)
+#         if worksheet[i][0].value == lichessID:
+#             return worksheet[i][5].value
+
+#     return -1
+
+
+# def run():
+    # gameID = "rL3ou9hv"
+    # winner = GameWinner(gameID=gameID)
+    # corr_uplandID = QueryForEOSID(winner[0])
+
+    # corr_uplandID = QueryForEOSID("trashboatsr")
+
+    # print(corr_uplandID)
+
+
+# run()
+
+*/
