@@ -126,5 +126,5 @@ from openpyxl import load_workbook
 
 # AppendInitial()
 
-# df = pd.read_excel(cfilepath)
-# print(df)
+df = pd.read_excel(cfilepath)
+print(df)

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css'
 
 const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
   const [acceptedChallenge, setAcceptedChallenges] = useState([]);
-  const [hasAcceptedChallenge, setHasAcceptedChallenge] = useState(false);
-  const [isDeleteNotificationVisible, setDeleteNotificationVisible] = useState(false);
   const [successfullyDeleted, setsuccessfullyDeleted] = useState(false);
   
 
@@ -17,23 +16,19 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
         currentUserUplandID
       });
 
-      // Update the acceptedChallenge array with the new index
       setAcceptedChallenges([acceptedChallenge, index]);
-      setHasAcceptedChallenge(true);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   const CancelChallenge = async (link, index) => {
-    // Remove the index from the acceptedChallenge array
     const updatedAcceptedChallenges = acceptedChallenge.filter((acceptedIndex) => acceptedIndex !== index);
     
     try {
-      // Call your backend API to cancel the challenge
       await axios.post('/cancel', { link });
       setAcceptedChallenges(updatedAcceptedChallenges);
-      setHasAcceptedChallenge(false);
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -45,16 +40,8 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       if (res.data == 'Success') {
         setsuccessfullyDeleted(true)
-        
-        setTimeout(() => {
-          setsuccessfullyDeleted(false);
-        }, 5000);
-      } else {
-        setDeleteNotificationVisible(true)
-        setTimeout(() => {
-          setDeleteNotificationVisible(false);
-        }, 5000);
-      }
+        setTimeout(() => setsuccessfullyDeleted(false), 5000);
+      } 
 
     } catch (error) {
       console.error('Error:', error);
@@ -64,59 +51,61 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
 
   return (
     <>
-      <table
-        style={{
-          borderCollapse: 'collapse',
-          width: '100%',
-          textAlign: 'center',
-          border: '3px solid #3498db',
-        }}
-      >
+      <table>
         <thead>
           <tr>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Challenge</th>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Upland ID</th>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Lichess ID</th>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Lichess Rating</th>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Wager Amount</th>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Link</th>
-            <th style={{ border: '3px solid #3498db', padding: '10px' }}>Accept Challenge</th>
+            <th>Challenge</th>
+            <th>Upland ID</th>
+            <th>Lichess ID</th>
+            <th>Lichess Rating</th>
+            <th>Wager Amount</th>
+            <th>Link</th>
+            <th>Availability</th>
+            <th>Accept Challenge</th>
           </tr>
         </thead>
+
         <tbody>
           {challenges.map((challenge, index) => (
-            <tr
-              key={index}
-              style={{
-                backgroundColor: index % 2 === 0 ? '#f2f2f2' : '#ffffff',
-                borderBottom: '1px solid #3498db', // Border for each row
-              }}
-            > 
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.name}</td>           
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.uplandID}</td>
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.lichessID}</td>
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db'}}>{challenge.opponentRating}</td>
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.wageramt}</td>
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>
+            <tr key={index}> 
+              <td> {challenge.name} </td>           
+              <td> {challenge.uplandID} </td>
+              <td> {challenge.lichessID} </td>
+              <td> {challenge.opponentRating} </td>
+              <td> {challenge.wageramt} </td>
+
+              <td>
                 <a href={challenge.link} target="_blank" rel="noopener noreferrer">
                   {challenge.link}
                 </a>
               </td>
 
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>
+              <td>
+                {(acceptedChallenge.includes(index) || challenge.accepted) ? (
+                  <span style={{ display: 'inline-block', backgroundColor: 'Purple', color: 'white'}}>
+                    Accepted
+                  </span>
+                ) : (
+                  <span style={{ display: 'inline-block', backgroundColor: '#00ffff', color: '#000000'}}>
+                    Available
+                  </span>
+                )}
+              </td>
+
+              <td>
                 {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && (
                   <button
                     onClick={() => AcceptChallenge(challenge.link, index)}
-                    style={{ backgroundColor: '#a52a2a', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
+                    style={{backgroundColor: '#a52a2a'}}
                   >
                     Accept
                   </button>
                 )}
 
-                {!acceptedChallenge.includes(index) && challenge.uplandID === currentUserUplandID && (
+                {!acceptedChallenge.includes(index) && !challenge.accepted && challenge.uplandID === currentUserUplandID && (
                   <button
                     onClick={() => DeleteChallenge(challenge.link, challenge.accepted, index)}
-                    style={{ backgroundColor: 'red', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
+                    style={{backgroundColor: 'red'}}
                   >
                     Delete
                   </button>
@@ -125,72 +114,24 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                 {(acceptedChallenge.includes(index) || challenge.accepted) && challenge.accepter === currentUserUplandID && (
                   <button
                     onClick={() => CancelChallenge(challenge.link, index)}
-                    style={{ backgroundColor: '#3498db', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
+                    style={{backgroundColor: '#3498db'}}
                   >
                     Cancel
                   </button>
                 )}
-
-                {(acceptedChallenge.includes(index) || challenge.accepted) && !(challenge.accepter === currentUserUplandID) && (
-                  <span style={{ display: 'inline-block', backgroundColor: 'Purple', color: 'white', padding: '5px 10px', border: 'none', cursor: 'not-allowed' }}>
-                    Already Accepted
-                  </span>
-                )}
               </td>
 
-              <td style={{ padding: '10px', borderRight: '2px solid #3498db', borderBottom: '2px solid #3498db' }}>{challenge.accepted.toString()}</td>
             </tr>
-          ))}
-
-          
+          ))} 
         </tbody>
       </table>
-      
-      {isDeleteNotificationVisible && (
-        <div
-        style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          backgroundColor: 'orange',
-          color: '#fff',
-          padding: '15px',
-          borderRadius: '10px',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '300px', // Adjust the width as needed
-        }}
-      >
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          Sorry, you cannot delete a challenge that has already been accepted!
-        </div>
-      </div>
-      )}
-
 
       {successfullyDeleted && (
-        <div
-        style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          backgroundColor: 'green',
-          color: '#fff',
-          padding: '15px',
-          borderRadius: '10px',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '300px', // Adjust the width as needed
-        }}
-      >
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          Challenge Successfully Deleted!
+        <div className={`notification notification-success`}>
+          <div className="notification-content">
+            Challenge Successfully Deleted & Escrow Refunded!
+          </div>
         </div>
-      </div>
       )}
     </>
   );
@@ -198,7 +139,6 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
 
 
 const submitDetails = async (rated, wager, upland) => {
-  console.log("Submit 2")
   try {
     const response = await axios.post('/submit-details', {
       rated, 
@@ -214,10 +154,10 @@ const submitDetails = async (rated, wager, upland) => {
 
 
 const challengeDatabase = async () => {
+  console.log("RESET BUTTON CLICKED")
   try {
-      console.log("RESET BUTTON CLICKED")
       const response = await axios.post('/database');
-
+      
       const challengeTable = response.data.array;
       const challengeData = []
 
@@ -233,10 +173,12 @@ const challengeDatabase = async () => {
             accepted: challengeTable[i][5],
             accepter: challengeTable[i][6]
           }
-          
+
           challengeData.push(data)
         }
       }
+
+      console.log(challengeData)
       
       return challengeData
   } catch (error) {
@@ -247,95 +189,188 @@ const challengeDatabase = async () => {
 
 
 const App = () => {
+  const [authKey, setAuth] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isChallengeOpen, setChallengeOpen] = useState(false);
+  const [challengeSubmitted, setChallengeSubmitted] = useState(false);
+  const [challengeError, setChallengeError] = useState("-1");
+
+  const [isCreateOpen, setCreateOpen] = useState(false);
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [profileCreated, setProfileCreated] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [CreateError, setCreateError] = useState("default")
+  const [LoginError, setLoginError] = useState(false)
+
   const [rated, setRated] = useState('');
   const [wager, setWager] = useState('');
   const [uplandID, setUpland] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  
   const [currentUserUplandID, setCurrentUserUplandID] = useState('BLANK');
   const [challengeData, setChallengesData] = useState([]);
 
 
-  const openModal = () => {
-    setModalOpen(true);
-    setSuccess(false);
+
+  const openChallengeModal = () => {
+    setChallengeOpen(true);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeChallengeModal = () => {
+    setChallengeOpen(false);
   };
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+  const openCreateProfileModal = async () => {
+    setLoginOpen(false)
+    setCreateOpen(true);
+
+    const res = (await axios.post('/auth')).data
+    setAuth(res)
   };
 
-  const saveVariable = () => {
-    setCurrentUserUplandID(inputValue);
-    console.log('Variable saved:', inputValue);
+  const closeCreateProfileModal = () => {
+    setCreateOpen(false);
   };
 
-  const handleDetailsSubmit = async () => {
-    const response = await submitDetails(rated, wager, uplandID);
-    console.log(response)
+  const handleCreateProfile = async () => {
+    const res = (await axios.post('/credentials', {username, password})).data;
 
-    if (response === 1) {
-      closeModal();
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 5000);
+    if (res == "profile exists") {
+      setCreateError(res)
+      setTimeout(() => setCreateError("default"), 3000);
+    } else if (res == "no profile found") {
+      setCreateError(res)
+      setTimeout(() => setCreateError("default"), 3000);
+    } else {
+      setProfileCreated(true)
+      setTimeout(() => setProfileCreated(false), 3000);
+      closeCreateProfileModal();
     }
   };
 
+  const openLoginModal = () => {
+    setLoginOpen(true);
+    setCreateOpen(false);
+  };
 
-  const res = challengeDatabase()
-  
+  const closeLoginModal = () => {
+    setLoginOpen(false);
+  };
+
+  const handleLogin = async () => {
+    const realPassword = (await axios.post('/password', {username})).data;
+
+    if (password == realPassword) {
+      setLoggedIn(true)
+      setTimeout(() => setLoggedIn(false), 3000);      
+      setCurrentUserUplandID(username)
+      closeLoginModal();
+    } else {
+      setLoginError(true)
+      setTimeout(() => setLoginError(false), 3000);
+    }
+  };
+
+  const handleChallengeSubmit = async () => {
+    const res = await submitDetails(rated, wager, uplandID);
+
+    if (res === 1) {
+      setChallengeSubmitted(true);
+      setTimeout(() => setChallengeSubmitted(false), 5000);
+      closeChallengeModal();
+    } else if (res === -1 || res === -2 || res === -3 || res === -4) {
+      setChallengeError(res);
+      setTimeout(() => setChallengeError(1), 5000);
+    }
+  }; 
+
+  const resetChallenges = async () => {
+    const challengeTableData = await challengeDatabase();
+    setChallengesData(challengeTableData);
+  };
+
   useEffect(() => {
-    res.then(challengeTableData => {
-      setChallengesData(challengeTableData);
-    });
+    resetChallenges();
   }, []);
 
 
   return (
     <>
-      <div style={{ textAlign: 'center', margin: '10px' }}>
+      <div style={{ textAlign: 'center', }}>
         <h1 style={{ color: '#333', marginBottom: '0' }}>UPLAND CHESS</h1>
-        <h4 style={{ color: '#333', marginTop: '0' }}>by dogeyboy19</h4>
-        <h6 style={{ color: '#333', marginTop: '10' }}>**If your chess challenge expires, HIT DELETE and it will be removed from the list and you'll be refunded**</h6>
-
-        
-        <div style={{ margin: '10px' }}>
-          <span style={{ margin: '5px' }}></span>
-          <button onClick={challengeDatabase}>Reset</button>
-        </div>
-        <div style={{ margin: '20px' }}>
-          <label>
-            Enter Upland ID:
-            <input type="text" value={inputValue} onChange={handleInputChange} />
-          </label>
-          <button onClick={saveVariable}>Save</button>
-        </div>
-        <div>
-            {currentUserUplandID}
-        </div>
+        <h3 style={{ color: '#333', marginTop: '0' }}>by dogeyboy19</h3>
+        <h4 style={{ color: '#333', marginTop: '10' }}>**If your chess challenge expires, HIT DELETE and it will be removed from the list and you'll be refunded**</h4>
       </div>
 
-      <div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ display: 'flex' }}>
+          <button onClick={openCreateProfileModal} style={{ backgroundColor: 'orange', marginLeft: '10px', color: '#000000'}}>
+            Create Profile
+          </button>
+
+          <button onClick={openLoginModal} style={{ backgroundColor: '#7fffd4', marginLeft: '70px', color: '#000000' }}>
+            Login
+          </button>
+        </div>
+
+        <button onClick={resetChallenges} style={{ backgroundColor: 'green', color: '#fff' }}>
+          Reset
+        </button>
+      </div>
+
+
+      {isCreateOpen && (
+        <div style={{marginLeft: "20px"}}>
+          <div>
+            FIRST SIGN IN ON UPLAND WITH THIS AUTH KEY: {authKey}
+          </div>
+              
+          <div style={{marginLeft: "20px"}}>
+            <span className="close" onClick={closeCreateProfileModal}>&times;</span>
+            <h2>Create Profile</h2>
+            <label htmlFor="create-username">Upland ID: </label>
+            <input type="text" id="create-username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <br />
+            <label htmlFor="create-password">Password: </label>
+            <input type="password" id="create-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <br />
+            <button onClick={handleCreateProfile}>Submit</button>
+          </div>
+        </div>
+      )}
+
+
+      {isLoginOpen && (
+        <div style={{marginLeft: "20px"}}>
+          <span className="close" onClick={closeLoginModal}>&times;</span>
+          <h2>Login</h2>
+          
+          <label htmlFor="login-username">Upland ID: </label>
+          <input type="text" id="login-username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <br />
+          
+          <label htmlFor="login-password">Password: </label>
+          <input type="password" id="login-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <br />
+          
+          <button onClick={handleLogin}>Submit</button>
+        </div>
+      )}
+
+
+      <div style={{ marginTop: '30px' }}>
         <ChessChallengesTable challenges={challengeData} currentUserUplandID={currentUserUplandID}/>
       </div>
     
-      <div style={{ textAlign: 'center', margin: '10px' }}>
-        <button 
-        onClick={openModal}
-        style={{ backgroundColor: '#3498db', color: '#fff', padding: '10px', border: 'none', cursor: 'pointer' }}
-        >
-          CREATE CHALLENGE
-        </button>
 
-        {isModalOpen && (
-          <div className="modal">
-            <span className="close" onClick={closeModal}>&times;</span>
+      <div style={{ textAlign: 'center', margin: '10px' }}>
+        <button onClick={openChallengeModal} style={{ backgroundColor: 'orange', color: '#fff', padding: '10px'}}> CREATE CHALLENGE </button>
+
+        {isChallengeOpen && (
+          <div>
+            <span className="close" onClick={closeChallengeModal}> &times; </span>
             <h2>Enter Details</h2>
             <label htmlFor="name">Upland ID? </label>
             <input type="text" id="wager" value={uplandID} onChange={(e) => setUpland(e.target.value)} />
@@ -346,125 +381,106 @@ const App = () => {
             <label htmlFor="name">Wager? </label>
             <input type="text" id="wager" value={wager} onChange={(e) => setWager(e.target.value)} />
             <br />
-            <button onClick={handleDetailsSubmit}>Submit</button>
+            <button onClick={handleChallengeSubmit}>Submit</button>
           </div>
         )}
-        
-        {success && (
+
+        {challengeSubmitted && (
             <div className="success-popup" style={{ backgroundColor: '#2ecc71', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
               Challenge Submitted!
             </div>
         )}
-      </div>        
+
+        {challengeError === -1 && (
+            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+              Invalid Upland ID...
+            </div>
+        )}
+
+        {challengeError === -2 && (
+            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+              Invalid Rating...
+            </div>
+        )}
+
+        {challengeError === -3 && (
+            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+              Invalid Wager...
+            </div>
+        )}
+
+        {challengeError === -4 && (
+            <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
+              Sorry, but the amount you wagered exceeds your balance!
+            </div>
+        )}
+      </div>
+
+      <div style={{ marginTop: '70px', marginLeft: '20px'}}>
+        Registered Upland ID: {currentUserUplandID}
+      </div>
+
+      
+
+      {CreateError == "profile exists" && (
+        <div className={`notification notification-error`}>
+          <div className="notification-content">
+            Profile Already Exists          
+          </div>
+        </div>
+      )}
+
+      {CreateError == "no profile found" && (
+        <div className={`notification notification-error`}>
+          <div className="notification-content">
+            Your UplandID is not on our record. PLEASE MAKE SURE TO AUTHENTICATE FIRST        
+          </div>
+        </div>
+      )}
+
+      {profileCreated && (
+        <div className={`notification notification-success`}>
+          <div className="notification-content">
+            Profile Created
+          </div>
+        </div>
+      )}
+
+      {LoginError && (
+        <div className={`notification notification-error`}>
+          <div className="notification-content" backgroundColor="red">
+            Incorrect Username/Password
+          </div>
+        </div>
+      )}  
+
+      {loggedIn && (
+        <div className={`notification notification-success`}>
+          <div className="notification-content">
+            Logged In!
+          </div>
+        </div>
+      )}
+
+
+      
+
+
+      <div style={{ marginTop: '20px', marginLeft: '20px'}}>
+        <a href="https://reactnative.dev/docs/colors" > 
+          Colors 
+        </a>
+      </div>
+
+      <div style={{ marginTop: '20px', marginLeft: '20px'}}>
+        <a href="https://www.w3.org/Style/Examples/007/fonts.en.html" > 
+          Fonts 
+        </a>
+      </div>
+
     </>
   );
 };
 
 
 export default App;
-
-
-
-
-
-
-      /* <div> {challengeTable} </div> */
-
-      // console.log(challengeTableData);
-
-      // console.log(response.data);
-      // console.log(response.data.array);
-
-// console.log("THIS");
-  // console.log(challenge_data2);
-  
-  // challenge_data2.then(challengeTable => {
-  //   console.log(challengeTable);
-  // });
-
-    // console.log(challengeTable);
-  // console.log(challengeTable.length);
-
-  // console.log(challengeTable[0][0])
-  // console.log(challengeTable[0][1])
-  // console.log(challengeTable[0][2])
-  // console.log(challengeTable[0][3])
-
-    //   challenge_data2.
-  // }  
-
-  // const challenge_data = [
-  //   {
-  //     name: 'Challenge 1',
-  //     link: 'testlink.com',
-  //     opponentRating: 1500,
-  //     uplandID: 346462367,
-  //     lichessID: 23671273,
-  //     wageramt: '$134',
-  //   },
-  //   {
-  //     name: 'Challenge 2',
-  //     link: 'testlink.com',
-  //     opponentRating: 1600,
-  //     uplandID: 346462367,
-  //     lichessID: 23671273,
-  //     wageramt: '$432',
-  //   },
-  // ];
-
-        // <><div> {challengeTable} </div>
-      /* // <> */
-      /* <div>
-        <RawDataToTable rawData={challengeTable} />
-      </div> */
-      /* <div>
-        <ColorfulTable dataArray={challengeTable} />
-      </div> */
-
-
-
-        // const challenge_data1 = challengeDatabase();
-  // const [challengeTable, setChallengeTable] = useState(null);
-  
-  // const challenge_data2 = []
-
-  // useEffect(() => {
-  //     challenge_data1.then(challengeTableData => {
-  //     setChallengeTable(challengeTableData);
-  //   });
-  // }, []);
-
-
-  // const challenge_data2 = []
-
-  // if (challengeTable != null) {
-  //   for (let i = 0; i < challengeTable.length; i++) {
-  //     let data = {
-  //       name: 'Challenge ' + (i + 1),
-  //       link: challengeTable[i][3],
-  //       opponentRating: challengeTable[i][1],
-  //       uplandID: challengeTable[i][4],
-  //       lichessID: challengeTable[i][0],
-  //       wageramt: challengeTable[i][2],
-  //       accepted: challengeTable[i][5],
-  //       accepter: challengeTable[i][6]
-  //     }
-
-  //     challenge_data2.push(data)
-  //   }
-  // }
-
-  // // console.log("1234")
-  // // console.log(challenge_data1)
-  // console.log("HERE")
-  // console.log(challenge_data2)
-  // console.log("THIS")
-  // console.log(challengeTable)
-
-  // console.log("TEST")
-  // console.log(test)
-
-  // console.log("RESULT")
-  // console.log(challengeData)
-
-//////////////////////////////////

@@ -20,12 +20,12 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
     if QueryForLichessID(uplandID) == -1:
         print("UPLAND-ID DOES NOT EXIST")
         return -1
-    
+
     if not (rated_ == "No" or rated_ == "Yes"):
         print("Invalid Rated")
         return -2
     
-    if type(int(wager_)) is not int:
+    if not wager_.isnumeric():
         print("Invalid Wager")
         return -3
 

@@ -1,10 +1,10 @@
 # import requests
 import base64
-from FIXED_VARIABLES import conn
+from Upland.FIXED_VARIABLES import conn
 import json
 
 
-def verify(credential):
+def Verify(credential):
     payload = ''
     headers = {
         'Authorization': f'Basic {credential}',
@@ -18,7 +18,7 @@ def verify(credential):
         data = json.loads(response.read().decode("utf-8"))
         code = data['code']
 
-        print(f"{code}")
+        return f"{code}"
     else:
         print(f'Request failed with status code {response.status}')
 
@@ -29,7 +29,7 @@ def run():
 
     credential = base64.b64encode(f'{app_id}:{key}'.encode('utf-8')).decode('utf-8')
 
-    verify(credential)
+    Verify(credential)
 
 
 run()

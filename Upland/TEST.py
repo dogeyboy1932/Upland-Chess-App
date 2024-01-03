@@ -1,10 +1,10 @@
-# from FIXED_VARIABLES import filepath
-# import pandas as pd
+from FIXED_VARIABLES import filepath
+import pandas as pd
 # from openpyxl import load_workbook
 
 
-# df = pd.read_excel(filepath)
-# print(df)
+df = pd.read_excel(filepath)
+print(df)
 
 
 # from FIXED_VARIABLES import conn

@@ -4,10 +4,15 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import json
 
+from openpyxl import load_workbook
+
+from Upland.FIXED_VARIABLES import credential
 from Upland.FIXED_VARIABLES import filepath
 from Upland.append_profile import AppendProfile
 from Upland.create_profile import CreateProfile
 from Upland.query_uplandID_index import QueryUplandIDRow
+from Upland.Auth_code import Verify
+from Upland.query_password import GetPassword
 
 from Chess.FIXED_CHESS_VARIABLES import NumpyArrayEncoder
 from Chess.render_database import Iterate
@@ -44,6 +49,7 @@ def ChallengeDatabase():
 
     return encodedNumpyData
 
+
 @app.route('/accepted', methods=['POST'])
 def Accepted():
     print("Accepted")
@@ -62,6 +68,7 @@ def Accepted():
 
     # return jsonify({'message': 'Details received successfully'})
 
+
 @app.route('/cancel', methods=['POST'])
 def Cancel():
     print("Cancel")
@@ -71,6 +78,7 @@ def Cancel():
     ChallengeCanceled(link)
 
     return jsonify({'message': 'Details received successfully'})
+
 
 @app.route('/delete', methods=['POST'])
 def Deleted():
@@ -87,7 +95,53 @@ def Deleted():
         return "Already Accepted"
 
     # return jsonify({'message': 'Details received successfully'})
-    
+
+
+@app.route('/auth', methods=['POST'])
+def Auth():
+    res = Verify(credential)
+
+    return res
+
+@app.route('/password', methods=['POST'])
+def Password():
+    username = request.get_json().get('username')
+
+    realPassword = GetPassword(username)
+
+    print(realPassword)
+    return realPassword
+
+@app.route('/credentials', methods=['POST'])
+def Credentials():
+    username = request.get_json().get('username')
+    password = request.get_json().get('password')
+
+
+    workbook = load_workbook(filepath)
+    worksheet = workbook['Sheet']
+
+    prof_pass = -1
+
+    for i in range(1, worksheet.max_row + 1):
+        if worksheet[i][1].value == username:
+            prof_pass = worksheet[i][6].value
+
+    if (prof_pass == -1):
+        print("HERE")
+        return 'no profile found'
+    elif (prof_pass == "null"):
+        worksheet[i][6].value = password 
+    else:
+        print("THERE")
+        return 'profile exists'        
+
+
+    workbook.save(filepath)
+    workbook.close()
+
+    return 'success'
+
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
     print("SUBMITTED")
@@ -101,12 +155,8 @@ def ChallengeButton():
 
     res = ChallengeButtonClicked(uplandID, rated, wager)
 
-    # -1 means ID does not exist...
-    # -2 means invalid Rated input
-    # -3 means invalid Wager input
-    # -4 means wager is more than balance
-
     return jsonify(res)
+
 
 @app.route('/', methods=['POST'])
 def respond():
@@ -121,14 +171,14 @@ def respond():
 
         CreateProfile(access_token, user_id)
 
-        # df = pd.read_excel(filepath)
-        # print(df)
+        df = pd.read_excel(filepath)
+        print(df)
 
     return "success"
 
 
 def AddInitial():
-    data = ["Lichess ID", "Upland Username", "Lichess Rating", "Balance", "Bearer Token", "Eos Upland ID"]
+    data = ["Lichess ID", "Upland Username", "Lichess Rating", "Balance", "Bearer Token", "Eos Upland ID", "Password"]
     if QueryUplandIDRow("Upland Username") == -1:
         AppendProfile(data)
 

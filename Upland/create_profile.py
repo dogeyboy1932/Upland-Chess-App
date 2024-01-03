@@ -15,7 +15,7 @@ def CreateProfile(access_token, user_id):
     bearer_token = access_token
     eosId = user_profile['eosId']
 
-    PROFILE = ["BLANK_ID", uplandUsername, "BLANK_RATING", balance, bearer_token, eosId]
+    PROFILE = ["BLANK_ID", uplandUsername, "BLANK_RATING", balance, bearer_token, eosId, "null"]
 
     # Verifies profile doesn't exist already to avoid duplicates
     if QueryUplandIDRow(uplandUsername) == -1:
