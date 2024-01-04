@@ -185,19 +185,20 @@ const MainPage = () => {
     <>
       <div style={{ textAlign: 'center', padding: '2px', backgroundColor: '#daa520', borderBottom: '3.5px solid black' }}>
         <div>
-          <h2 style={{ fontFamily: 'cursive', fontSize: '4em', backgroundColor: '#adff2f', color: '#e22a22', margin: '0px', display: 'inline-block', border: '4px solid #000'}}> UPLAND CHESS </h2>
+          <h2 style={{ fontFamily: 'cursive', fontSize: '4em', backgroundColor: '#adff2f', color: '#e22a22', margin: '0px', display: 'inline-block', border: '4px solid #000'}}>
+            UPLAND CHESS
+          </h2>
         </div>
         
         <div style={{padding: '15px', borderBottom: '4px solid #000', backgroundColor: '#f0e68c', borderLeft: '4px solid #000', borderRight: '4px solid #000', display: 'inline-block', marginBottom: "10px"}}>
           by dogeyboy19
         </div>
         
-        <div style={{padding: '15px', border: '4px solid #000', backgroundColor: '#f8f8ff', display: 'inline-block', }}>
+        <div style={{padding: '15px', border: '4px solid #000', backgroundColor: '#f8f8ff', display: 'block' }}>
           <h3 style={{ fontFamily: 'monospace', fontSize: '1.35em', marginTop: '10px', color: '#000'}}>
             <span style={{ color: '#ff6347' }}>**</span>If your chess challenge expires, HIT DELETE and it will be removed from the list and you'll be refunded
             <span style={{ color: '#ff6347' }}>**</span>
           </h3>
-
         </div>
       </div>
 
