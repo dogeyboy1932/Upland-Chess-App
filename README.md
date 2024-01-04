@@ -1,7 +1,19 @@
 Akhil - Rough Notes
 
+
+3 THINGS TO RUN THIS
+ - npm start on FRONTEND DIRECTORY!
+ - run the main python file
+ - open a terminal and run "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000"
+
+
 To do:
  - Test game_ended
+ - Setup domain to keep it all running
+
+
+
+
 
  
 URL TAKES ME TO A FRONTEND DOMAIN:
