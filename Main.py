@@ -27,8 +27,7 @@ CORS(app)
 app.logger.disabled = True
 
 @app.route('/database', methods=['POST'])
-def ChallengeDatabase():
-    
+def ChallengeDatabase():   
     HandleFinishedGames() 
     arr = Iterate()
 
