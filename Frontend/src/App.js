@@ -51,7 +51,7 @@ const challengeDatabase = async () => {
 
 
 
-const App = () => {
+const MainPage = () => {
   const [authKey, setAuth] = useState('')
   const [uplandID, setUplandID] = useState('');
   const [lichessID, setLichessID] = useState('');
@@ -433,6 +433,9 @@ const App = () => {
           Sorry, but the amount you wagered exceeds your balance!
         </div>
       )}
+
+
+
       
       <div style={{ marginTop: '100px', marginLeft: '20px'}}>
         <a href="https://reactnative.dev/docs/colors" > 
@@ -450,4 +453,4 @@ const App = () => {
 };
 
 
-export default App;
+export default MainPage;

@@ -1,44 +1,36 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import pandas as pd
 import json
 
-from openpyxl import load_workbook
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
-
-from Upland.FIXED_VARIABLES import credential
-from Upland.FIXED_VARIABLES import filepath
 from Upland.edit_profile import AppendProfile
 from Upland.create_profile import CreateProfile
 from Upland.query_spreadsheet import QueryUplandIDRow
 from Upland.auth_code import Verify
 from Upland.query_spreadsheet import GetPassword
 from Upland.fill_profile import FillProfile
+from Upland.FIXED_VARIABLES import credential
+from Upland.FIXED_VARIABLES import filepath
 
-from Chess.FIXED_CHESS_VARIABLES import NumpyArrayEncoder
 from Chess.render_database import Iterate
 from Chess.handle_finished_games import HandleFinishedGames
 from Chess.challenge_button import ChallengeButtonClicked
 from Chess.accept_button import ChallengeAccepted
 from Chess.cancel_button import ChallengeCanceled
 from Chess.handle_finished_games import ChallengeDeleted
+from Chess.FIXED_CHESS_VARIABLES import NumpyArrayEncoder
 
 from flask_cors import CORS 
 
 app = Flask(__name__)
+
 CORS(app)
 app.logger.disabled = True
-went = False
 
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
-    global went #FIX THIS
-
-    if not went:
-        arr = Iterate()
-        went = True
-    else:
-        HandleFinishedGames() 
-        arr = Iterate()
+    
+    HandleFinishedGames() 
+    arr = Iterate()
 
     encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
 
