@@ -16,6 +16,19 @@ def QueryForEOSID(lichessID):
     return -1
 
 
+def QueryForBearer(uplandID):
+    if uplandID == "{}":
+        return -1
+
+    workbook = load_workbook(filepath)
+    worksheet = workbook['Sheet']
+
+    for i in range(1, worksheet.max_row + 1):
+        if worksheet[i][1].value == uplandID:
+            return worksheet[i][4].value
+
+    return -1
+
 def QueryForLichessID(uplandID):
     if uplandID == "{}":
         return -1
@@ -32,7 +45,7 @@ def QueryForLichessID(uplandID):
 
 def GetPassword(username):
     if username == "{}":
-        return -1
+        return "-1"
 
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']
@@ -41,7 +54,7 @@ def GetPassword(username):
         if worksheet[i][1].value == username:
             return worksheet[i][6].value
         
-    return -1
+    return "-1"
 
 def QueryUplandIDRow(uplandID):
     workbook = load_workbook(filepath)

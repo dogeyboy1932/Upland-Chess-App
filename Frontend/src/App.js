@@ -60,6 +60,7 @@ const MainPage = () => {
   const [isChallengeOpen, setChallengeOpen] = useState(false);
   const [challengeSubmitted, setChallengeSubmitted] = useState(false);
   const [challengeError, setChallengeError] = useState("-1");
+  const [visitorError, setVisitorError] = useState(false);
 
   const [isCreateOpen, setCreateOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
@@ -80,7 +81,7 @@ const MainPage = () => {
 
 
   const openChallengeModal = () => {
-    if (currentUserUplandID == "BLANK") {
+    if (currentUserUplandID === "BLANK") {
       setNeedLogin(true)
       setTimeout(() => setNeedLogin(false), 3000);
       return 
@@ -107,16 +108,16 @@ const MainPage = () => {
   const handleCreateProfile = async () => {
     const res = (await axios.post('/credentials', {uplandID, lichessID, password})).data;
 
-    if (res == "profile exists") {
+    if (res === "profile exists") {
       setCreateError(res)
       setTimeout(() => setCreateError("default"), 3000);
-    } else if (res == "wrong password") {
+    } else if (res === "wrong password") {
       setProfileCreated(res)
       setTimeout(() => setProfileCreated("default"), 3000);
-    } else if (res == "replaced") {
+    } else if (res === "replaced") {
       setProfileCreated(res)
       setTimeout(() => setProfileCreated("default"), 3000);
-    } else if (res == "no profile found") {
+    } else if (res === "no profile found") {
       setCreateError(res)
       setTimeout(() => setCreateError("default"), 3000);
     } else {
@@ -138,7 +139,7 @@ const MainPage = () => {
   const handleLogin = async () => {
     const realPassword = (await axios.post('/password', {uplandID})).data;
 
-    if (password == realPassword) {
+    if (password === realPassword) {
       setLoggedIn(true)
       setTimeout(() => setLoggedIn(false), 3000);      
       setCurrentUserUplandID(uplandID)
@@ -168,6 +169,9 @@ const MainPage = () => {
     } else if (res === -1 || res === -2 || res === -3 || res === -4) {
       setChallengeError(res);
       setTimeout(() => setChallengeError(1), 5000);
+    } else if (res === -5) {
+      setVisitorError(true);
+      setTimeout(() => setVisitorError(false), 5000);
     }
   }; 
 
@@ -323,7 +327,7 @@ const MainPage = () => {
         {isChallengeOpen && (
           <div>
             <span className="close" onClick={closeChallengeModal}> &times; </span>
-            <h2 style={{ marginRight: '240px' }}>Enter Details</h2>
+            <h2 style={{ marginRight: '240px' }}>Enter Your Challenge Details! </h2>
             
             <label htmlFor="name">Rated? </label>
             <input type="text" id="name" value={rated} style={{border: '5px solid black'}} onChange={(e) => setRated(e.target.value)} />
@@ -339,7 +343,7 @@ const MainPage = () => {
       </div>
       
       
-      {CreateError == "profile exists" && (
+      {CreateError === "profile exists" && (
         <div className={`notification notification-error`}>
           <div className="notification-content">
             Profile Already Exists          
@@ -347,7 +351,7 @@ const MainPage = () => {
         </div>
       )}
 
-      {CreateError == "no profile found" && (
+      {CreateError === "no profile found" && (
         <div className={`notification notification-error`}>
           <div className="notification-content">
             Your UplandID is not on our record. PLEASE MAKE SURE TO AUTHENTICATE FIRST        
@@ -355,7 +359,7 @@ const MainPage = () => {
         </div>
       )}
 
-      {profileCreated == "new" && (
+      {profileCreated === "new" && (
         <div className={`notification notification-success`}>
           <div className="notification-content">
             Profile Created!
@@ -363,7 +367,7 @@ const MainPage = () => {
         </div>
       )}
 
-      {profileCreated == "replaced" && (
+      {profileCreated === "replaced" && (
         <div className={`notification notification-success`}>
           <div className="notification-content">
             Lichess ID has been replaced!
@@ -371,7 +375,7 @@ const MainPage = () => {
         </div>
       )}
 
-      {profileCreated == "wrong password" && (
+      {profileCreated === "wrong password" && (
         <div className={`notification notification-error`}>
           <div>
             Can't replace Lichess ID! You need to enter the right password!
@@ -412,32 +416,47 @@ const MainPage = () => {
       )}
 
       {challengeError === -1 && (
-        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-          Invalid Upland ID...
+        <div className={`notification notification-error`}>
+          <div className="notification-content" backgroundColor="red">
+            Invalid Upland ID...
+          </div>
         </div>
       )}
 
       {challengeError === -2 && (
-        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-          Invalid Rating...
+        <div className={`notification notification-error`}>
+          <div className="notification-content" backgroundColor="red">
+            Invalid Rating...
+          </div>
         </div>
       )}
 
       {challengeError === -3 && (
-        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-          Invalid Wager...
+        <div className={`notification notification-error`}>
+          <div className="notification-content" backgroundColor="red">
+            Invalid Wager...
+          </div>
         </div>
       )}
 
       {challengeError === -4 && (
-        <div style={{ backgroundColor: 'red', color: '#fff', padding: '10px', margin: '10px', borderRadius: '5px' }}>
-          Sorry, but the amount you wagered exceeds your balance!
+        <div className={`notification notification-error`}>
+          <div className="notification-content" backgroundColor="red">
+            Sorry, but the amount you wagered exceeds your balance!
+          </div>
+        </div>
+      )}
+
+      {visitorError && (
+        <div className={`notification notification-error`}>
+          <div className="notification-content" backgroundColor="red">
+            YOUR LEVEL IS VISITOR! HAVE TO BE AT LEAST AN "UPLANDER" TO CREATE A CHALLENGE!
+          </div>
         </div>
       )}
 
 
 
-      
       <div style={{ marginTop: '100px', marginLeft: '20px'}}>
         <a href="https://reactnative.dev/docs/colors" > 
           Colors 

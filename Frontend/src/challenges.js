@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import './App.css'
 import HoverPopup from './hover.js'
@@ -7,6 +7,8 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
     const [acceptedChallenge, setAcceptedChallenges] = useState([]);
     const [successfullyDeleted, setsuccessfullyDeleted] = useState(false);
     const [blankUplandID, setBlankUplandID] = useState(false);
+    const [visitorError, setVisitorError] = useState(false);
+    const [challengeCancelled, setChallengeCancelled] = useState(false);
     
     const AcceptChallenge = async (UplandID, link, index) => {
       if (currentUserUplandID == "BLANK") {
@@ -15,15 +17,22 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
         return
       }
       
-      window.open(link, '_blank');
+      
       
       try {
-        await axios.post('/accepted', {
+        const res = await axios.post('/accepted', {
           link,
           currentUserUplandID,
           UplandID
         });
-  
+
+        if (res.data === -1) {
+          setVisitorError(true)
+          setTimeout(() => setVisitorError(false), 5000);
+          return
+        }
+
+        window.open(link, '_blank');
         setAcceptedChallenges([acceptedChallenge, index]);
       } catch (error) {
         console.error('Error:', error);
@@ -36,6 +45,9 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       try {
         await axios.post('/cancel', { link });
         setAcceptedChallenges(updatedAcceptedChallenges);
+
+        setChallengeCancelled(true)
+        setTimeout(() => setChallengeCancelled(false), 5000);
   
       } catch (error) {
         console.error('Error:', error);
@@ -158,6 +170,22 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
           <div className={`notification notification-error`}>
             <div className="notification-content">
               Need to be logged in to accept!
+            </div>
+          </div>
+        )}
+
+        {visitorError && (
+          <div className={`notification notification-error`}>
+            <div className="notification-content">
+              You are a visitor...need to be UPLANDER LEVEL AT LEAST to accept!
+            </div>
+          </div>
+        )}
+
+        {challengeCancelled && (
+          <div className={`notification notification-success`}>
+            <div className="notification-content">
+              Challenge Cancelled!
             </div>
           </div>
         )}
