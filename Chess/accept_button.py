@@ -5,6 +5,8 @@ from Chess.query_for_uplandID import QueryForUplandID
 
 from Upland.join_escrow_container import JoinEscrow
 from Upland.get_bearer_token import GetBearerToken
+from Upland.get_user_profile import GetUserProfile
+
 
 
 def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
@@ -22,13 +24,15 @@ def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
     workbook.close()
 
     
-    # if (challenger == accepter):
-    #     return -1 # You can't accept your own challenge!
+    if GetUserProfile(GetBearerToken(accepter))['level'] == "Visitor":
+        return -1
 
     bearer = GetBearerToken(accepter)
     eid = worksheet[challengeIdx][5].value
     wager = worksheet[challengeIdx][3].value
     
     JoinEscrow(bearer, eid, wager)
+
+    return 1
 
     # print(bearer, " ", eid, " ", wager)

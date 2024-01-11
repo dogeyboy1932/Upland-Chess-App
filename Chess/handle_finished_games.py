@@ -57,7 +57,9 @@ def HandleFinishedGames():
         return -1
 
     for game in finishedGames:
-        gameEnded(game)
+        if (gameEnded(game) == -1):
+            continue
+
         FindAndRemoveRow(game)
 
     return finishedGames

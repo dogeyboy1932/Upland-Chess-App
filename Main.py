@@ -28,7 +28,6 @@ app.logger.disabled = True
 
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
-    
     HandleFinishedGames() 
     arr = Iterate()
 
@@ -57,9 +56,13 @@ def Accepted():
     link = request.get_json().get('link')
     challenger = request.get_json().get('UplandID')
 
-    ChallengeAccepted(link, challenger, accepter)
+    res = ChallengeAccepted(link, challenger, accepter)
 
+    if (res == -1):
+        return "-1"
+        
     return ChallengeDatabase()
+
 
 
 @app.route('/cancel', methods=['POST'])
