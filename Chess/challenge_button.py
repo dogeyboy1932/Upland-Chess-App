@@ -36,6 +36,7 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
         return -4
     
     if GetUserProfile(GetBearerToken(uplandID))['level'] == "Visitor":
+        # print("VISITOR")
         return -5
    
     challenger = QueryForLichessID(uplandID)

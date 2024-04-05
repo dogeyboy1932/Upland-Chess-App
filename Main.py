@@ -45,7 +45,9 @@ def Auth():
 def Password():
     uplandID = request.get_json().get('uplandID')
 
-    return GetPassword(uplandID)
+    password = GetPassword(uplandID)
+    
+    return password
 
 
 @app.route('/accepted', methods=['POST'])
@@ -57,11 +59,8 @@ def Accepted():
     challenger = request.get_json().get('UplandID')
 
     res = ChallengeAccepted(link, challenger, accepter)
-
-    if (res == -1):
-        return "-1"
         
-    return ChallengeDatabase()
+    return str(res)
 
 
 

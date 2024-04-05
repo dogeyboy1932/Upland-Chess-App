@@ -12,6 +12,9 @@ from Upland.get_user_profile import GetUserProfile
 def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
+
+    if GetUserProfile(GetBearerToken(accepter))['level'] == "Visitor":
+        return -1
     
     for i in range(1, worksheet.max_row + 1):
         if worksheet[i][4].value == link:
@@ -22,11 +25,7 @@ def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
 
     workbook.save(cfilepath)
     workbook.close()
-
     
-    if GetUserProfile(GetBearerToken(accepter))['level'] == "Visitor":
-        return -1
-
     bearer = GetBearerToken(accepter)
     eid = worksheet[challengeIdx][5].value
     wager = worksheet[challengeIdx][3].value

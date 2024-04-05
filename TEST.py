@@ -1,7 +1,21 @@
 import http.client
-
-
 import json
+
+# from openpyxl import load_workbook
+# from Chess.FIXED_CHESS_VARIABLES import cfilepath
+
+# def AppendInitial():
+#     workbook = load_workbook(cfilepath)
+#     worksheet = workbook['Sheet']
+
+#     data = ["gameID", "challenger", "rating", "wager", "link", "escrowID", "accepter"]
+
+#     worksheet.append(data)
+
+#     workbook.save(cfilepath)
+#     workbook.close()
+
+
 
 
 def GetEscrowContainer(eid):
@@ -26,42 +40,42 @@ def GetEscrowContainer(eid):
     return data
 
 
-def JoinEscrow(bearerToken, containerId, upxAmount):
-    conn = http.client.HTTPSConnection("api.sandbox.upland.me")
-    payload = json.dumps({
-        "containerId": containerId,
-        "upxAmount": upxAmount,
-        "sparkAmount": 0,
-        "assets": [],
-    })
+# def JoinEscrow(bearerToken, containerId, upxAmount):
+#     conn = http.client.HTTPSConnection("api.sandbox.upland.me")
+#     payload = json.dumps({
+#         "containerId": containerId,
+#         "upxAmount": upxAmount,
+#         "sparkAmount": 0,
+#         "assets": [],
+#     })
 
-    bearer = 'Bearer ' + str(bearerToken)
+#     bearer = 'Bearer ' + str(bearerToken)
 
-    headers = {
-        # 'Authorization': str(bearer),
-        'Authorization': bearer,
-        'Content-Type': 'application/json',
-        'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
-    }
+#     headers = {
+#         # 'Authorization': str(bearer),
+#         'Authorization': bearer,
+#         'Content-Type': 'application/json',
+#         'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
+#     }
 
-    conn.request("POST", "/developers-api/User/join", payload, headers)
-    res = conn.getresponse()
+#     conn.request("POST", "/developers-api/User/join", payload, headers)
+#     res = conn.getresponse()
 
-    if res.status == 200 or res.status == 201:
-        data = json.loads(res.read().decode("utf-8"))
-        print("Joined Escrow! Transaction Hash:", data["transactionId"])
-        return "success"
-    else:
-        print(f'Request failed with status code {res.status}')
-        return "error"
+#     if res.status == 200 or res.status == 201:
+#         data = json.loads(res.read().decode("utf-8"))
+#         print("Joined Escrow! Transaction Hash:", data["transactionId"])
+#         return "success"
+#     else:
+#         print(f'Request failed with status code {res.status}')
+#         return "error"
 
 
 def run():
-    eid = 3334
+    eid = 3968
     # eid = CreateEscrowContainer()
-    print(eid)
+    # print(eid)
 
-    bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiYTUwZWIxZGEtMjI1ZS00MWY5LWFhM2ItN2M5NzQwZjUwZmY1IiwiaWF0IjoxNzA0OTk0MDk2fQ.xxnNviAMmuzmPz2R9cniCJ2BwZOTM6ya823dOjqhhAw'
+    # bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiYTUwZWIxZGEtMjI1ZS00MWY5LWFhM2ItN2M5NzQwZjUwZmY1IiwiaWF0IjoxNzA0OTk0MDk2fQ.xxnNviAMmuzmPz2R9cniCJ2BwZOTM6ya823dOjqhhAw'
 
     # JoinEscrow(bearer, eid, 50)
     print(GetEscrowContainer(eid))

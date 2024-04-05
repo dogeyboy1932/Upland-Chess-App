@@ -21,6 +21,7 @@ const submitDetails = async (rated, wager, upland) => {
 const challengeDatabase = async () => {
   try {
     const response = await axios.post('/database');
+    console.log(response)
       
     const challengeTable = response.data.array;
     const challengeData = []
@@ -46,10 +47,9 @@ const challengeDatabase = async () => {
     return challengeData
   } catch (error) {
     console.error('Error processing button click:', error);
+    return challengeDatabase()
   }
 };
-
-
 
 const MainPage = () => {
   const [authKey, setAuth] = useState('')
@@ -98,6 +98,7 @@ const MainPage = () => {
     setCreateOpen(true);
 
     const res = (await axios.post('/auth')).data
+    
     setAuth(res)
   };
 
@@ -137,7 +138,12 @@ const MainPage = () => {
   };
 
   const handleLogin = async () => {
-    const realPassword = (await axios.post('/password', {uplandID})).data;
+    let realPassword = (await axios.post('/password', {uplandID})).data;
+
+    console.log(realPassword)
+    console.log(password)
+
+    realPassword = realPassword + ""
 
     if (password === realPassword) {
       setLoggedIn(true)
@@ -178,12 +184,13 @@ const MainPage = () => {
   const resetChallenges = async () => {
     const challengeTableData = await challengeDatabase();
     setChallengesData(challengeTableData);
+    console.log("RESET")
   };
 
   useEffect(() => {
+    console.log("STARTING")
     resetChallenges();
   }, []);
-
 
   return (
     <>
@@ -200,8 +207,19 @@ const MainPage = () => {
         
         <div style={{padding: '15px', border: '4px solid #000', backgroundColor: '#f8f8ff', display: 'block' }}>
           <h3 style={{ fontFamily: 'monospace', fontSize: '1.35em', marginTop: '10px', color: '#000'}}>
-            <span style={{ color: '#ff6347' }}>**</span>If your chess challenge expires, HIT DELETE and it will be removed from the list and you'll be refunded
             <span style={{ color: '#ff6347' }}>**</span>
+              If your chess challenge expires, HIT DELETE and it will be removed from the list and you'll be refunded
+            <span style={{ color: '#ff6347' }}>**</span>
+          </h3>
+
+          <h3 style={{ fontFamily: 'monospace', fontSize: '1.35em', marginTop: '10px', color: '#000'}}>
+            <span style={{ color: '#ff6347' }}>WARNING:</span>
+              If you confirmed through Upland you want to accept a challenge, even if you CANCEL, you won't get your money back!!
+          </h3>
+        
+          <h3 style={{ fontFamily: 'monospace', fontSize: '1.35em', marginTop: '10px', color: '#000'}}>
+            <span style={{ color: 'blue' }}>Important:</span>
+              YOU MUST HAVE A LICHESS ACCOUNT!
           </h3>
         </div>
       </div>
@@ -246,7 +264,7 @@ const MainPage = () => {
               <br />
 
               <label htmlFor="create-username">Lichess ID: </label>
-              <input type="text" id="create-username" value={lichessID} onChange={(e) => setLichessID(e.target.value)} />
+              <input type="text" id="create-lichess" value={lichessID} onChange={(e) => setLichessID(e.target.value)} />
               (👈👈 If you want to change your LichessID, just resubmit it here)
               <br />
 

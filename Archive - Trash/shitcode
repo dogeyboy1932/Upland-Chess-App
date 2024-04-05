@@ -323,3 +323,31 @@
             # {/* <label htmlFor="name">Upland ID? </label>
             # <input type="text" id="wager" value={uplandID} onChange={(e) => setUpland(e.target.value)} />
             # <br /> */}
+
+
+
+# {/* <td>
+# {(!acceptedChallenge.includes(index)) ? (
+#   !(currentUserUplandID === challenge.uplandID) ? (
+#     <button
+#       onClick={() => AcceptChallenge(challenge.uplandID, challenge.link, index)}
+#       style={{backgroundColor: '#00ffff', color: '#000000'}}
+#     >
+#       Accept
+#     </button>
+#   ) : (
+#     <button
+#       onClick={() => DeleteChallenge(challenge.link, index)}
+#       style={{backgroundColor: 'red'}}
+#     >
+#       Delete
+#     </button>
+#   )
+# ) : (
+#   <button
+#     onClick={() => CancelChallenge(challenge.link, index)}
+#     style={{backgroundColor: 'orange'}}
+#   >
+#     Cancel
+#   </button>
+# )} */}

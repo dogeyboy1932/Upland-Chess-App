@@ -11,7 +11,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
     const [challengeCancelled, setChallengeCancelled] = useState(false);
     
     const AcceptChallenge = async (UplandID, link, index) => {
-      if (currentUserUplandID == "BLANK") {
+      if (currentUserUplandID === "BLANK") {
         setBlankUplandID(true)
         setTimeout(() => setBlankUplandID(false), 3000);
         return
@@ -58,7 +58,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       try {
         const res = await axios.post('/delete', { link });
         
-        if (res.data == 'Success') {
+        if (res.data === 'Success') {
           setsuccessfullyDeleted(true)
           setTimeout(() => setsuccessfullyDeleted(false), 5000);
         } 
@@ -67,7 +67,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
         console.error('Error:', error);
       }
     };
-  
+    
   
     return (
       <>
@@ -90,7 +90,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
               <tr key={index}> 
                 <td> {challenge.name} </td>           
                 
-                {challenge.uplandID == -1 ? (
+                {challenge.uplandID === -1 ? (
                   <td>
                     <HoverPopup text="**No UplandID associated w/ this Lichess account!** ">
                       <button style={{ backgroundColor: '#dc143c', color: 'white', padding: '5px', borderRadius: '3px', border: 'none' }}>
