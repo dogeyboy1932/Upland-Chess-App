@@ -8,7 +8,6 @@ from Upland.get_bearer_token import GetBearerToken
 from Upland.get_user_profile import GetUserProfile
 
 
-
 def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
@@ -31,6 +30,7 @@ def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
     wager = worksheet[challengeIdx][3].value
     
     JoinEscrow(bearer, eid, wager)
+
 
     return 1
 

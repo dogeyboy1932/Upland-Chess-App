@@ -11,7 +11,7 @@ const HoverPopup = ({ text, children }) => {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        style={{ position: 'relative', display: 'inline-block', backgroundColor: 'red'}}
+        style={{ position: 'relative', cursor: 'pointer'}}
       >
         
         {children}
@@ -19,13 +19,16 @@ const HoverPopup = ({ text, children }) => {
           <div
             style={{
               position: 'absolute',
-              top: '50%',
-              left: '50%',
-              backgroundColor: 'tan',
-              padding: '8px',
+              top: '75%',
+              left: '110%',
+              width: '500px', // Adjust width to your preference
+              height: '50%', // Adjust height to your preference
+              backgroundColor: 'white',
+              padding: '15px 20px',
               borderRadius: '4px',
               boxShadow: '0 0 5px rgba(0, 0, 0, 0.2)',
               zIndex: 1000,
+              
             }}
           >
             {text}

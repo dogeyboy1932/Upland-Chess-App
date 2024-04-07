@@ -102,6 +102,7 @@ def DrawResolveEscrow(escrowId, winnerId, loserId, credential, wager):
 
 
 def ResolveEscrow(eid, winner, loser, drawStatus, credential, wager):
+
     eid = str(eid)
     if drawStatus == "DRAW":
         return DrawResolveEscrow(eid, str(winner), str(loser), credential, wager)

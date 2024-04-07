@@ -12,7 +12,8 @@ from Upland.FIXED_VARIABLES import credential
 from Upland.FIXED_VARIABLES import filepath
 
 from Chess.render_database import Iterate
-from Chess.handle_finished_games import HandleFinishedGames
+from Chess.handle_finished_games import HandleFinishedGames 
+from Chess.handle_finished_games import UpdateBalances
 from Chess.challenge_button import ChallengeButtonClicked
 from Chess.accept_button import ChallengeAccepted
 from Chess.cancel_button import ChallengeCanceled
@@ -32,6 +33,8 @@ def ChallengeDatabase():
     arr = Iterate()
 
     encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
+    # print(encodedNumpyData)
+    UpdateBalances()
 
     return encodedNumpyData
 
@@ -46,7 +49,8 @@ def Password():
     uplandID = request.get_json().get('uplandID')
 
     password = GetPassword(uplandID)
-    
+    # print(password)
+
     return password
 
 
@@ -108,7 +112,7 @@ def respond():
         user_id = data['data']['userId']
         access_token = data['data']['accessToken']
 
-        # print(access_token)
+        print(access_token)
 
         CreateProfile(access_token, user_id)
 
@@ -116,6 +120,15 @@ def respond():
         print(df)
 
     return "success"
+
+
+@app.route('/test')
+def test():
+    response_body = {
+        "name": "Akhil",
+        "about" :"Hello! I'm a python stack developer"
+    }
+    return response_body
 
 
 def AddInitial():

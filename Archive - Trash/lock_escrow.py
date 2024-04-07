@@ -1,7 +1,7 @@
 
 
 def LockEscrow(eid, credential):
-    url = "/developers-api/containers/" + str(eid) + "/lock"
+    url = "/containers/" + str(eid) + "/lock"
 
     headers = {
         'Content-Type': 'application/json',
