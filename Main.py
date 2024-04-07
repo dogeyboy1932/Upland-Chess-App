@@ -29,6 +29,7 @@ app.logger.disabled = True
 
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
+    print("HERE")
     HandleFinishedGames() 
     arr = Iterate()
 

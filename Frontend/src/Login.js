@@ -153,22 +153,22 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
   
   
           {isCreateOpen && (
-            <div className='modal modalUser'>
+            <div className='modal modalUser modalCreate'>
               <span className="close" onClick={closeCreateProfileModal}>&times;</span>
               
               <div className='smallHeader'> Create Profile </div>
               <br /> 
 
-              <div style={{ display: 'flex'}}>
-                <div className="highlightedText" style={{marginRight:'15px'}}> 
+              <div className="flexContainer">
+                <div className="highlightedText"> 
                   FIRST SIGN IN ON UPLAND WITH THIS AUTH KEY: 
                 </div>
 
-                {(isGenerate ? (
+                {isGenerate ? (
                   <button onClick={getAuthCode} className="generateButton"> Generate Code </button>
                 ) : (
                   <div className="highlightedText highlight"> {authKey} </div>
-                ))}
+                )}
               </div>
               <br />         
               
@@ -199,7 +199,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
   
   
           {isLoginOpen && (
-            <div className='modal modalUser'>
+            <div className='modal modalUser modalLogin'>
               <span className="close" onClick={closeLoginModal}>&times;</span>
               <div className='smallHeader'> Login </div>
               <br/>

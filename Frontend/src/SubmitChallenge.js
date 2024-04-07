@@ -33,6 +33,7 @@ const SubmitChallenge = ({finalUserUplandID}) => {
 
     const handleChallengeSubmit = async () => {
         const res = await submitDetails(rated, wager, finalUserUplandID);
+        // console.log(res)
         
         if (res === 1) {
           setChallengeSubmitted(true);

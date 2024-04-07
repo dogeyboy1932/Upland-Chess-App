@@ -26,7 +26,7 @@ def GetUserBalance(upland_access_token):
 def UpdateBalance(upland_access_token):
     payload = ''
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiODVmZTQwMTUtYTYwZi00MWQ2LTk0ZmMtMmFlOGIzNWUyMWJlIiwiaWF0IjoxNzEyMzQyOTI5fQ.ka92uTcZJ4XMFYwVNbOqFMcHG3ppPZ7G6IHH9iaqR7U',
+        'Authorization': f'Bearer {upland_access_token}',
         'Cookie': 'sticky-session-1=1712345152.12.32.298740|9a5cc3e4d08faea009d8e16f5c97bee9'
     }
     
@@ -34,13 +34,16 @@ def UpdateBalance(upland_access_token):
     
     res = conn.getresponse()
     data = json.loads(res.read().decode("utf-8"))
-
+    
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']
 
     for i in range(1, worksheet.max_row + 1):
         if worksheet[i][4].value == upland_access_token:
-            worksheet[i][3].value = data['availableUpx']
+            try:
+                worksheet[i][3].value = data['availableUpx']
+            except:
+                print("DIDNT WORK")
 
     workbook.save(filepath)
     workbook.close()

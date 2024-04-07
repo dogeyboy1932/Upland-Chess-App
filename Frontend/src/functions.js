@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const ChallengeDatabase = async () => {
     try {
       const response = await axios.post('/database');
-      // console.log(response)
+      console.log(response)
         
       const challengeTable = response.data.array;
       const challengeData = []
