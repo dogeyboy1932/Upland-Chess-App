@@ -8,8 +8,8 @@
 /coverage
 
 # production
-/build
-/__pycache__
+frontend/build
+__pycache__
 
 # misc
 .DS_Store
@@ -24,4 +24,4 @@ yarn-error.log*
 
 Archive - Trash
 frontend/node_modules
-XL Spreadsheets
+XL Spreadsheets1
