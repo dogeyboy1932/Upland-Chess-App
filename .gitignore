@@ -9,6 +9,7 @@
 
 # production
 /build
+/__pycache__
 
 # misc
 .DS_Store
@@ -21,6 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+Archive - Trash
+frontend/node_modules
 XL Spreadsheets
-Archive - Trash copy1
-node_modules
