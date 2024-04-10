@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css'
-import ChessChallengesTable from './Database.js'
-// import UserSection, { currentUserUplandID } from './login.js'
-import styled from 'styled-components';
-
+import './../App.css'
 
 const ChallengeDatabase = async () => {
     try {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'
-import ChessChallengesTable from './Database.js'
-import { ChallengeDatabase } from './functions.js';
-import { UserSection } from './Login.js'; // Import UserSection from Login component
-import { SubmitChallenge } from './SubmitChallenge.js';
+import ChessChallengesTable from './Sections/Database.js'
+import { ChallengeDatabase } from './Helpers/functions.js';
+import { UserSection } from './Sections/Login.js'; // Import UserSection from Login component
+import { SubmitChallenge } from './Sections/SubmitChallenge.js';
 
 const MainPage = () => {
   const [challengeData, setChallengesData] = useState([]);

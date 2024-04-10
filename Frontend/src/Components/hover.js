@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css'
+import './../App.css'
 
 const HoverPopup = ({ text, children }) => {
     const [isHovered, setHovered] = useState(false);

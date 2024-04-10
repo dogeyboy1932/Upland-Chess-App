@@ -1,7 +1,8 @@
 import React, { useState} from 'react';
 import axios from 'axios';
-import './App.css'
-import HoverPopup from './hover.js'
+
+import HoverPopup from '../Components/hover.js'
+import './../App.css'
 
 
 const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext, createContext} from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-import './App.css'
-import {ChallengeDatabase} from './functions';
-import HoverPopup from './hover';
 
+import {ChallengeDatabase} from '../Helpers/functions';
+import HoverPopup from '../Components/hover';
+import './../App.css'
 
 const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const [isDataLoading, setIsDataLoading] = useState(false); // Need to work on 
@@ -132,15 +132,15 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
               )}
             </div>
 
-            <div>
+            <div >
               <div className="detail detail-box">
                 Registered Upland ID:
               </div>
-
               <div className="detail detail-value">
                 {currentUserUplandID}
               </div>
             </div>
+
 
             <div>
               <button onClick={resetChallenges} className='resetButton'>
@@ -159,7 +159,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
               <div className='smallHeader'> Create Profile </div>
               <br /> 
 
-              <div className="flexContainer">
+              <div style={{display: 'flex'}}>
                 <div className="highlightedText"> 
                   FIRST SIGN IN ON UPLAND WITH THIS AUTH KEY: 
                 </div>
