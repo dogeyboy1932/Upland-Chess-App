@@ -14,7 +14,8 @@ accessKey = "ad331091-4762-4fe1-b40f-1d4ca0d02d9f"
 credential = base64.b64encode(f'{appID}:{accessKey}'.encode('utf-8')).decode('utf-8')
 
 
-cfilepath = "/Users/gogin/Desktop/ChessApp/ChessApp VS Code/XL Spreadsheets/ChallengeMap.xlsx"
+# cfilepath = "/root/ChessApp/XL Spreadsheets/ChallengeMap.xlsx"
+cfilepath = r"/Users/gogin/Desktop/ChessApp/ChessApp VS Code/XL Spreadsheets/ChallengeMap.xlsx"
 
 
 logger = logging.getLogger('werkzeug')

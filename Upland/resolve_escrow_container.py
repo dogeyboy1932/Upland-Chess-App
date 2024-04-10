@@ -5,10 +5,13 @@ from Upland.FIXED_VARIABLES import conn
 from Upland.get_escrow_container import GetEscrowContainer
 
 
-def WinResolveEscrow(escrowId, winnerId, loserId, credential):
+def WinResolveEscrow(escrowId, winnerId, loserId, credential, wager):
     url = "/developers-api/containers/" + escrowId + "/resolve"
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
+
+    if totalUpx != wager * 2:
+        return -1
 
     payload = json.dumps({
         "actions": [
@@ -51,10 +54,13 @@ def WinResolveEscrow(escrowId, winnerId, loserId, credential):
     
 
 
-def DrawResolveEscrow(escrowId, winnerId, loserId, credential):
+def DrawResolveEscrow(escrowId, winnerId, loserId, credential, wager):
     url = "/developers-api/containers/" + escrowId + "/resolve"
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
+
+    if totalUpx != wager * 2:
+        return -1
 
     payload = json.dumps({
         "actions": [
@@ -95,12 +101,13 @@ def DrawResolveEscrow(escrowId, winnerId, loserId, credential):
         return "error"
 
 
-def ResolveEscrow(eid, winner, loser, drawStatus, credential):
+def ResolveEscrow(eid, winner, loser, drawStatus, credential, wager):
+
     eid = str(eid)
     if drawStatus == "DRAW":
-        DrawResolveEscrow(eid, str(winner), str(loser), credential)
+        return DrawResolveEscrow(eid, str(winner), str(loser), credential, wager)
     else:
-        WinResolveEscrow(eid, str(winner), str(loser), credential)
+        return WinResolveEscrow(eid, str(winner), str(loser), credential, wager)
 
 
 def run():

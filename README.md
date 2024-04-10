@@ -1,10 +1,8 @@
 Akhil - Rough Notes
 
 
-3 THINGS TO RUN THIS
- - npm start on FRONTEND DIRECTORY!
- - run the main python file
- - open a terminal and run "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000"
+TO RUN THIS:
+ - "npm start" on FRONTEND DIRECTORY!
 
 
 To do:
@@ -88,3 +86,51 @@ FRONEND DEV LINKS:
 
 Run the button_clicks python file
 Run the frontend... npm start inside FRONTEND directory on cmd
+
+
+
+// "start:ngrok": "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000",
+
+start:ngrok
+
+
+
+
+ssh root@146.190.145.45
+,u5v+bfBhGC!CPB
+
+
+
+
+#IGNORE
+const reportWebVitals = onPerfEntry => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
+
+export default reportWebVitals;
+
+
+
+// pip install -r requirements.txt
+
+        "package": "pip install -r package-list.txt && start",
+
+
+ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000
+
+
+Problems w/ Chess App:
+ - Rest APIs (Berserk, figuring out authentication, escrows, etc)
+ - Flask (routing msgs to backend)
+ - Python (libraries like openpyxl, pandas, http.client, making API calls)
+ - React.js + a little CSS
+ - Webhooks (forwarding, tunnels  <- This took too long)
+ - Integration!!!

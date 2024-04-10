@@ -1,0 +1,6 @@
+pandas
+flask
+openpyxl
+berserk
+flask_cors
+react-bootstrap bootstrap

@@ -11,13 +11,14 @@ def FillProfile(uplandID, lichessID, password):
 
     id_index = QueryUplandIDRow(uplandID)
 
+    if (id_index == -1):
+        return 'no profile found'
+
     lichessRating = GetLichessRating(lichessID, "rapid")  # For now, we'll stick with Rapid
 
     prof_pass = worksheet[id_index][6].value
-
-    if (id_index == -1):
-        return 'no profile found'
-    elif (prof_pass != "null" and lichessID != worksheet[id_index][0].value):
+    
+    if (prof_pass != "null" and lichessID != worksheet[id_index][0].value):
         if (prof_pass == password):
             ReplaceProfileSmall(id_index, lichessID)
             return 'replaced'

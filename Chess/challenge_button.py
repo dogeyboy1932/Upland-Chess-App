@@ -8,7 +8,9 @@ from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.join_escrow_container import JoinEscrow
 from Upland.get_bearer_token import GetBearerToken
 from Upland.query_spreadsheet import QueryForLichessID
+from Upland.get_bearer_token import GetBearerToken
 from Upland.get_user_balance import GetUserBalanceOnSheet
+from Upland.get_user_profile import GetUserProfile
 
 
 # FRONTEND DEPENDENT
@@ -33,6 +35,9 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
         # print("NOT ENOUGH BALANCE")
         return -4
     
+    if GetUserProfile(GetBearerToken(uplandID))['level'] == "Visitor":
+        # print("VISITOR")
+        return -5
    
     challenger = QueryForLichessID(uplandID)
     speed = "rapid"  
