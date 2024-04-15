@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 
-import {ChallengeDatabase} from '../Helpers/functions';
+import {RenderDatabase} from '../Helpers/functions';
 import HoverPopup from '../Components/hover';
 import './../App.css'
 
@@ -23,6 +23,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const [loggedInNotif, setLoggedIn] = useState(false);
     const [CreateError, setCreateError] = useState("default")
     const [LoginError, setLoginError] = useState(false)
+    const [LichessError, setLichessError] = useState(false)
   
     setFinalUserUplandID(currentUserUplandID) 
 
@@ -31,6 +32,9 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       let realPassword = (await axios.post('/password', {uplandID})).data;
 
       realPassword = realPassword + ""
+
+      // console.log(realPassword)
+      // console.log(password)
   
       if (password === realPassword) {
           
@@ -63,20 +67,26 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       } else if (res === "replaced") {
         setProfileCreated(res)
         setTimeout(() => setProfileCreated("default"), 3000);
+        handleLogin()
       } else if (res === "no profile found") {
         setCreateError(res)
         setTimeout(() => setCreateError("default"), 3000);
+      } else if (res === "invalid lichess") {
+        setLichessError(res)
+        setTimeout(() => setLichessError("default"), 3000);
       } else {
         setProfileCreated("new")
         setTimeout(() => setProfileCreated("default"), 3000);
-        closeCreateProfileModal();
         handleLogin()
       }
+
+      closeCreateProfileModal();
     };
-  
+    
+    // FIX THIS
     const resetChallenges = async () => {
       setIsDataLoading(true);
-      const challengeTableData = await ChallengeDatabase();
+      const challengeTableData = await RenderDatabase();
       setIsDataLoading(false);
 
       setChallengesData(challengeTableData);
@@ -91,7 +101,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
 
     const openCreateProfileModal = async () => {
       setLoginOpen(false)
-      setCreateOpen(true);
+      setCreateOpen(!isCreateOpen);
     };
   
     const closeCreateProfileModal = async () => {
@@ -101,7 +111,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
   
 
     const openLoginModal = async () => {
-      setLoginOpen(true);
+      setLoginOpen(!isLoginOpen);
       setCreateOpen(false);
       setIsGenerate(true)
     };
@@ -186,11 +196,11 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
                 <input type="text" id="create-lichess" value={lichessID} className='user-input' onChange={(e) => setLichessID(e.target.value)} />
                   
                 {/* Make this a component */}
-                <HoverPopup text="👈👈 If you want to change your LichessID, just resubmit it here">
+                {/* <HoverPopup text="👈👈 If you want to change your LichessID, just resubmit it here">
                   <div  className='infoBox' htmlFor="create-username" style={{marginLeft: '25px'}}>
                     *?
                   </div>
-                </HoverPopup>
+                </HoverPopup> */}
               </div>
               <br />
 
@@ -262,6 +272,13 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
           {loggedInNotif && (
             <div className={`notification notification-success`}>
               Logged In!
+            </div>
+          )}
+
+          
+          {LichessError && (
+            <div className={`notification notification-error`}>
+              Invalid Lichess ID!
             </div>
           )}
       </>

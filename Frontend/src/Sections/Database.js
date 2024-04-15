@@ -99,7 +99,6 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                       </div>
                     </HoverPopup>
                   </td>
-                  // style={{ backgroundColor: '#dc143c', color: 'white', padding: '5px', borderRadius: '3px', border: 'none' }}
                 ) : (
                   <td> {challenge.uplandID} </td>
                 )}
@@ -115,7 +114,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                 </td>
   
                 <td >
-                  {(acceptedChallenge.includes(index) || challenge.accepted) ? (
+                  {(acceptedChallenge.includes(index) && challenge.accepted) ? (
                     <span className='textOutliner accepted'>
                       Accepted
                     </span>
@@ -127,7 +126,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                 </td>
   
                 <td>
-                  {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && (
+                  {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && !(challenge.uplandID === -1) && (
                     <button 
                       onClick={() => AcceptChallenge(challenge.uplandID, challenge.link, index)}
                       className='acceptButton'
@@ -152,6 +151,12 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                     >
                       Cancel
                     </button>
+                  )}
+
+                  {challenge.uplandID === -1 && (
+                    <div className='textOutliner warning'>
+                      Invalid
+                    </div>
                   )}
                 </td>
   

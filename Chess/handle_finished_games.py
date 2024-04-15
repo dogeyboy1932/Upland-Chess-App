@@ -1,12 +1,9 @@
 from openpyxl import load_workbook
 import pandas as pd
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
-from Upland.FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import cfilepath
 from Chess.isGameFinished import isGameFinished
 from Chess.game_ended import gameEnded
 from Upland.refund_escrow import RefundEscrowContainer
-from Upland.get_user_balance import UpdateBalance
-
 
 
 def ChallengeDeleted(link):  # <- Delete Button clicked
@@ -40,15 +37,6 @@ def FindAndRemoveRow(gameID):
 
     workbook.save(cfilepath)
     workbook.close()
-
-
-def UpdateBalances():
-    workbook = load_workbook(filepath)
-    worksheet = workbook['Sheet']
-
-    for i in range(2, worksheet.max_row + 1):
-        if (worksheet[i][4].value != None):
-            UpdateBalance(worksheet[i][4].value)
             
 
 def HandleFinishedGames():
@@ -58,13 +46,12 @@ def HandleFinishedGames():
     finishedGames = []
 
     for i in range(2, worksheet.max_row + 1):
-        # print(worksheet[i][0].value)
         if isGameFinished(worksheet[i][0].value):
             finishedGames.append(worksheet[i][0].value)
 
     if not finishedGames:
         return -1
-
+    
     for game in finishedGames:
         if (gameEnded(game) == -1):
             continue

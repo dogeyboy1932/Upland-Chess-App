@@ -1,4 +1,4 @@
-from Chess.FIXED_CHESS_VARIABLES import client
+from FIXED_VARIABLES import client
 
 
 def GameWinner(gameID):

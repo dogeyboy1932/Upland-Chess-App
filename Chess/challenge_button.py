@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from FIXED_VARIABLES import cfilepath
 from Chess.create_open_challenge import CreateOpenChallenge
 from Chess.append_challenge import AppendChallenge
 from Chess.query_challenge_idx import GetChallengeIdx
@@ -35,9 +35,15 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
         # print("NOT ENOUGH BALANCE")
         return -4
     
-    if GetUserProfile(GetBearerToken(uplandID))['level'] == "Visitor":
-        # print("VISITOR")
+    try: 
+        GetUserProfile(GetBearerToken(uplandID))['level']
+    except:
+        print("BEARER TOKEN IS INVALID")
         return -5
+
+    if GetUserProfile(GetBearerToken(uplandID))['level'] == "Visitor":
+        print("VISITOR")
+        return -6
    
     challenger = QueryForLichessID(uplandID)
     speed = "rapid"  

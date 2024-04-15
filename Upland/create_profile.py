@@ -24,6 +24,6 @@ def CreateProfile(access_token, user_id):
         AppendProfile(PROFILE)
     else:
         # If profile exists? It is replaced w/ updated lichessID
-        ReplaceProfileSmall(uplandIdx, "BLANK")
+        ReplaceProfileSmall(uplandIdx, "BLANK", bearer_token)
     
     # ONE LICHESS ACCOUNT PER UPLAND USER...IF HE KEEPS CHANGING HIS ACCOUNT HE'LL BE REMOVED!

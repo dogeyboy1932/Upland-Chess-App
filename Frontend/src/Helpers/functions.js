@@ -1,11 +1,12 @@
 import axios from 'axios';
 import './../App.css'
 
-const ChallengeDatabase = async () => {
+const RenderDatabase = async () => {
     try {
+      // console.log("TESTING")
       const response = await axios.post('/database');
-      // console.log(response)
-    
+      // console.log(response);
+      
       const challengeTable = response.data.array;
       const challengeData = []
   
@@ -30,8 +31,8 @@ const ChallengeDatabase = async () => {
       return challengeData
     } catch (error) {
       console.error('Error processing button click:', error);
-      return ChallengeDatabase()
+      return RenderDatabase()
     }
   };
 
-export {ChallengeDatabase};
+export {RenderDatabase};

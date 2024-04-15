@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from FIXED_VARIABLES import cfilepath
 from Chess.query_for_uplandID import QueryForUplandID
 
 from Upland.join_escrow_container import JoinEscrow

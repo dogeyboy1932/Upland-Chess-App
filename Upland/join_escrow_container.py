@@ -1,5 +1,5 @@
 from Upland.create_escrow_container import CreateEscrowContainer
-from Upland.FIXED_VARIABLES import conn
+from FIXED_VARIABLES import conn
 import json
 
 

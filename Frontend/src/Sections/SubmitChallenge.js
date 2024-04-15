@@ -26,6 +26,7 @@ const SubmitChallenge = ({finalUserUplandID}) => {
     const [challengeSubmitted, setChallengeSubmitted] = useState(false);
     const [challengeError, setChallengeError] = useState("-1");
     const [visitorError, setVisitorError] = useState(false);
+    const [invalidBearerError, setInvalidBearerError] = useState(false);
     
     const [rated, setRated] = useState('');
     const [wager, setWager] = useState('');
@@ -43,6 +44,9 @@ const SubmitChallenge = ({finalUserUplandID}) => {
           setChallengeError(res);
           setTimeout(() => setChallengeError(1), 5000);
         } else if (res === -5) {
+          setInvalidBearerError(true);
+          setTimeout(() => setInvalidBearerError(false), 5000);
+        } else if (res === -6) {
           setVisitorError(true);
           setTimeout(() => setVisitorError(false), 5000);
         }
@@ -54,7 +58,7 @@ const SubmitChallenge = ({finalUserUplandID}) => {
           setTimeout(() => setNeedLogin(false), 3000);
           return 
         }
-        setChallengeOpen(true);
+        setChallengeOpen(!isChallengeOpen);
     };
 
     const closeChallengeModal = () => {
@@ -127,6 +131,12 @@ const SubmitChallenge = ({finalUserUplandID}) => {
             {visitorError && (
                 <div className={`notification notification-error`}>
                 YOUR LEVEL IS VISITOR! HAVE TO BE AT LEAST AN "UPLANDER" TO CREATE A CHALLENGE!
+                </div>
+            )}
+
+            {invalidBearerError && (
+                <div className={`notification notification-error`}>
+                YOUR BEARER TOKEN IS INVALID. You need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
                 </div>
             )}
         </div> 

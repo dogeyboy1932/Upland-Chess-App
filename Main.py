@@ -8,17 +8,17 @@ from Upland.query_spreadsheet import QueryUplandIDRow
 from Upland.auth_code import Verify
 from Upland.query_spreadsheet import GetPassword
 from Upland.fill_profile import FillProfile
-from Upland.FIXED_VARIABLES import credential
-from Upland.FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import credential
+from FIXED_VARIABLES import filepath
 
 from Chess.render_database import Iterate
+from Chess.render_database import UpdateBalances
 from Chess.handle_finished_games import HandleFinishedGames 
-from Chess.handle_finished_games import UpdateBalances
 from Chess.challenge_button import ChallengeButtonClicked
 from Chess.accept_button import ChallengeAccepted
 from Chess.cancel_button import ChallengeCanceled
 from Chess.handle_finished_games import ChallengeDeleted
-from Chess.FIXED_CHESS_VARIABLES import NumpyArrayEncoder
+from FIXED_VARIABLES import NumpyArrayEncoder
 
 from flask_cors import CORS 
 
@@ -29,13 +29,15 @@ app.logger.disabled = True
 
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
-    # print("HERE")
     HandleFinishedGames() 
-    arr = Iterate()
 
-    encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
-    # print(encodedNumpyData)
     UpdateBalances()
+
+    arr = Iterate()
+    
+    encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
+    
+    
 
     return encodedNumpyData
 
@@ -96,6 +98,7 @@ def Credentials():
 
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
+    
     data = request.get_json()
 
     uplandID = data.get('upland')

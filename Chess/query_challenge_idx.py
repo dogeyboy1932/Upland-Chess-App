@@ -1,4 +1,4 @@
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from FIXED_CHESS_VARIABLES import cfilepath
 from openpyxl import load_workbook
 
 

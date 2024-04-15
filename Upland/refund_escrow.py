@@ -1,5 +1,5 @@
-from Upland.FIXED_VARIABLES import conn
-from Upland.FIXED_VARIABLES import credential
+from FIXED_VARIABLES import conn
+from FIXED_VARIABLES import credential
 import json;
 
 def RefundEscrowContainer(escrowId):

@@ -1,7 +1,7 @@
 import json
 import base64
-from Upland.FIXED_VARIABLES import primeEOS
-from Upland.FIXED_VARIABLES import conn
+from FIXED_VARIABLES import primeEOS
+from FIXED_VARIABLES import conn
 from Upland.get_escrow_container import GetEscrowContainer
 
 
@@ -10,8 +10,8 @@ def WinResolveEscrow(escrowId, winnerId, loserId, credential, wager):
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
 
-    if totalUpx != wager * 2:
-        return -1
+    # if totalUpx != wager * 2:
+    #     return -1
 
     payload = json.dumps({
         "actions": [

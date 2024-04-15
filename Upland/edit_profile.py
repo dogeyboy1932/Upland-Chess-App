@@ -1,13 +1,14 @@
 from openpyxl import load_workbook
-from Upland.FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import filepath
 from Upland.query_spreadsheet import QueryUplandIDRow
 
 
-def ReplaceProfileSmall(uplandIdx, lichessID):
+def ReplaceProfileSmall(uplandIdx, lichessID, newBearer):
    workbook = load_workbook(filepath)
    worksheet = workbook['Sheet']
 
    worksheet[uplandIdx][0].value = lichessID
+   worksheet[uplandIdx][4].value = newBearer
 
    workbook.save(filepath)
    workbook.close()

@@ -1,5 +1,5 @@
-from Upland.FIXED_VARIABLES import conn
-from Upland.FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import conn
+from FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 import json
 
@@ -30,11 +30,20 @@ def UpdateBalance(upland_access_token):
         'Cookie': 'sticky-session-1=1712345152.12.32.298740|9a5cc3e4d08faea009d8e16f5c97bee9'
     }
     
-    conn.request("GET", "/developers-api/user/balances", payload, headers)
+    try:
+        conn.request("GET", "/developers-api/user/balances", payload, headers)
+        res = conn.getresponse()
     
-    res = conn.getresponse()
-    data = json.loads(res.read().decode("utf-8"))
-    
+        data = json.loads(res.read().decode("utf-8"))
+        # print(data)
+        try: 
+            var = data['statusCode']
+            return
+        except:
+            var = 1
+    except:
+        print("DIDN'T WORK")
+
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']
 
@@ -43,11 +52,10 @@ def UpdateBalance(upland_access_token):
             try:
                 worksheet[i][3].value = data['availableUpx']
             except:
-                print("DIDNT WORK")
+                print("availableUpx call failed")
 
     workbook.save(filepath)
     workbook.close()
-
 
     
 def GetUserBalanceOnSheet(uplandID):

@@ -1,4 +1,4 @@
-from Upland.FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
 import pandas as pd
 

@@ -1,9 +1,12 @@
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from openpyxl import load_workbook
 import pandas as pd
+
+from FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import cfilepath
 from Chess.query_for_uplandID import QueryForUplandID
+from Upland.get_user_balance import UpdateBalance
 
 # FRONTEND DEPENDENT <- Translates spreadsheet into frontend database
-
 
 def Iterate():
     df = pd.read_excel(cfilepath, usecols='B:H,')
@@ -15,6 +18,15 @@ def Iterate():
     
     return res
 
+
+def UpdateBalances():
+    workbook = load_workbook(filepath)
+    worksheet = workbook['Sheet']
+
+    for i in range(2, worksheet.max_row + 1):
+        if (worksheet[i][4].value != None):
+            # print(worksheet[i][4].value)
+            UpdateBalance(worksheet[i][4].value)
 
 def run():
     Iterate()

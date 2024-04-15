@@ -1,5 +1,5 @@
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
-from Chess.FIXED_CHESS_VARIABLES import credential
+from FIXED_VARIABLES import cfilepath
+from FIXED_VARIABLES import credential
 from openpyxl import load_workbook
 from Chess.game_winner import GameWinner
 from Upland.query_spreadsheet import QueryForEOSID
@@ -29,8 +29,6 @@ def gameEnded(gameID):
     # print(GetEscrowContainer(eid))
 
     return ResolveEscrow(eid, winnerID, loserID, drawStatus, credential, wager)
-
-    
 
 def run():
     gameId = "W26Ykr8M"

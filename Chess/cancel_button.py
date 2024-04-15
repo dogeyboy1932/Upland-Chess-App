@@ -1,4 +1,4 @@
-from Chess.FIXED_CHESS_VARIABLES import cfilepath
+from FIXED_VARIABLES import cfilepath
 from openpyxl import load_workbook
 from Upland.refund_escrow import RefundEscrowContainer
 from Upland.get_escrow_container import GetEscrowContainer

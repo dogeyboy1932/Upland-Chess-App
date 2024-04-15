@@ -1,6 +1,6 @@
 # import requests
 import base64
-from Upland.FIXED_VARIABLES import conn
+from FIXED_VARIABLES import conn
 import json
 
 
