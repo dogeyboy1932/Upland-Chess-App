@@ -7,7 +7,7 @@ import HoverPopup from '../Components/hover';
 import './../App.css'
 
 const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
-    const [isDataLoading, setIsDataLoading] = useState(false); // Need to work on 
+    // const [isDataLoading, setIsDataLoading] = useState(false); // Need to work on 
   
     const [authKey, setAuth] = useState('')
     const [uplandID, setUplandID] = useState('');
@@ -29,7 +29,6 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
   
     setFinalUserUplandID(currentUserUplandID) 
 
-      
     const handleLogin = async () => {
       let realPassword = (await axios.post('/password', {uplandID})).data;
 
@@ -88,16 +87,6 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
 
       closeCreateProfileModal();
     };
-    
-    // FIX THIS [Spinning Thing]
-    const resetChallenges = async () => {
-      setIsDataLoading(true);
-      const challengeTableData = await RenderDatabase();
-      setIsDataLoading(false);
-
-      setChallengesData(challengeTableData);
-      // console.log(challengeTableData)
-    };
 
     const getAuthCode = async () => {
       const res = (await axios.post('/auth')).data
@@ -135,6 +124,19 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       setUplandID("")
     }
 
+
+
+    // FIX THIS [Spinning Thing]
+    const resetChallenges = async () => {
+      // setIsDataLoading(true);
+      const challengeTableData = await RenderDatabase();
+      // setIsDataLoading(false);
+
+      setChallengesData(challengeTableData);
+      // console.log(challengeTableData)
+    };
+    
+    
     return (
       <>
         <div className='userSection'>
@@ -292,7 +294,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
           )}
 
           
-          {LichessError == "invalid lichess" && (
+          {LichessError === "invalid lichess" && (
             <div className={`notification notification-error`}>
               Can't replace LichessID! If you need to change, DM @icebear120 on discord for help
             </div>
