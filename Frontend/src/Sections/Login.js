@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import axios from 'axios';
 
 import {RenderDatabase} from '../Helpers/functions';
-// import HoverPopup from '../Components/hover';
+import HoverPopup from '../Components/hover';
 
 import './../App.css'
 
@@ -14,6 +14,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const [lichessID, setLichessID] = useState('');
     const [password, setPassword] = useState('');
     const [currentUserUplandID, setCurrentUserUplandID] = useState('BLANK');
+    const [currentUserLichessID, setCurrentUserLichessID] = useState('BLANK');
   
     const [isCreateOpen, setCreateOpen] = useState(false);
     const [isLoginOpen, setLoginOpen] = useState(false);
@@ -42,8 +43,12 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
         setLoggedIn(true)
         setTimeout(() => 
           setLoggedIn(false), 3000)      
+
+        let lichessID = (await axios.post('/getLichessID', {uplandID})).data;
   
         setCurrentUserUplandID(uplandID)
+        setCurrentUserLichessID(lichessID)
+
         setLogoutButton(true)
         closeLoginModal();
       } else {
@@ -84,7 +89,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       closeCreateProfileModal();
     };
     
-    // FIX THIS
+    // FIX THIS [Spinning Thing]
     const resetChallenges = async () => {
       setIsDataLoading(true);
       const challengeTableData = await RenderDatabase();
@@ -124,6 +129,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
   
     const Logout = async () => {
       setCurrentUserUplandID("BLANK") 
+      setCurrentUserLichessID("BLANK") 
       setLogoutButton(false)
       setPassword("")
       setUplandID("")
@@ -153,8 +159,15 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
               <div className="detail detail-box">
                 Registered Upland ID:
               </div>
-              <div className="detail detail-value">
+              <div className="detail detail-value" style={{marginRight: '25px'}}>
                 {currentUserUplandID}
+              </div>
+
+              <div className="detail detail-box" >
+                Registered Lichess ID:
+              </div>
+              <div className="detail detail-value">
+                {currentUserLichessID}
               </div>
             </div>
 
@@ -177,10 +190,10 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
               <br /> 
 
               <div style={{display: 'flex'}}>
-                <div className="highlightedText"> 
+                <div className="highlightedText" style={{marginRight: '20px'}}> 
                   FIRST SIGN IN ON UPLAND WITH THIS AUTH KEY: 
                 </div>
-
+                
                 {isGenerate ? (
                   <button onClick={getAuthCode} className="generateButton"> Generate Code </button>
                 ) : (
@@ -197,12 +210,13 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
                 <label className='important' htmlFor="create-username">Lichess ID:</label>
                 <input type="text" id="create-lichess" value={lichessID} className='user-input' onChange={(e) => setLichessID(e.target.value)} />
                   
-                {/* Make this a component */}
-                {/* <HoverPopup text="👈👈 If you want to change your LichessID, just resubmit it here">
-                  <div  className='infoBox' htmlFor="create-username" style={{marginLeft: '25px'}}>
-                    *?
+                <HoverPopup text=
+                  "👈👈 If you want to change your LichessID, reach @icebear120 for help"
+                >
+                  <div className='infoBox' htmlFor="create-username" style={{marginLeft: '25px'}}>
+                    *Replace?
                   </div>
-                </HoverPopup> */}
+                </HoverPopup>
               </div>
               <br />
 
@@ -278,9 +292,9 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
           )}
 
           
-          {LichessError && (
+          {LichessError == "invalid lichess" && (
             <div className={`notification notification-error`}>
-              Invalid Lichess ID!
+              Can't replace LichessID! If you need to change, DM @icebear120 on discord for help
             </div>
           )}
       </>

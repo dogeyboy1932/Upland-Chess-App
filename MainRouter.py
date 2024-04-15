@@ -8,7 +8,7 @@ from Upland.auth_code import Verify
 from Upland.create_profile import CreateProfile
 from Upland.SpreadsheetEditing.edit_profile import AppendProfileHeader
 from Upland.SpreadsheetEditing.fill_profile import FillProfile
-from Upland.SpreadsheetEditing.query_spreadsheet import GetPassword
+from Upland.SpreadsheetEditing.query_spreadsheet import GetPassword, QueryForLichessID
 
 from Chess.append_challenge import AppendChallengeHeader
 from Chess.render_database import Iterate, UpdateBalances
@@ -27,15 +27,11 @@ app.logger.disabled = True
 @app.route('/database', methods=['POST'])
 def ChallengeDatabase():
     HandleFinishedGames() 
-
     UpdateBalances()
 
     arr = Iterate()
-    
     encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
     
-    
-
     return encodedNumpyData
 
 
@@ -52,6 +48,13 @@ def Password():
     # print(password)
 
     return password
+
+
+@app.route('/getLichessID', methods=['POST'])
+def GetLichessID():
+    uplandID = request.get_json().get('uplandID')
+
+    return QueryForLichessID(uplandID)
 
 
 @app.route('/accepted', methods=['POST'])
