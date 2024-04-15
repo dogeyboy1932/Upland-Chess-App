@@ -1,6 +1,5 @@
 # import requests
-import base64
-from FIXED_VARIABLES import conn
+from FIXED_VARIABLES import conn, credential
 import json
 
 
@@ -24,11 +23,6 @@ def Verify(credential):
 
 
 def run():
-    app_id = "232"
-    key = "ad331091-4762-4fe1-b40f-1d4ca0d02d9f"
-
-    credential = base64.b64encode(f'{app_id}:{key}'.encode('utf-8')).decode('utf-8')
-
     Verify(credential)
 
 

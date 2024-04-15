@@ -1,14 +1,13 @@
 from openpyxl import load_workbook
 
 from FIXED_VARIABLES import cfilepath
-from Chess.query_for_uplandID import QueryForUplandID
 
 from Upland.join_escrow_container import JoinEscrow
-from Upland.get_bearer_token import GetBearerToken
 from Upland.get_user_profile import GetUserProfile
+from Upland.SpreadsheetEditing.get_bearer_token import GetBearerToken
 
 
-def ChallengeAccepted(link, challenger, accepter):  # <- Accept Button clicked
+def ChallengeAccepted(link, accepter):  # <- Accept Button clicked
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
 

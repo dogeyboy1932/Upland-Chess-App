@@ -1,7 +1,6 @@
-from Upland.create_escrow_container import CreateEscrowContainer
-from FIXED_VARIABLES import conn
 import json
 
+from FIXED_VARIABLES import conn
 
 
 def JoinEscrow(bearerToken, containerId, upxAmount):

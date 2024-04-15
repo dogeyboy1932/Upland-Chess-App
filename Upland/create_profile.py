@@ -1,12 +1,9 @@
-from Upland.edit_profile import AppendProfile
-from Upland.fill_profile import FillProfile
-from Upland.query_spreadsheet import QueryUplandIDRow
 from Upland.get_user_profile import GetUserProfile
-from Upland.get_user_balance import GetUserBalance
-from Upland.edit_profile import ReplaceProfileSmall
+from Upland.SpreadsheetEditing.edit_profile import AppendProfile, ReplaceProfileSmall
+from Upland.SpreadsheetEditing.query_spreadsheet import QueryUplandIDRow
+from Upland.SpreadsheetEditing.get_user_balance import GetUserBalance
 
-
-def CreateProfile(access_token, user_id):
+def CreateProfile(access_token):
     user_profile = GetUserProfile(access_token)
     balance = GetUserBalance(access_token)
 

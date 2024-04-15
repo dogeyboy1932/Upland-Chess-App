@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-import pandas as pd
+
 from FIXED_VARIABLES import filepath
 
 

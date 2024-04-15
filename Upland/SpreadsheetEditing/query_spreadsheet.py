@@ -1,6 +1,8 @@
-from FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
+
+from FIXED_VARIABLES import cfilepath, filepath
 from Chess.game_winner import GameWinner
+
 
 def QueryForEOSID(lichessID):
     if lichessID == "{}":
@@ -66,6 +68,32 @@ def QueryUplandIDRow(uplandID):
             return i
 
     return -1
+
+
+def GetChallengeIdx(gameID):
+    workbook = load_workbook(cfilepath)
+    worksheet = workbook['Sheet']
+
+    for i in range(1, worksheet.max_row + 1):
+        if worksheet[i][0].value == gameID:
+            return i
+
+    return -1
+
+
+def QueryForUplandID(lichessID):
+    if lichessID == "{}":
+        return -1
+
+    workbook = load_workbook(filepath)
+    worksheet = workbook['Sheet']
+
+    for i in range(1, worksheet.max_row + 1):
+        if worksheet[i][0].value == lichessID:
+            return worksheet[i][1].value
+
+    return -1
+
 
 
 def run():

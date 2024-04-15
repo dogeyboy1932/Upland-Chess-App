@@ -1,14 +1,18 @@
-from FIXED_VARIABLES import cfilepath
-from FIXED_VARIABLES import credential
 from openpyxl import load_workbook
+
+from FIXED_VARIABLES import cfilepath, client
 from Chess.game_winner import GameWinner
-from Upland.query_spreadsheet import QueryForEOSID
-from Chess.query_challenge_idx import GetChallengeIdx
 from Upland.resolve_escrow_container import ResolveEscrow
+from Upland.SpreadsheetEditing.query_spreadsheet import QueryForEOSID, GetChallengeIdx
 
-from Upland.get_escrow_container import GetEscrowContainer
-
-
+# AKHIL NOTE: THIS IS PROLLY INEFFICIENT FOR DETERMINING IF A GAME IS OVER OR NOT...MIGHT NEED TO UPDATE
+def isGameFinished(gameID):
+    try:
+        client.games.export(gameID)
+        return True
+    except:
+        return False
+    
 
 def gameEnded(gameID):
     workbook1 = load_workbook(cfilepath)
@@ -26,9 +30,11 @@ def gameEnded(gameID):
     eid = chessWorksheet[challengeIdx][5].value
 
     wager = chessWorksheet[challengeIdx][3].value
+    
     # print(GetEscrowContainer(eid))
 
-    return ResolveEscrow(eid, winnerID, loserID, drawStatus, credential, wager)
+    return ResolveEscrow(eid, winnerID, loserID, drawStatus, wager)
+
 
 def run():
     gameId = "W26Ykr8M"

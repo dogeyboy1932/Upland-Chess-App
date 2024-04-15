@@ -1,5 +1,6 @@
-from FIXED_VARIABLES import conn
 import json
+
+from FIXED_VARIABLES import conn
 
 
 def CreateEscrowContainer():

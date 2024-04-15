@@ -1,17 +1,16 @@
 import json
-import base64
-from FIXED_VARIABLES import primeEOS
-from FIXED_VARIABLES import conn
+
+from FIXED_VARIABLES import primeEOS, conn, credential
 from Upland.get_escrow_container import GetEscrowContainer
 
 
-def WinResolveEscrow(escrowId, winnerId, loserId, credential, wager):
+def WinResolveEscrow(escrowId, winnerId, loserId, wager):
     url = "/developers-api/containers/" + escrowId + "/resolve"
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
 
-    # if totalUpx != wager * 2:
-    #     return -1
+    if totalUpx != wager * 2:
+        return -1
 
     payload = json.dumps({
         "actions": [
@@ -54,7 +53,7 @@ def WinResolveEscrow(escrowId, winnerId, loserId, credential, wager):
     
 
 
-def DrawResolveEscrow(escrowId, winnerId, loserId, credential, wager):
+def DrawResolveEscrow(escrowId, winnerId, loserId, wager):
     url = "/developers-api/containers/" + escrowId + "/resolve"
 
     totalUpx = GetEscrowContainer(escrowId)['upx']
@@ -101,13 +100,13 @@ def DrawResolveEscrow(escrowId, winnerId, loserId, credential, wager):
         return "error"
 
 
-def ResolveEscrow(eid, winner, loser, drawStatus, credential, wager):
+def ResolveEscrow(eid, winner, loser, drawStatus, wager):
 
     eid = str(eid)
     if drawStatus == "DRAW":
-        return DrawResolveEscrow(eid, str(winner), str(loser), credential, wager)
+        return DrawResolveEscrow(eid, str(winner), str(loser), wager)
     else:
-        return WinResolveEscrow(eid, str(winner), str(loser), credential, wager)
+        return WinResolveEscrow(eid, str(winner), str(loser), wager)
 
 
 def run():
@@ -118,10 +117,6 @@ def run():
     loser = "mp4n4f2mq3ca"
     drawStatus = "No Draw"
 
-    appID = "232"
-    accessKey = "ad331091-4762-4fe1-b40f-1d4ca0d02d9f"
-
-    credential = base64.b64encode(f'{appID}:{accessKey}'.encode('utf-8')).decode('utf-8')
 
     # if (GetEscrowContainer(eid)['upx'] == wager * 2)  <- Basically, if escrow account is ready to go...
     # ResolveEscrow(eid, winner, loser, drawStatus, credential)

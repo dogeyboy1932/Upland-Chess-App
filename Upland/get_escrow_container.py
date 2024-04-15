@@ -1,5 +1,5 @@
-from FIXED_VARIABLES import conn
 import json
+from FIXED_VARIABLES import conn
 
 
 def GetEscrowContainer(eid):
@@ -18,13 +18,11 @@ def GetEscrowContainer(eid):
     res = conn.getresponse()
     data = json.loads(res.read().decode("utf-8"))
 
-    # print(data)
-
     return data
 
 
 def run():
-    print(GetEscrowContainer(2317))
+    print(GetEscrowContainer(4038))
 
 
 # run()

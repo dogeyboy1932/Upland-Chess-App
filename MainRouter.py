@@ -2,23 +2,20 @@ from flask import Flask, request
 import pandas as pd
 import json
 
-from Upland.edit_profile import AppendProfile
-from Upland.create_profile import CreateProfile
-from Upland.query_spreadsheet import QueryUplandIDRow
-from Upland.auth_code import Verify
-from Upland.query_spreadsheet import GetPassword
-from Upland.fill_profile import FillProfile
-from FIXED_VARIABLES import credential
-from FIXED_VARIABLES import filepath
+from FIXED_VARIABLES import credential, filepath, NumpyArrayEncoder
 
-from Chess.render_database import Iterate
-from Chess.render_database import UpdateBalances
-from Chess.handle_finished_games import HandleFinishedGames 
+from Upland.auth_code import Verify
+from Upland.create_profile import CreateProfile
+from Upland.SpreadsheetEditing.edit_profile import AppendProfileHeader
+from Upland.SpreadsheetEditing.fill_profile import FillProfile
+from Upland.SpreadsheetEditing.query_spreadsheet import GetPassword
+
+from Chess.append_challenge import AppendChallengeHeader
+from Chess.render_database import Iterate, UpdateBalances
+from Chess.handle_finished_games import HandleFinishedGames, ChallengeDeleted
 from Chess.challenge_button import ChallengeButtonClicked
 from Chess.accept_button import ChallengeAccepted
 from Chess.cancel_button import ChallengeCanceled
-from Chess.handle_finished_games import ChallengeDeleted
-from FIXED_VARIABLES import NumpyArrayEncoder
 
 from flask_cors import CORS 
 
@@ -63,9 +60,8 @@ def Accepted():
 
     accepter = request.get_json().get('currentUserUplandID')
     link = request.get_json().get('link')
-    challenger = request.get_json().get('UplandID')
 
-    res = ChallengeAccepted(link, challenger, accepter)
+    res = ChallengeAccepted(link, accepter)
         
     return str(res)
 
@@ -113,12 +109,9 @@ def respond():
     data = request.json
 
     if data['type'] == 'AuthenticationSuccess':
-        user_id = data['data']['userId']
         access_token = data['data']['accessToken']
 
-        print(access_token)
-
-        CreateProfile(access_token, user_id)
+        CreateProfile(access_token)
 
         df = pd.read_excel(filepath)
         print(df)
@@ -135,13 +128,12 @@ def test():
     return response_body
 
 
+# HELPER USE THIS ONLY IF SPREADSHEETS ARE EMPTY
 def AddInitial():
-    data = ["Lichess ID", "Upland Username", "Lichess Rating", "Balance", "Bearer Token", "Eos Upland ID", "Password"]
-    if QueryUplandIDRow("Upland Username") == -1:
-        AppendProfile(data)
+    AppendChallengeHeader()
+    AppendProfileHeader()
 
 
 if __name__ == '__main__':
-    AddInitial()
     app.run(host="0.0.0.0", port=5000, debug=True)
 

@@ -1,9 +1,10 @@
-from FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
-from Upland.query_spreadsheet import QueryUplandIDRow
+
+from FIXED_VARIABLES import filepath
 from Chess.get_chess_info import GetLichessRating
-from Upland.edit_profile import ReplaceProfileBig
-from Upland.edit_profile import ReplaceProfileSmall
+from Upland.SpreadsheetEditing.query_spreadsheet import QueryUplandIDRow
+from Upland.SpreadsheetEditing.edit_profile import ReplaceProfileBig, ReplaceProfileSmall
+
 
 def FillProfile(uplandID, lichessID, password):
     workbook = load_workbook(filepath)
@@ -35,7 +36,7 @@ def FillProfile(uplandID, lichessID, password):
     elif (prof_pass != "null"):
         return 'profile exists'
     else:
-        ReplaceProfileBig(id_index, lichessID, lichessRating, password)
+        ReplaceProfileBig(id_index, lichessID, lichessRating, password, bearer)
 
 
     return "success"

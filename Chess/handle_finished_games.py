@@ -1,8 +1,8 @@
-from openpyxl import load_workbook
 import pandas as pd
+from openpyxl import load_workbook
+
 from FIXED_VARIABLES import cfilepath
-from Chess.isGameFinished import isGameFinished
-from Chess.game_ended import gameEnded
+from Chess.game_ended import gameEnded, isGameFinished
 from Upland.refund_escrow import RefundEscrowContainer
 
 

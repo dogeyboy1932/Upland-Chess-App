@@ -1,6 +1,7 @@
-from FIXED_VARIABLES import filepath
 from openpyxl import load_workbook
-import pandas as pd
+
+from FIXED_VARIABLES import filepath
+
 
 def GetBearerToken(uplandID):
     workbook = load_workbook(filepath)

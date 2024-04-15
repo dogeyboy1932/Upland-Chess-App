@@ -1,6 +1,7 @@
-from FIXED_VARIABLES import conn
-from FIXED_VARIABLES import credential
 import json;
+
+from FIXED_VARIABLES import conn, credential
+
 
 def RefundEscrowContainer(escrowId):
     url = "/developers-api/containers/" + str(escrowId) + "/refund"

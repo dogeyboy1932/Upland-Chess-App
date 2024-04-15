@@ -1,7 +1,7 @@
-from FIXED_VARIABLES import conn
-from FIXED_VARIABLES import filepath
-from openpyxl import load_workbook
 import json
+from openpyxl import load_workbook
+
+from FIXED_VARIABLES import conn, filepath
 
 
 def GetUserBalance(upland_access_token):
@@ -42,7 +42,7 @@ def UpdateBalance(upland_access_token):
         except:
             var = 1
     except:
-        print("DIDN'T WORK")
+        print("getBalanced call failed")
 
     workbook = load_workbook(filepath)
     worksheet = workbook['Sheet']

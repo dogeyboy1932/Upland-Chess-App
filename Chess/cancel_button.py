@@ -1,7 +1,7 @@
-from FIXED_VARIABLES import cfilepath
 from openpyxl import load_workbook
-from Upland.refund_escrow import RefundEscrowContainer
-from Upland.get_escrow_container import GetEscrowContainer
+
+from FIXED_VARIABLES import cfilepath
+
 
 def ChallengeCanceled(link):  # <- Accept Button clicked
     workbook = load_workbook(cfilepath)

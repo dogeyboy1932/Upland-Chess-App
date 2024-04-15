@@ -3,14 +3,13 @@ from openpyxl import load_workbook
 from FIXED_VARIABLES import cfilepath
 from Chess.create_open_challenge import CreateOpenChallenge
 from Chess.append_challenge import AppendChallenge
-from Chess.query_challenge_idx import GetChallengeIdx
 
-from Upland.join_escrow_container import JoinEscrow
-from Upland.get_bearer_token import GetBearerToken
-from Upland.query_spreadsheet import QueryForLichessID
-from Upland.get_bearer_token import GetBearerToken
-from Upland.get_user_balance import GetUserBalanceOnSheet
 from Upland.get_user_profile import GetUserProfile
+from Upland.join_escrow_container import JoinEscrow
+from Upland.SpreadsheetEditing.get_bearer_token import GetBearerToken
+from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, GetChallengeIdx
+from Upland.SpreadsheetEditing.get_bearer_token import GetBearerToken
+from Upland.SpreadsheetEditing.get_user_balance import GetUserBalanceOnSheet
 
 
 # FRONTEND DEPENDENT

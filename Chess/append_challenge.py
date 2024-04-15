@@ -1,9 +1,9 @@
 from openpyxl import load_workbook
+
 from FIXED_VARIABLES import cfilepath
 from Chess.get_chess_info import GetLichessRating
 from Upland.create_escrow_container import CreateEscrowContainer
 
-import pandas as pd
 
 def AppendChallenge(challenger, wager, thisGame):
     workbook = load_workbook(cfilepath)
@@ -26,7 +26,8 @@ def AppendChallenge(challenger, wager, thisGame):
 
     return gameID
 
-def AppendInitial():
+
+def AppendChallengeHeader():
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
 

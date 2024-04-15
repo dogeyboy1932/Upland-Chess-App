@@ -11,7 +11,13 @@ To do:
 
 
 
-
+Packages To Download:
+pandas
+flask
+openpyxl
+berserk
+flask_cors
+react-bootstrap bootstrap
 
  
 URL TAKES ME TO A FRONTEND DOMAIN:
@@ -137,3 +143,4 @@ Problems w/ Chess App:
 
 
 RESET PASSWORD OPTION
+LOADING ICON 

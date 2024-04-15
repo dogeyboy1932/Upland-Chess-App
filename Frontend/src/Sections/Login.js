@@ -2,7 +2,8 @@ import React, { useState} from 'react';
 import axios from 'axios';
 
 import {RenderDatabase} from '../Helpers/functions';
-import HoverPopup from '../Components/hover';
+// import HoverPopup from '../Components/hover';
+
 import './../App.css'
 
 const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
@@ -102,6 +103,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const openCreateProfileModal = async () => {
       setLoginOpen(false)
       setCreateOpen(!isCreateOpen);
+      setIsGenerate(true)
     };
   
     const closeCreateProfileModal = async () => {

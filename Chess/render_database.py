@@ -1,10 +1,9 @@
-from openpyxl import load_workbook
 import pandas as pd
+from openpyxl import load_workbook
 
-from FIXED_VARIABLES import filepath
-from FIXED_VARIABLES import cfilepath
-from Chess.query_for_uplandID import QueryForUplandID
-from Upland.get_user_balance import UpdateBalance
+from FIXED_VARIABLES import filepath, cfilepath
+from Upland.SpreadsheetEditing.query_spreadsheet import QueryForUplandID
+from Upland.SpreadsheetEditing.get_user_balance import UpdateBalance
 
 # FRONTEND DEPENDENT <- Translates spreadsheet into frontend database
 

@@ -13,7 +13,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
     const [blankUplandID, setBlankUplandID] = useState(false);
     const [visitorError, setVisitorError] = useState(false);
     
-    const AcceptChallenge = async (UplandID, link, index) => {
+    const AcceptChallenge = async (link, index) => {
       if (currentUserUplandID === "BLANK") {
         setBlankUplandID(true)
         setTimeout(() => setBlankUplandID(false), 3000);
@@ -24,7 +24,6 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
         const res = await axios.post('/accepted', {
           link,
           currentUserUplandID,
-          UplandID
         });
 
         if (res.data === -1) {
@@ -128,7 +127,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                 <td>
                   {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && !(challenge.uplandID === -1) && (
                     <button 
-                      onClick={() => AcceptChallenge(challenge.uplandID, challenge.link, index)}
+                      onClick={() => AcceptChallenge(challenge.link, index)}
                       className='acceptButton'
                     >
                       Accept
