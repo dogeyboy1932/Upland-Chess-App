@@ -3,11 +3,11 @@ from openpyxl import load_workbook
 from FIXED_VARIABLES import filepath
 
 
-def ReplaceProfileSmall(uplandIdx, lichessID, newBearer):
+def ReplaceProfileSmall(uplandIdx, newBearer):
    workbook = load_workbook(filepath)
    worksheet = workbook['Sheet']
 
-   worksheet[uplandIdx][0].value = lichessID
+   # worksheet[uplandIdx][0].value = lichessID
    worksheet[uplandIdx][4].value = newBearer
 
    workbook.save(filepath)

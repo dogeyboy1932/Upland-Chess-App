@@ -28,7 +28,7 @@ def FillProfile(uplandID, lichessID, password):
     
     if (prof_pass != "null" and lichessID != worksheet[id_index][0].value):
         if (prof_pass == password):
-            ReplaceProfileSmall(id_index, lichessID, bearer)
+            ReplaceProfileSmall(id_index, bearer)
             return 'replaced'
         else:
             return 'wrong password'
