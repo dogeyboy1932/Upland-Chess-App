@@ -34,6 +34,8 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
 
       realPassword = realPassword + ""
 
+      // console.log("TEST")
+
       // console.log(realPassword)
       // console.log(password)
   

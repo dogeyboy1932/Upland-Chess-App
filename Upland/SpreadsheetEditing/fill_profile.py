@@ -21,7 +21,7 @@ def FillProfile(uplandID, lichessID, password):
     if (lichessRating == -1): return 'invalid lichess'
 
     # FIX THIS [CHANGE LICHESS ID]
-    if (worksheet[id_index][0].value != None): return 'invalid lichess'
+    # if (worksheet[id_index][0].value != "BLANK_ID"): return 'invalid lichess'
 
     prof_pass = worksheet[id_index][6].value
     bearer = worksheet[id_index][4].value

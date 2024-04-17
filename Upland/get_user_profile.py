@@ -20,7 +20,7 @@ def GetUserProfile(upland_access_token):
 
 
 def run():
-    upland_access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5Y2I0ZTAxMC1lM2M3LTExZWQtYTAzOS1mMTg3YWI1NGMyZjAiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiMjEyNTM0ZGUtYTc0My00MDVlLWJiNzYtMmM3MzY5YzFmZjA2IiwiaWF0IjoxNzEzMTExMTQ0fQ.VMs7yovq4mh1IP4U6ohuBMpV5Scb3aT46wIXH6oIWrY"
+    upland_access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ODI5OGVhMC0yNDBhLTExZWUtOWMwNC1iMzcyMDk2MTViOGIiLCJhcHBJZCI6MjMyLCJ0b2tlbklkIjoiMGYxMzgzMjItODMxNC00NDdhLTk5MTktY2M4Mjk4OWFlYzkwIiwiaWF0IjoxNzEzMzY5NDE0fQ.AIueKuWTSSe1MjrrCeU-RGGbrr3v2rdoHHymgYqq4tU"
     upland_user_id = "48298ea0-240a-11ee-9c04-b37209615b8b"
 
     print(GetUserProfile(upland_access_token))
