@@ -39,54 +39,48 @@ body {
   background-image: linear-gradient(to bottom, #3ea2af, #ffffff);
   margin: 0;
   padding: 0;
+  max-width: 110%;
+  overflow-x: clip;
+
 }
 
 /* Sections */
 .userSection {
   background-image: linear-gradient(to bottom, #3cb1b1, #ffffff); /* Gradient from Pale Turquoise to White */
   border: 2px solid black;
+  max-width: 100%;
 }
 
 .userButtons {
   display: flex;
   justify-content: space-between;
   margin: 20px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border-radius: 5px; /* Add border radius for rounded corners */
   font-size: 1.1em;
+  margin-left: 25px;
+  
 }
 
 .toggleInfoSection {
   cursor: pointer;
-  font-size: 1.6em;
-  font-family: monospace;
+  font-size: 1.3em;
+
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+  overflow: hidden;
+  background-color: #f8f8ff;
 }
 
-.toggleBar {
-  width: 100%;
-  max-height: 100%; /* Adjust the height as needed */
-  background-color: #f8f8ff; /* Set the color of the toggle bar */
-  font-size: 1.8em;
-  align-items: center;
-}
-
-.toggleBar:hover {
-  background-color: #f8f8ffbd; /* Darker orange on hover */
+.toggleInfoSection:hover {
+  background-color: #f8f8ffe8; /* Darker orange on hover */
 }
 
 .toggleText {
-  font-size: 0.8em;
+  font-size: 1.6em;
   flex-grow: 1;
 }
-
-
-.contentSection {
-  background-image: linear-gradient(to bottom, #f8f8ff, #ffffff); /* Gradient from White to White */
-  overflow: hidden;
-  background-color: #f8f8ff;
-  max-height: 100%;
-}
-
 
 .createChallengeSection {
   background-image: linear-gradient(to bottom, #f5deb3, #ffffff); /* Gradient from Moccasin to White */
@@ -111,7 +105,7 @@ label {
 input {
   border: 3px solid black;
   padding: 8px;
-  font-size: 18px;
+  font-size: 1.1em;
   font-family: 'Comic Sans MS', Comic;
   background-color: #ffdead; /* Navajo White */
   margin-top: 5px;
@@ -234,30 +228,30 @@ tbody tr:hover {
 
 /* Modals */
 .modal {
-  display: inline-block;
+  /* display: inline-block; */
   padding: 8px 15px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   border: 3px solid black;
   border-radius: 10px;
-  margin-bottom: 20px;
-  align-items: center;
-  justify-content: space-between;
+  /* margin-bottom: 20px; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
   white-space: nowrap;
 }
 
 .modalUser {
   background-color: #2ee7a6; /* Light Coral */
-  margin-left: 20px; 
+  /* margin-left: 20px;  */
 }
 
 .modalCreate {
   width: 700px;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .modalLogin {
   width: 450px;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .modalChallenge {
@@ -296,26 +290,42 @@ tbody tr:hover {
 }
 
 
-/* User Details Box*/
-.detail {
-  padding: 20px 35px;
-  border-radius: 5px;
-  border: 4px solid #000;
-  font-size: 1.1em;
+/* User Details Box */
 
-  display: inline-block; 
-  white-space: nowrap;
-  transform: translateX(-100px);
+.detail-container {
+  /* display: inline-flex; */
+}
+
+.detail {
+  border-radius: 5px;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+  /* display: inline-block; */
+  /* white-space: nowrap; */
+  /* display: flex; */
+
+  /* transform: translate(-100px); */
+  /* position: absolute; */
+  /* position: relative; */
+}
+
+.detail-box,
+.detail-value {
+  border: 1px solid #000;
+  font-size: 1.1em;
+  padding: 20px 35px;
+  display: inline-block;
 }
 
 .detail-box {
-  border-right: 1px solid #000;
-  background-color: #f5deb3; /* Moccasin */
+  background-color: #1fdddd; /* Moccasin */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  /* margin-left: -7%; */
 }
 
 .detail-value {
-  border-left: 1px solid #000;
-  background-color: #ffefd5; /* Papaya Whip */
+  background-color: #c3f227; /* Papaya Whip */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 
@@ -332,39 +342,46 @@ button {
   white-space: nowrap
 }
 
+.createProfButton {
+  background-color: #ffa500; /* Orange */
+  color: #0d31c0; /* White text color for better contrast */
+  margin-right: 50px;
+  margin-bottom: 25px
+}
+
+.createProfButton:hover {
+  background-color: #ff7f00; /* Darker orange on hover */
+}
+
 .createChallengeButton {
   background-color: #008080; /* Teal */
   color: #fff; 
-  padding: 10px; 
+  padding: 10px;
 }
 
 .resetButton {
-  background-color: rgb(4, 191, 4);
+  background-color: #00d100;
   color: #fff; 
+  margin-left: 5%;
 }
 
 .resetButton:hover {
-  background-color: rgb(2, 138, 2);
+  background-color: #009c00;
 }
+
 
 .logButton {
   background-color: #7fffd4; /* Aquamarine */
-  margin-left: 50px; 
   color: #0d31c0; 
+  margin-right: 50px;
+  margin-bottom: 25px
 }
 
 .logButton:hover {
   background-color: #00a1bd; /* Darker orange on hover */
 }
 
-.createProfButton {
-  background-color: #ffa500; /* Orange */
-  color: #0d31c0; /* White text color for better contrast */
-}
 
-.createProfButton:hover {
-  background-color: #ff7f00; /* Darker orange on hover */
-}
 
 .submitButton {
   background-color: #3498db; /* Dodger Blue */

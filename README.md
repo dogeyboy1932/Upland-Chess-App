@@ -144,3 +144,7 @@ Problems w/ Chess App:
 
 RESET PASSWORD OPTION
 LOADING ICON 
+
+
+
+

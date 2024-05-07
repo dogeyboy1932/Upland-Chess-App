@@ -20,13 +20,15 @@ def FillProfile(uplandID, lichessID, password):
     # If LichessID is invalid, give error
     if (lichessRating == -1): return 'invalid lichess'
 
+
     # FIX THIS [CHANGE LICHESS ID]
-    if (worksheet[id_index][0].value != "BLANK_ID"): return 'invalid lichess'
+    # if (worksheet[id_index][0].value != "BLANK_ID"): return 'invalid lichess'
 
     prof_pass = worksheet[id_index][6].value
     bearer = worksheet[id_index][4].value
     
-    if (prof_pass != "null" and lichessID != worksheet[id_index][0].value):
+    # and lichessID != worksheet[id_index][0].value
+    if (prof_pass != "null"):
         if (prof_pass == password):
             ReplaceProfileSmall(id_index, bearer)
             return 'replaced'

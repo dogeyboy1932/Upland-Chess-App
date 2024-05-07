@@ -3,8 +3,6 @@ import axios from 'axios';
 import './../App.css'
 
 
-
-
 const submitDetails = async (rated, wager, upland) => {
     try {
       const response = await axios.post('/submit-details', {
@@ -19,9 +17,7 @@ const submitDetails = async (rated, wager, upland) => {
     }
 };
 
-const SubmitChallenge = ({finalUserUplandID}) => {
-    const [isChallengeOpen, setChallengeOpen] = useState(false);
-    
+const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsGenerate, setChallengeOpen, isChallengeOpen}) => {
     const [needLogin, setNeedLogin] = useState(false)
     const [challengeSubmitted, setChallengeSubmitted] = useState(false);
     const [challengeError, setChallengeError] = useState("-1");
@@ -34,7 +30,6 @@ const SubmitChallenge = ({finalUserUplandID}) => {
 
     const handleChallengeSubmit = async () => {
         const res = await submitDetails(rated, wager, finalUserUplandID);
-        // console.log(res)
         
         if (res === 1) {
           setChallengeSubmitted(true);
@@ -59,6 +54,9 @@ const SubmitChallenge = ({finalUserUplandID}) => {
           return 
         }
         setChallengeOpen(!isChallengeOpen);
+        setLoginOpen(false)
+        setCreateOpen(false);
+        setIsGenerate(true)
     };
 
     const closeChallengeModal = () => {
@@ -66,12 +64,13 @@ const SubmitChallenge = ({finalUserUplandID}) => {
     };
 
     return (
-        <div className='createChallengeSection'>
+        <>
             <button onClick={openChallengeModal} className='createChallengeButton'> 
-            CREATE CHALLENGE 
+                CREATE CHALLENGE 
             </button>
 
-            <div>
+            <br/>
+
             {isChallengeOpen && (
                 <div className='modal modalChallenge'>
                 <span className="close" onClick={closeChallengeModal}> &times; </span>
@@ -88,7 +87,6 @@ const SubmitChallenge = ({finalUserUplandID}) => {
                 <button onClick={handleChallengeSubmit} className='submitButton'>Submit</button>
                 </div>
             )}
-            </div>
 
             {needLogin && (
                 <div className={`notification notification-error`}>
@@ -139,7 +137,7 @@ const SubmitChallenge = ({finalUserUplandID}) => {
                 YOUR BEARER TOKEN IS INVALID. You need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
                 </div>
             )}
-        </div> 
+        </> 
     )
 }
 

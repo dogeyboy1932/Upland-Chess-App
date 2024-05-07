@@ -18,12 +18,15 @@ def ChallengeDeleted(link):  # <- Delete Button clicked
             break
     
     eid = worksheet[challengeIdx][5].value
-    RefundEscrowContainer(eid)
-
-    worksheet.delete_rows(challengeIdx)
+    returnVal = RefundEscrowContainer(eid)
+    
+    if returnVal != "Processing":
+        worksheet.delete_rows(challengeIdx)
 
     workbook.save(cfilepath)
     workbook.close()
+
+    return returnVal
 
 
 def FindAndRemoveRow(gameID):

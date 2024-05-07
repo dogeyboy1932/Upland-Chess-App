@@ -1,5 +1,6 @@
 import json
 from FIXED_VARIABLES import conn
+from FIXED_VARIABLES import credential
 
 
 def GetEscrowContainer(eid):
@@ -8,13 +9,17 @@ def GetEscrowContainer(eid):
     })
 
     headers = {
-        'Authorization': 'Basic MjMyOmFkMzMxMDkxLTQ3NjItNGZlMS1iNDBmLTFkNGNhMGQwMmQ5Zg==',
+        'Authorization': f'Basic {credential}',
         'Cookie': 'sticky-session-1=1701556690.435.2069.742375|9a5cc3e4d08faea009d8e16f5c97bee9'
     }
 
     url = "/developers-api/containers/" + str(eid)
 
-    conn.request("GET", url, payload, headers)
+    try:
+        conn.request("GET", url, payload, headers)
+    except:
+        return -1
+    
     res = conn.getresponse()
     data = json.loads(res.read().decode("utf-8"))
 

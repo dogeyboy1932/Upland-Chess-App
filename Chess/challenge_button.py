@@ -37,6 +37,7 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
     try: 
         GetUserProfile(GetBearerToken(uplandID))['level']
     except:
+        print(GetBearerToken(uplandID))
         print("BEARER TOKEN IS INVALID")
         return -5
 

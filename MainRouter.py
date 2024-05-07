@@ -31,6 +31,8 @@ def ChallengeDatabase():
 
     arr = Iterate()
     encodedNumpyData = json.dumps({"array": arr}, cls=NumpyArrayEncoder)
+
+    print("RESET")
     
     return encodedNumpyData
 
@@ -81,9 +83,9 @@ def Cancel():
 @app.route('/delete', methods=['POST'])
 def Deleted():
     link = request.get_json().get('link')
+
+    return ChallengeDeleted(link)
     
-    ChallengeDeleted(link)
-    return "Success"
 
 
 @app.route('/credentials', methods=['POST'])
@@ -109,12 +111,17 @@ def ChallengeButton():
 
 @app.route('/', methods=['POST'])
 def respond():
-    data = request.json
+    try:
+        data = request.json
+    except:
+        var = 1
 
     if data['type'] == 'AuthenticationSuccess':
         access_token = data['data']['accessToken']
 
         CreateProfile(access_token)
+
+        # print(access_token)
 
         df = pd.read_excel(filepath)
         print(df)
@@ -138,5 +145,5 @@ def AddInitial():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=4000, debug=True)
 
