@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect} from 'react';
 
-import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
+import {BASE_URL as baseUrl} from "../../FIXED_FRONTEND_VARIABLES.js"
 import './../App.css'
 
 

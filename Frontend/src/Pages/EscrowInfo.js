@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES"
+import {BASE_URL as baseUrl} from "../../FIXED_FRONTEND_VARIABLES"
 import '../App.css';
 
 const EscrowPage = () => {

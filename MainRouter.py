@@ -138,11 +138,12 @@ def ChallengeButton():
 @app.route('/', methods=['POST'])
 def respond():
     try:
-        data = request.json
+        data = request.json['type']
     except:
-        pass
+        print("NOT VALID REQUEST")
+        return str(-1)
 
-    if data['type'] == 'AuthenticationSuccess':
+    if data == 'AuthenticationSuccess':
         access_token = data['data']['accessToken']
         CreateProfile(access_token)
 
@@ -150,7 +151,7 @@ def respond():
         # df = pd.read_excel(filepath)
         # print(df)
     
-    elif data['type'] == 'UserDisconnectedApplication':
+    elif data == 'UserDisconnectedApplication':
         credentials = GetCredentialsByID(data['data']['userId'])
 
         if credentials == -1: 
