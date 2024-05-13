@@ -144,7 +144,7 @@ def respond():
         return str(-1)
 
     if data == 'AuthenticationSuccess':
-        access_token = data['data']['accessToken']
+        access_token = data['accessToken']
         CreateProfile(access_token)
 
         # print(access_token)
@@ -152,7 +152,7 @@ def respond():
         # print(df)
     
     elif data == 'UserDisconnectedApplication':
-        credentials = GetCredentialsByID(data['data']['userId'])
+        credentials = GetCredentialsByID(data['userId'])
 
         if credentials == -1: 
             print("UNABLE TO DELETE PROFILE")
