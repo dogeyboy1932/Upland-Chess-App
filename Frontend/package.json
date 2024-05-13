@@ -25,10 +25,8 @@
     "start:ngrok": "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 4000",
     "start:server": "python ../MainRouter.py",
 
-    "build": "npm-run-all -p start:set-node start:build-frontend",
-    "start:set-node": "set NODE_OPTIONS=--openssl-legacy-provider",
-    "start:build-frontend": "react-scripts build",
-    "start:serve": "serve -s build",
+    "build": "react-scripts build",
+    "serve": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
