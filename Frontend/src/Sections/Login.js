@@ -191,7 +191,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
           setPassword(storedPassword);
         }
 
-        console.log()
+        console.log(storedUplandID)
         
         if (storedUplandID) {
           handleLogin()
