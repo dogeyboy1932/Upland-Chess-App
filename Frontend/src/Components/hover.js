@@ -25,4 +25,4 @@ const HoverPopup = ({ text, children }) => {
     );
   };
 
-export default HoverPopup
+export {HoverPopup}

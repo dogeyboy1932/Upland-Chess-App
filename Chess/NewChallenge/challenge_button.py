@@ -1,23 +1,21 @@
 from openpyxl import load_workbook
 
 from FIXED_VARIABLES import cfilepath
-from Chess.create_open_challenge import CreateOpenChallenge
-from Chess.append_challenge import AppendChallenge
+
+from Chess.NewChallenge.create_open_challenge import CreateOpenChallenge
+from Chess.NewChallenge.append_challenge import AppendChallenge
 
 from Upland.get_user_profile import GetUserProfile
-from Upland.join_escrow_container import JoinEscrow
-from Upland.SpreadsheetEditing.get_bearer_token import GetBearerToken
-from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, GetChallengeIdx
-from Upland.SpreadsheetEditing.get_bearer_token import GetBearerToken
-from Upland.SpreadsheetEditing.get_user_balance import GetUserBalanceOnSheet
+from Upland.Escrow.join_escrow_container import JoinEscrow
 
 
-# FRONTEND DEPENDENT
+from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, GetChallengeIdx, GetBearerToken, GetUserBalanceOnSheet
 
-# RETURN -1 and -2 specifics
 
-def ChallengeButtonClicked(uplandID, rated_, wager_):
+# TOO MANY QUERIES
+def ChallengeButtonClicked(uplandID, rated_, wager_, speed, variant, name, increment):
     
+    # Eliminating all Errors
     if QueryForLichessID(uplandID) == -1:
         # print("UPLAND-ID DOES NOT EXIST")
         return -1
@@ -37,20 +35,22 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
     try: 
         GetUserProfile(GetBearerToken(uplandID))['level']
     except:
-        print(GetBearerToken(uplandID))
-        print("BEARER TOKEN IS INVALID")
+        # print("BEARER TOKEN IS INVALID")
         return -5
-
+    
     if GetUserProfile(GetBearerToken(uplandID))['level'] == "Visitor":
-        print("VISITOR")
+        # print("VISITOR")
         return -6
    
+
+
+    # IMPROVE: CHALLENGE PARAMETERS
     challenger = QueryForLichessID(uplandID)
-    speed = "rapid"  
-    increment = 0 
+    speed = speed  
+    increment = increment
     rated = rated_
-    variant = "standard"
-    name = "Challenge by " + uplandID
+    variant = variant
+    name = name 
     wager = int(wager_)
 
 
@@ -61,27 +61,17 @@ def ChallengeButtonClicked(uplandID, rated_, wager_):
     # Challenge is appended to spreadsheet (database) + Escrow is created & appended + Challenge ID is extracted
     gameID = AppendChallenge(challenger, wager, thisGame)
     challengeIdx = GetChallengeIdx(gameID)
-
-    # Load Updated Spreadsheet
-    workbook = load_workbook(cfilepath)['Sheet']
-    # chessWorksheet = workbook['Sheet']
-
+    
     # Join Escrow Container of this game
+    worksheet = load_workbook(cfilepath)['Sheet']
+
     bearer = GetBearerToken(uplandID)
-    eid = str(workbook[challengeIdx][5].value)
+    eid = str(worksheet[challengeIdx][5].value)
     wager = int(wager)
 
     JoinEscrow(bearer, eid, wager)
 
-    return 1
-    
 
-def run():
-    uplandID = "dogeyboy19"
-    wager = 100
-    rated = "No"
-
-    ChallengeButtonClicked(uplandID, rated, wager)
-
-# for i in range(10):
-#     run()
+    # Returning Info
+    link = str(worksheet[challengeIdx][4].value)
+    return link    

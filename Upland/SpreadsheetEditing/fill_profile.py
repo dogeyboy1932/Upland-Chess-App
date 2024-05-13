@@ -1,53 +1,39 @@
 from openpyxl import load_workbook
 
 from FIXED_VARIABLES import filepath
-from Chess.get_chess_info import GetLichessRating
+
+from Chess.get_lichess_info import GetLichessRating
+
 from Upland.SpreadsheetEditing.query_spreadsheet import QueryUplandIDRow
-from Upland.SpreadsheetEditing.edit_profile import ReplaceProfileBig, ReplaceProfileSmall
+from Upland.SpreadsheetEditing.edit_profile import FillingLichessInfo
 
 
-def FillProfile(uplandID, lichessID, password):
-    workbook = load_workbook(filepath)
-    worksheet = workbook['Sheet']
+def FillProfile(uplandID, lichessID, password):   # Called when you submit a created profile
+    worksheet = load_workbook(filepath)['Sheet']
 
-    id_index = QueryUplandIDRow(uplandID)
-
-    if (id_index == -1):
-        return 'no profile found'
-
-    lichessRating = GetLichessRating(lichessID, "rapid")  # For now, we'll stick with Rapid
-
-    # If LichessID is invalid, give error
+    # Clearing up errors    
+    lichessRating = GetLichessRating(lichessID, "rapid")
     if (lichessRating == -1): return 'invalid lichess'
-
-
-    # FIX THIS [CHANGE LICHESS ID]
-    # if (worksheet[id_index][0].value != "BLANK_ID"): return 'invalid lichess'
-
-    prof_pass = worksheet[id_index][6].value
-    bearer = worksheet[id_index][4].value
     
-    # and lichessID != worksheet[id_index][0].value
-    if (prof_pass != "null"):
-        if (prof_pass == password):
-            ReplaceProfileSmall(id_index, bearer)
-            return 'replaced'
-        else:
-            return 'wrong password'
-         
-    elif (prof_pass != "null"):
-        return 'profile exists'
-    else:
-        ReplaceProfileBig(id_index, lichessID, lichessRating, password, bearer)
+    id_index = QueryUplandIDRow(uplandID)
+    if (id_index == -1): return 'no profile found'
 
+
+    # Getting existing password as a security measure
+    prof_pass = worksheet[id_index][6].value
+
+
+    # Depending on parameters, the profile will either be edited or errors will be returned
+    if (prof_pass):
+        if (prof_pass == password):
+            if (lichessID != worksheet[id_index][0].value):
+                FillingLichessInfo(id_index, lichessID, lichessRating, -1)
+                return 'replaced'
+            else:
+                return 'same'
+        else:
+            return 'wrong password'         
+    else:
+        FillingLichessInfo(id_index, lichessID, lichessRating, password)
 
     return "success"
-
-
-# def run():
-#     uid = "dogeyboy1000"
-#     # lid = "trashboatsr1000"
-#     FillProfile(uid)
-#
-#
-# run()

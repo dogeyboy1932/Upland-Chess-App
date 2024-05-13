@@ -2,28 +2,34 @@ from openpyxl import load_workbook
 
 from FIXED_VARIABLES import cfilepath
 
-from Upland.join_escrow_container import JoinEscrow
+from Upland.Escrow.join_escrow_container import JoinEscrow
 from Upland.get_user_profile import GetUserProfile
-from Upland.SpreadsheetEditing.get_bearer_token import GetBearerToken
+from Upland.SpreadsheetEditing.query_spreadsheet import GetBearerToken, QueryForIdxByLink
 
 
 def ChallengeAccepted(link, accepter):  # <- Accept Button clicked
     workbook = load_workbook(cfilepath)
     worksheet = workbook['Sheet']
 
+    # Eliminate Errors
+    try:
+        GetUserProfile(GetBearerToken(accepter))['level']
+    except:
+        return -2
+
     if GetUserProfile(GetBearerToken(accepter))['level'] == "Visitor":
         return -1
     
-    for i in range(1, worksheet.max_row + 1):
-        if worksheet[i][4].value == link:
-            worksheet[i][6].value = True
-            worksheet[i][7].value = accepter
-
-            challengeIdx = i
-
+    # Mark challenge accepted
+    challengeIdx = QueryForIdxByLink(link)
+    worksheet[challengeIdx][6].value = "YES"
+    worksheet[challengeIdx][7].value = accepter
+    
     workbook.save(cfilepath)
     workbook.close()
     
+
+    # Join Escrow
     bearer = GetBearerToken(accepter)
     eid = worksheet[challengeIdx][5].value
     wager = worksheet[challengeIdx][3].value
@@ -31,6 +37,4 @@ def ChallengeAccepted(link, accepter):  # <- Accept Button clicked
     JoinEscrow(bearer, eid, wager)
 
 
-    return 1
-
-    # print(bearer, " ", eid, " ", wager)
+    return "success"

@@ -4,6 +4,8 @@ from FIXED_VARIABLES import conn
 
 
 def JoinEscrow(bearerToken, containerId, upxAmount):
+    url = "/developers-api/User/join"
+
     payload = json.dumps({
         "containerId": containerId,
         "upxAmount": upxAmount,
@@ -14,20 +16,19 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
     bearer = 'Bearer ' + str(bearerToken)
 
     headers = {
-        # 'Authorization': str(bearer),
         'Authorization': bearer,
         'Content-Type': 'application/json',
         'Cookie': 'sticky-session-1=1699553168.246.2069.619172|aebf5e9dc298523c710b3cfe411c6704'
     }
 
-    conn.request("POST", "/developers-api/User/join", payload, headers)
-    res = conn.getresponse()
-
-    if res.status == 200 or res.status == 201:
+    try:
+        conn.request("POST", url, payload, headers)
+        res = conn.getresponse()
         data = json.loads(res.read().decode("utf-8"))
+        
         print("Joined Escrow! Transaction Hash:", data["transactionId"])
         return "success"
-    else:
+    except:
         print(f'Request failed with status code {res.status}')
         return "error"
 

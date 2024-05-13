@@ -1,11 +1,18 @@
-import React, { useState} from 'react';
 import axios from 'axios';
+import React, { useState, useEffect} from 'react';
 
-import HoverPopup from '../Components/hover';
-import { RenderDatabase } from '../Helpers/functions';
-import { SubmitChallenge } from './SubmitChallenge.js';
-
+import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
 import './../App.css'
+
+
+import { HoverPopup } from '../Components/hover';
+
+import { SubmitChallenge } from './SubmitChallenge.js';
+import { RenderDatabase } from '../Helpers/RenderDatabase.js';
+
+import { DeleteProfileModal } from '../Components/DeleteProfileModal';
+import { UserDetails } from '../Components/UserDetails';
+
 
 const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     // const [isDataLoading, setIsDataLoading] = useState(false); // Need to work on 
@@ -14,12 +21,15 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const [uplandID, setUplandID] = useState('');
     const [lichessID, setLichessID] = useState('');
     const [password, setPassword] = useState('');
+
     const [currentUserUplandID, setCurrentUserUplandID] = useState('BLANK');
     const [currentUserLichessID, setCurrentUserLichessID] = useState('BLANK');
 
     const [isChallengeOpen, setChallengeOpen] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isCreateOpen, setCreateOpen] = useState(false);
+
     const [LogoutButton, setLogoutButton] = useState(false)
     const [isGenerate, setIsGenerate] = useState(true)
 
@@ -29,41 +39,14 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const [LoginError, setLoginError] = useState(false)
     const [LichessError, setLichessError] = useState(false)
 
-    const [resetColor, setResetColor] = useState(false)
-  
-    setFinalUserUplandID(currentUserUplandID) 
+    setFinalUserUplandID(currentUserUplandID)
 
-    const handleLogin = async () => {
-      let realPassword = (await axios.post('/password', {uplandID})).data;
-
-      realPassword = realPassword + ""
-  
-      if (password === realPassword) {
-          
-        setLoggedIn(true)
-        setTimeout(() => setLoggedIn(false), 3000)      
-
-        let lichessID = (await axios.post('/getLichessID', {uplandID})).data;
-  
-        setCurrentUserUplandID(uplandID)
-        setCurrentUserLichessID(lichessID)
-
-        setLogoutButton(true)
-        closeLoginModal();
-      } else {
-        setLoginError(true)
-        setTimeout(() => setLoginError(false), 3000);
-      }
-
-      setPassword("")
-      setUplandID("")
-      setLichessID("")
-    };
-  
+    
+    // Create Profile
     const handleCreateProfile = async () => {
-      const res = (await axios.post('/credentials', {uplandID, lichessID, password})).data;
+      const res = (await axios.post(baseUrl + '/credentials', {uplandID, lichessID, password})).data;
   
-      if (res === "profile exists") {
+      if (res === "same") {
         setCreateError(res)
         setTimeout(() => setCreateError("default"), 3000);
       } else if (res === "wrong password") {
@@ -80,21 +63,68 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       } else if (res === "invalid lichess") {
         setLichessError(res)
         setTimeout(() => setLichessError("default"), 3000);
-      } else {
-        setProfileCreated("new")
+      } else if (res === "success") {
+        setProfileCreated(res)
         setTimeout(() => setProfileCreated("default"), 3000);
         closeCreateProfileModal();
         handleLogin()
       }
     };
 
-    const getAuthCode = async () => {
-      const res = (await axios.post('/auth'))
+    // Delete Profile
+    const deleteProfile = () => {
+      setIsDeleteOpen(!isDeleteOpen);
+    };
+
+
+
+    // Login
+    const handleLogin = async () => {
+      let realPassword = (await axios.post(baseUrl +'/password', {uplandID})).data;
+
+      if (password === realPassword && realPassword !== -1) {
+          
+        setLoggedIn(true)
+        setTimeout(() => setLoggedIn(false), 3000)      
+
+        let lichessID = (await axios.post(baseUrl + '/getLichessID', {uplandID})).data;
+  
+        setCurrentUserUplandID(uplandID)
+        setCurrentUserLichessID(lichessID)
+
+        setLogoutButton(true)///
+        closeLoginModal();
+
+      } else {
+        setLoginError(true)
+        setTimeout(() => setLoginError(false), 3000);
+      }
+
+      setPassword("")
+      setUplandID("")
+      setLichessID("")
+    };
+
+    // Logout
+    const Logout = async () => {
+      setCurrentUserUplandID("BLANK") 
+      setCurrentUserLichessID("BLANK") 
+      setLogoutButton(false)
+      setPassword("")
+      setUplandID("")
+    }
+
+
+    // Generate "Authentication Code"
+    const getAuthCode = async () => {      
+      const res = (await axios.post(baseUrl + "/auth"))
 
       setAuth(res.data)
       setIsGenerate(false)
     }
 
+
+    // Open & Close Modals
     const openCreateProfileModal = async () => {
       setCreateOpen(!isCreateOpen);
       setIsGenerate(true)
@@ -121,13 +151,18 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       setLoginOpen(false);
     };
   
-    const Logout = async () => {
-      setCurrentUserUplandID("BLANK") 
-      setCurrentUserLichessID("BLANK") 
-      setLogoutButton(false)
-      setPassword("")
-      setUplandID("")
-    }
+
+
+    // Change Reset Button Color On Click (FIX THIS: Make this a component)
+    const [resetColor, setResetColor] = useState(false)
+
+    const handleMouseDown = () => {
+      setResetColor(!resetColor)
+    };
+  
+    const handleMouseUp = () => {
+      setResetColor(!resetColor)
+    };
 
 
 
@@ -142,15 +177,38 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     };
 
 
+    // FIX THIS : LOCAL STORAGE
+    useEffect(() => {
+        // Retrieve state variables from localStorage when component mounts
+        
+        const storedUplandID = JSON.parse(localStorage.getItem('UplandID'));
+        if (storedUplandID) {
+          setUplandID(storedUplandID);
+        }
 
-    const handleMouseDown = () => {
-      setResetColor(!resetColor)
-    };
-  
-    const handleMouseUp = () => {
-      setResetColor(!resetColor)
-    };
+        const storedPassword = JSON.parse(localStorage.getItem('Password'));
+        if (storedPassword) {
+          setPassword(storedPassword);
+        }
+
+        console.log()
+        
+        if (storedUplandID) {
+          handleLogin()
+        }
+
+    }, []); // Empty dependency array to run only once on mount
+
+    useEffect(() => {
+        // Store state variables in localStorage when component unmounts
+        
+        localStorage.setItem('UplandID', JSON.stringify(uplandID));
+        localStorage.setItem('Password', JSON.stringify(password));
+        
+    }, [uplandID, password]);
     
+    // FIX THIS ^
+
     
     return (
       <>
@@ -235,31 +293,31 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
                   <input type="password" id="create-password" value={password} className='user-input' onChange={(e) => setPassword(e.target.value)} />
                   <br />
                   
-                  <button onClick={handleCreateProfile} className="submitButton"> Submit </button>
+                  <span style={{justifyContent: 'space-between', display: 'flex'}}>
+                    <button onClick={handleCreateProfile} className="submitButton"> Submit </button>
+                    <button onClick={deleteProfile} className="deleteButton"> DELETE PROFILE </button>
+                  </span>
+
+                  <DeleteProfileModal  
+                    isDeleteOpen={isDeleteOpen}
+                    setIsDeleteOpen={setIsDeleteOpen}
+                    uplandID={uplandID}
+                    setUplandID={setUplandID}
+                    password={password}
+                    setPassword={setPassword}
+                  />
+
                 </div>
               )}
             </div>
             
 
             {/* USER DETAILS */}
-            <div classNamee="smallHeader" style={{marginRight: '20%', justifyContent: 'space-between'}}>
-              <div className="detail">
-                <div className="detail detail-box">
-                  Registered Upland ID:
-                </div>
-                <div className="detail detail-value" style={{marginRight: '25px'}}>
-                  {currentUserUplandID}
-                </div>
-              </div>
-
-              <div className="detail">
-                <div className="detail detail-box" >
-                  Registered Lichess ID:
-                </div>
-                <div className="detail detail-value">
-                  {currentUserLichessID}
-                </div>
-              </div>
+            <div style={{marginRight: '20%', justifyContent: 'space-between'}}>
+              <UserDetails
+                currentUserUplandID={currentUserUplandID}
+                currentUserLichessID={currentUserLichessID}
+              />
             </div>
 
 
@@ -274,14 +332,15 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
               >
                 Reset
               </button>              
-            </div>   
-          </div>
-        </div>
-  
+            </div>
 
-        {CreateError === "profile exists" && (
+          </div>          
+        </div>
+
+
+        {CreateError === "same" && (
           <div className={`notification notification-error`}>
-            Profile Already Exists  
+            This is already your lichess profile!  
           </div>
         )}
 
@@ -291,7 +350,13 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
           </div>
         )}
 
-        {profileCreated === "new" && (
+        {profileCreated === "success" && (
+          <div className={`notification notification-success`}>
+            Profile Created!
+          </div>
+        )}
+
+        {profileCreated === "success" && (
           <div className={`notification notification-success`}>
             Profile Created!
           </div>
@@ -321,12 +386,12 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
           </div>
         )}
 
-        
         {LichessError === "invalid lichess" && (
           <div className={`notification notification-error`}>
             Can't replace LichessID! If you need to change, DM @icebear120 on discord for help
           </div>
         )}
+
       </>
     )
   }

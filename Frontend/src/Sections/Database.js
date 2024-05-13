@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import HoverPopup from '../Components/hover.js'
+import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
 import './../App.css'
+
+import { HoverPopup } from '../Components/hover.js'
+
 
 
 const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
-    const [acceptedChallenge, setAcceptedChallenges] = useState([]);
-    
+    // const [acceptedChallenge, setAcceptedChallenges] = useState([]);
     const [cancelledChallenge, setCancelledChallenge] = useState(false);
     
     const [deletedChallege, setDeletedChallege] = useState(false);
@@ -17,6 +20,8 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
     
     const [blankUplandID, setBlankUplandID] = useState(false);
     const [visitorError, setVisitorError] = useState(false);
+    const [invalidBearerError, setInvalidBearerError] = useState(false);
+    
     
 
     const AcceptChallenge = async (link, index) => {
@@ -27,30 +32,31 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       }
       
       try {
-        const res = await axios.post('/accepted', {
-          link,
-          currentUserUplandID,
-        });
+        const res = await axios.post(baseUrl + '/accepted', { link, currentUserUplandID});
 
         if (res.data === -1) {
           setVisitorError(true)
           setTimeout(() => setVisitorError(false), 5000);
           return
+        } else if (res.data === -2) {
+          setInvalidBearerError(true)
+          setTimeout(() => setInvalidBearerError(false), 5000);
+          return
         }
 
         window.open(link, '_blank');
-        setAcceptedChallenges([acceptedChallenge, index]);
+        // setAcceptedChallenges([acceptedChallenge, index]);
       } catch (error) {
         console.error('Error:', error);
       }
     };
   
     const CancelChallenge = async (link, index) => {
-      const updatedAcceptedChallenges = acceptedChallenge.filter((acceptedIndex) => acceptedIndex !== index);
+      // const updatedAcceptedChallenges = acceptedChallenge.filter((acceptedIndex) => acceptedIndex !== index);
       
       try {
-        await axios.post('/cancel', { link });
-        setAcceptedChallenges(updatedAcceptedChallenges);
+        await axios.post(baseUrl + '/cancel', { link });
+        // setAcceptedChallenges(updatedAcceptedChallenges);
 
         setCancelledChallenge(true)
         setTimeout(() => setCancelledChallenge(false), 5000);
@@ -60,9 +66,10 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       }
     };
   
-    const DeleteChallenge = async (link, accepted) => {
+    const DeleteChallenge = async (link) => {
+      
       try {
-        const res = await axios.post('/delete', { link });
+        const res = await axios.post(baseUrl + '/delete', { link });
 
         if (res.data === 'Success') {
           setDeletedChallege(true)
@@ -82,8 +89,20 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
         console.error('Error:', error);
       }
     };
-    
+
+
+    // Go to different pages by the click of a button
+    const navigate = useNavigate();
+
+    const ViewEscrow = async (escrowId) => {
+      navigate('/escrow', { state: {escrowId, currentUserUplandID} });
+    };
+
+    const ViewLichess = async (lichessId) => {
+      navigate('/lichess', { state: {lichessId, currentUserUplandID} });
+    };
   
+    
     return (
       <>
         <table>
@@ -97,6 +116,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
               <th>Link</th>
               <th>Availability</th>
               <th>Accept Challenge</th>
+              <th>Escrow Status</th>
             </tr>
           </thead>
   
@@ -116,31 +136,52 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                 ) : (
                   <td> {challenge.uplandID} </td>
                 )}
-  
-                <td> {challenge.lichessID} </td>
+
+
+                <td> 
+                  <div 
+                    onClick={() => ViewLichess(challenge.lichessID)}
+                    className='textOutliner lichess'
+                  >
+                    {challenge.lichessID} 
+                  </div>
+                </td>
+
+
                 <td> {challenge.opponentRating} </td>
                 <td> {challenge.wageramt} </td>
   
                 <td>
                   <a href={challenge.link} target="_blank" rel="noopener noreferrer">
-                    {challenge.link}
+                    ENTER GAME
                   </a>
                 </td>
   
                 <td >
-                  {(acceptedChallenge.includes(index) && challenge.accepted) ? (
+                  {/* acceptedChallenge.includes(index) && */}
+                  {(challenge.accepted === "YES") && (
                     <span className='textOutliner accepted'>
                       Accepted
                     </span>
-                  ) : (
+                  )} 
+                  
+                  {(challenge.accepted === "NO") && (
                     <span className='textOutliner available'>
                       Available
+                    </span>
+                  )}
+
+                  {(challenge.accepted === "COMPLETED") && (
+                    <span className='textOutliner completed'>
+                      COMPLETED
                     </span>
                   )}
                 </td>
   
                 <td>
-                  {!acceptedChallenge.includes(index) && !challenge.accepted && !(currentUserUplandID === challenge.uplandID) && !(challenge.uplandID === -1) && (
+
+                {/* {!acceptedChallenge.includes(index) && } */}
+                  {challenge.accepted === "NO" && !(currentUserUplandID === challenge.uplandID) && !(challenge.uplandID === -1) && ( 
                     <button 
                       onClick={() => AcceptChallenge(challenge.link, index)}
                       className='acceptButton'
@@ -148,8 +189,9 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                       Accept
                     </button>
                   )}
-  
-                  {!acceptedChallenge.includes(index) && !challenge.accepted && challenge.uplandID === currentUserUplandID && (
+
+                {/* !acceptedChallenge.includes(index) && */}
+                  {challenge.accepted === "NO" && challenge.uplandID === currentUserUplandID &&(
                     <button
                       onClick={() => DeleteChallenge(challenge.link, challenge.accepted, index)}
                       className='deleteButton'
@@ -157,21 +199,65 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                       Delete
                     </button>
                   )}
-  
-                  {(acceptedChallenge.includes(index) || challenge.accepted) && challenge.accepter === currentUserUplandID && (
+
+                  {challenge.readyStatus === "NO" && challenge.accepted !== "NO" && challenge.uplandID === currentUserUplandID &&(
+                    <button
+                      onClick={() => DeleteChallenge(challenge.link, challenge.accepted, index)}
+                      className='deleteButton'
+                    >
+                      Delete
+                    </button>
+                  )}
+                  
+                {/* acceptedChallenge.includes(index) ||  */}
+                  {challenge.readyStatus === "NO" && (challenge.accepted === "YES") && (challenge.accepter === currentUserUplandID || challenge.uplandID === currentUserUplandID)  && (
                     <button
                       onClick={() => CancelChallenge(challenge.link, index)}
                       className='cancelButton'
+                      style= {{marginTop: "5px"}}
                     >
                       Cancel
                     </button>
                   )}
 
                   {challenge.uplandID === -1 && (
-                    <div className='textOutliner warning'>
-                      Invalid
-                    </div>
+                    <HoverPopup text="Once wager transactions on the escrow is confirmed on the EOS blockchain, it will be resolved">
+                      <span className='textOutliner completed'>
+                        COMPLETED
+                      </span>
+                    </HoverPopup>
+                    
                   )}
+                </td>
+
+
+                <td> 
+                    {challenge.readyStatus === "YES" && (
+                      <button 
+                        onClick={() => ViewEscrow(challenge.escrowId)}
+                        className='textOutliner ready'
+                      >
+                        GOOD TO GO
+                      </button>
+                    )}  
+                    
+                    {challenge.readyStatus === "NO" && (
+                      <div 
+                        onClick={() => ViewEscrow(challenge.escrowId)}
+                        className='textOutliner ready'
+                      >
+                        ESCROW NOT READY
+                      </div>
+                    )}
+
+                    {challenge.readyStatus === "RESOLVING" && (
+                      <div 
+                        onClick={() => ViewEscrow(challenge.escrowId)}
+                        className='textOutliner ready'
+                      >
+                        RESOLVING
+                      </div>
+                    )}
                 </td>
   
               </tr>
@@ -226,6 +312,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
             </div>
           </div>
         )}
+        
 
         {cancelledChallenge && (
           <div className={`notification notification-success`}>
@@ -235,9 +322,14 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
           </div>
         )}
 
+        {invalidBearerError && (
+            <div className={`notification notification-error`}>
+            BEARER TOKEN IS INVALID
+            </div>
+        )}
 
       </>
     );
   };  
 
-export default ChessChallengesTable 
+export { ChessChallengesTable }

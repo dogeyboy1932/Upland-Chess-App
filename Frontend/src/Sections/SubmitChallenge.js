@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+
+import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES"
 import './../App.css'
 
 
 const submitDetails = async (rated, wager, upland) => {
     try {
-      const response = await axios.post('/submit-details', {
+      const response = await axios.post(baseUrl + '/submit-details', {
         rated, 
         wager,
         upland
       });
-      
+            
       return response.data
     } catch (error) {
       console.error('Error:', error);
@@ -31,11 +33,7 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
     const handleChallengeSubmit = async () => {
         const res = await submitDetails(rated, wager, finalUserUplandID);
         
-        if (res === 1) {
-          setChallengeSubmitted(true);
-          setTimeout(() => setChallengeSubmitted(false), 5000);
-          closeChallengeModal();
-        } else if (res === -1 || res === -2 || res === -3 || res === -4) {
+        if (res === -1 || res === -2 || res === -3 || res === -4) {
           setChallengeError(res);
           setTimeout(() => setChallengeError(1), 5000);
         } else if (res === -5) {
@@ -44,6 +42,11 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
         } else if (res === -6) {
           setVisitorError(true);
           setTimeout(() => setVisitorError(false), 5000);
+        } else {
+          setChallengeSubmitted(true);
+          setTimeout(() => setChallengeSubmitted(false), 5000);
+          closeChallengeModal();
+          window.open(res, '_blank');
         }
     }; 
 
@@ -53,6 +56,7 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
           setTimeout(() => setNeedLogin(false), 3000);
           return 
         }
+
         setChallengeOpen(!isChallengeOpen);
         setLoginOpen(false)
         setCreateOpen(false);
@@ -68,8 +72,6 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
             <button onClick={openChallengeModal} className='createChallengeButton'> 
                 CREATE CHALLENGE 
             </button>
-
-            <br/>
 
             {isChallengeOpen && (
                 <div className='modal modalChallenge'>
@@ -134,7 +136,7 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
 
             {invalidBearerError && (
                 <div className={`notification notification-error`}>
-                YOUR BEARER TOKEN IS INVALID. You need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
+                Unknown error...most likely cause is YOUR BEARER TOKEN IS INVALID. If this keeps popping up, you might need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
                 </div>
             )}
         </> 
