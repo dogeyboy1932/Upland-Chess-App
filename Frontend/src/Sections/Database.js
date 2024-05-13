@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import {BASE_URL as baseUrl} from "../../FIXED_FRONTEND_VARIABLES.js"
+import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
 import './../App.css'
 
 import { HoverPopup } from '../Components/hover.js'

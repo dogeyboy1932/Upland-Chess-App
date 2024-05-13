@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 
-import {BASE_URL as baseUrl} from "../../FIXED_FRONTEND_VARIABLES"
+import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES"
 
 
 // FIX THIS: CLEAN THIS PAGE UP

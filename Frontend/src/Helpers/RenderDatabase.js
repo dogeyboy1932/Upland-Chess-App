@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './../App.css'
 
-import {BASE_URL as baseUrl} from "../../FIXED_FRONTEND_VARIABLES"
+import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES"
 
 
 const RenderDatabase = async () => {

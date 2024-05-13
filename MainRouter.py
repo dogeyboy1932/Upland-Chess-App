@@ -138,21 +138,23 @@ def ChallengeButton():
 @app.route('/', methods=['POST'])
 def respond():
     try:
-        data = request.json['type']
+        data = request.json
     except:
         print("NOT VALID REQUEST")
         return str(-1)
+    
+    # print(data)
 
-    if data == 'AuthenticationSuccess':
-        access_token = data['accessToken']
+    if data['type'] == 'AuthenticationSuccess':
+        access_token = data['data']['accessToken']
         CreateProfile(access_token)
 
         # print(access_token)
         # df = pd.read_excel(filepath)
         # print(df)
     
-    elif data == 'UserDisconnectedApplication':
-        credentials = GetCredentialsByID(data['userId'])
+    elif data['type'] == 'UserDisconnectedApplication':
+        credentials = GetCredentialsByID(data['data']['userId'])
 
         if credentials == -1: 
             print("UNABLE TO DELETE PROFILE")
