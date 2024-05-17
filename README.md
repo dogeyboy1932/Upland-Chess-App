@@ -18,7 +18,6 @@ openpyxl
 berserk
 flask_cors
 react-bootstrap bootstrap
-
  
 URL TAKES ME TO A FRONTEND DOMAIN:
  - WHAT I SEE:
