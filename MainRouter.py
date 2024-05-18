@@ -144,7 +144,7 @@ def respond():
         print("NOT VALID REQUEST")
         return str(-1)
     
-    print(request)
+    # print(request)
 
     # print("HERE\n")
     # # Decode the bytes string to a regular string and parse the JSON
@@ -160,6 +160,12 @@ def respond():
     # # Print all parameters
     # print(parameters)
     # print("HERE2\n")
+
+    try:
+        var = data['type']
+    except:
+        return "No data type"
+
 
     if data['type'] == 'AuthenticationSuccess':
         access_token = data['data']['accessToken']
