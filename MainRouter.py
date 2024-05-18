@@ -142,7 +142,7 @@ def respond():
 
 
     try:
-        data = request.data
+        data = request.body
     except:
         print("NOT VALID REQUEST")
         return str(-1)
