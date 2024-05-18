@@ -27,6 +27,6 @@ yarn-error.log*
 
 TEST.py
 frontend/node_modules
-XL Spreadsheets
+# XL Spreadsheets
 
 OLD_CODE
