@@ -138,6 +138,9 @@ def ChallengeButton():
 
 @app.route('/connect')
 def respond():
+    print("START\n")
+
+
     try:
         data = request.data
     except:
