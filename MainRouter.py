@@ -146,7 +146,8 @@ def respond():
     
 
     print("HERE\n")
-    print("1: ", data.body)
+    print("1: ", data)
+    print("2: ", data.body)
     # print("2: ",request.url)
     # print("3: ",request.data)
     # print("4: ",data)
