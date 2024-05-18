@@ -145,10 +145,10 @@ def respond():
         return str(-1)
     
     print("HERE\n")
-    print(request.headers)
-    print(request.url)
-    print(request.data)
-    print(data)
+    print("1: ", request.headers)
+    print("2: ",request.url)
+    print("3: ",request.data)
+    print("4: ",data)
     print("HERE2\n")
 
     if data['type'] == 'AuthenticationSuccess':
