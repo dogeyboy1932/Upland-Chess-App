@@ -1,4 +1,5 @@
 click==8.1.7
+Flask-RESTful==0.3.10
 Flask==3.0.2
 gunicorn==22.0.0
 itsdangerous==2.1.2
