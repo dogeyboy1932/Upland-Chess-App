@@ -144,6 +144,7 @@ def respond():
         print("NOT VALID REQUEST")
         return str(-1)
     
+    
     print("HERE\n")
     print("1: ", request.headers)
     print("2: ",request.url)
