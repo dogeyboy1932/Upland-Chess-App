@@ -9,13 +9,13 @@ Afterwards, they can:
 On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
 # More Info
-**Branches:**
+[**Branches:**]
  - Main: For local testing & development
  - Frontend: All code for frontend -> Deployed on Vercel   [Built w/ Node.js & React]
  - Backend: All code for backend -> Deployed on Heroku     [Built w/ Flask & Python]
  - Akhil: Test branch
 
-**Packages:**
+[**Packages:**]
  - pandas
  - Flask
  - openpyxl
@@ -27,18 +27,18 @@ On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 *This app is reliant on the functionality of the Upland & Lichess APIs. (For the most part, it works fine.)*
 
 
-**How Escrow Funds are Resolved:**
+[**How Escrow Funds are Resolved:**]
  - 80% winner
  - 10% loser
  - 10% developers
 
 
-*ngrok*
+[*ngrok*]
 Used ngrok to receive webhook requests: 
 - [ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000]     <- When connecting to app, this webhook forwards the request to localhost:5000
 
 
-**First Problems/Tasks when Building App**
+[**First Problems/Tasks when Building App**]
 
 Had to learn:
  - Rest APIs (Berserk, figuring out authentication, escrows, etc)
