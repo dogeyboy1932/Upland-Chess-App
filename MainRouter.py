@@ -139,7 +139,7 @@ def ChallengeButton():
 @app.route('/')
 def respond():
     try:
-        data = request.args
+        data = request
     except:
         print("NOT VALID REQUEST")
         return str(-1)
