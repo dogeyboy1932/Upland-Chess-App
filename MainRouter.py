@@ -136,7 +136,7 @@ def ChallengeButton():
     return str(ChallengeButtonClicked(uplandID, rated, wager, speed, variant, name, increment))
 
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def respond():
     # print("START1\n")
 
