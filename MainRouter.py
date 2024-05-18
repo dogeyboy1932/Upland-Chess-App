@@ -151,7 +151,7 @@ def respond():
 
     # print("HERE\n")
     # # Decode the bytes string to a regular string and parse the JSON
-    json_data = json.loads(data.decode('utf-8'))
+    # json_data = json.loads(data.decode('utf-8'))
 
     # # Extract all parameters
     # parameters = {}
@@ -163,7 +163,7 @@ def respond():
     # # Print all parameters
     # print(parameters)
     print("HERE2\n")
-    print(json_data)
+    # print(json_data)
 
     var = data.get('type', None)
     if var is None:
