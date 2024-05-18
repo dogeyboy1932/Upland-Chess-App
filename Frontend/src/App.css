@@ -9,7 +9,7 @@ header {
 }
 
 .title {
-  font-family: cursive;
+  font-family: 'Gill Sans', 'sans-serif', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 4em;
   background-image: linear-gradient(to bottom, #858885, #bcbcbc); /* Gradient from Light Green to White */
   color: #ffffff;
@@ -294,7 +294,17 @@ tbody tr:hover {
   background-color: Purple;
 }
 
-.ready {
+.ready1 {
+  background-color: #008037;
+  cursor: pointer;
+}
+
+.ready2 {
+  background-color: #e21700;
+  cursor: pointer;
+}
+
+.ready3 {
   background-color: #008037;
   cursor: pointer;
 }
@@ -418,7 +428,7 @@ button {
 }
 
 .acceptButton {
-  background-color: #a52a2a; /* Brown */
+  background-color: #2aa545; /* Brown */
   color: #fff; 
 }
 
@@ -458,4 +468,21 @@ button {
 .info-text {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+}
+
+
+/* DeleteProfileModal.css */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: auto; /* Adjust the width as needed */
+  height: auto; /* Adjust the height as needed */
+  background-color: white; /* Ensure it has a background color */
+  padding: 20px; /* Optional: Add some padding */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Optional: Add some shadow for better visibility */
+  border-radius: 10px; /* Optional: Add rounded corners */
 }

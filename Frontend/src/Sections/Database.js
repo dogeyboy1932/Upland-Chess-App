@@ -235,7 +235,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                     {challenge.readyStatus === "YES" && (
                       <button 
                         onClick={() => ViewEscrow(challenge.escrowId)}
-                        className='textOutliner ready'
+                        className='textOutliner ready3'
                       >
                         GOOD TO GO
                       </button>
@@ -244,7 +244,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                     {challenge.readyStatus === "NO" && (
                       <div 
                         onClick={() => ViewEscrow(challenge.escrowId)}
-                        className='textOutliner ready'
+                        className='textOutliner ready2'
                       >
                         ESCROW NOT READY
                       </div>
@@ -253,7 +253,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
                     {challenge.readyStatus === "RESOLVING" && (
                       <div 
                         onClick={() => ViewEscrow(challenge.escrowId)}
-                        className='textOutliner ready'
+                        className='textOutliner ready1'
                       >
                         RESOLVING
                       </div>

@@ -75,18 +75,18 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
 
             {isChallengeOpen && (
                 <div className='modal modalChallenge'>
-                <span className="close" onClick={closeChallengeModal}> &times; </span>
-                <h2>Enter Your Challenge Details! </h2>
-                
-                <label htmlFor="name">Rated? </label>
-                <input type="text" id="name" value={rated} onChange={(e) => setRated(e.target.value)} />
-                <br />
-                
-                <label htmlFor="name">Wager? </label>
-                <input type="text" id="wager" value={wager} className='user-input' onChange={(e) => setWager(e.target.value)} />
-                <br />
-                
-                <button onClick={handleChallengeSubmit} className='submitButton'>Submit</button>
+                    <span className="close" onClick={closeChallengeModal}> &times; </span>
+                    <h2>Enter Your Challenge Details! </h2>
+                    
+                    <label htmlFor="name">Rated? </label>
+                    <input type="text" id="name" value={rated} onChange={(e) => setRated(e.target.value)} />
+                    <br />
+                    
+                    <label htmlFor="name">Wager? </label>
+                    <input type="text" id="wager" value={wager} className='user-input' onChange={(e) => setWager(e.target.value)} />
+                    <br />
+                    
+                    <button onClick={handleChallengeSubmit} className='submitButton'>Submit</button>
                 </div>
             )}
 

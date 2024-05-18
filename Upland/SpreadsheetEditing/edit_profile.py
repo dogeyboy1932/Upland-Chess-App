@@ -38,6 +38,8 @@ def DeleteProfile(uplandID, password):
 
     idx = QueryUplandIDRow(uplandID)
 
+    if idx == -1: return -1
+
     if worksheet[idx][6].value != password: return "Incorrect Password"
     worksheet.delete_rows(idx)
 

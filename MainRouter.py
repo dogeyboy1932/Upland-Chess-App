@@ -116,7 +116,7 @@ def DeleteProf():
     uplandID = request.get_json().get('uplandIDRemove')
     password = request.get_json().get('passwordRemove')
 
-    return DeleteProfile(uplandID, password)  
+    return str(DeleteProfile(uplandID, password))
 
 
 @app.route('/submit-details', methods=['POST'])
