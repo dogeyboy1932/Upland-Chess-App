@@ -1,3 +1,9 @@
+# Function:
+Users create a new profile connecting their Upland & Lichess accounts to it. 
+Afterwards, they can: 
+ - create chess challenges and wager an amount of their choice
+ - accept chess challenges that others submitted
+
 # How To Use:
 On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
@@ -17,11 +23,7 @@ On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
  - node.js ("npm i" in *Frontend* directory)
 
 
-**Function:**
-Users create a new profile connecting their Upland & Lichess accounts to it. 
-Afterwards, they can: 
-- create chess challenges and wager an amount of their choice
-- accept chess challenges that others submitted
+
 
 This app is reliant on the functionality of the Upland & Lichess APIs. _For the most part, it works fine._
 
