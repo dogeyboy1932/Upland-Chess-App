@@ -138,7 +138,7 @@ def ChallengeButton():
 
 @app.route('/connect')
 def respond():
-    print("START1\n")
+    # print("START1\n")
 
 
     # try:
@@ -162,7 +162,7 @@ def respond():
 
     # # Print all parameters
     # print(parameters)
-    print("HERE2\n")
+    # print("HERE2\n")
     # print(json_data)
 
     # var = data.get('type', None)
