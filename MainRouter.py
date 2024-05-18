@@ -60,7 +60,7 @@ def GetLichessID():
 
 @app.route('/getLichessInfo', methods=['POST'])
 def GetLichessInfo():
-    lichessID = request.get_json().get('lichessId')
+    # lichessID = request.get_json().get('lichessId')
 
     lichessID = "trashboatsr"
 
