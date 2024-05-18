@@ -10,8 +10,6 @@ To do:
  - Setup domain to keep it all running
 
 
- 
-
 Packages To Download:
 pandas
 flask
