@@ -144,7 +144,12 @@ def respond():
         print("NOT VALID REQUEST")
         return str(-1)
     
+    print("HERE\n")
+    print(request.headers)
+    print(request.url)
+    print(request.data)
     print(data)
+    print("HERE2\n")
 
     if data['type'] == 'AuthenticationSuccess':
         access_token = data['data']['accessToken']
