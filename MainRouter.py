@@ -175,14 +175,14 @@ def test():
         "about" :"Hey! I'm a python stack developer"
     }
 
-    print("HERE\n")
-    print(request.json)
-    print("HERE2\n")
+    print(f'Request: {request}')
+    print(f'URL: {request.url}')
+    print(f'Method: {request.method}')
+    print(f'Args: {request.args}')
 
-    # try:
-    #     var = request
-    #     return var
-    # except:
+    # Optionally process the request arguments
+    lichess_id = request.args.get('lichessId')
+    print(f'lichessId: {lichess_id}')
     
     return response_body
 
