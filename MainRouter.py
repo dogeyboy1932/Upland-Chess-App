@@ -46,8 +46,7 @@ def Auth():
 
 @app.route('/password', methods=['POST'])
 def Password():
-    # uplandID = request.get_json().get('uplandID')
-    uplandID = "dogeyboy19"
+    uplandID = request.get_json().get('uplandID')
 
     return str(QueryForPassword(uplandID))
 
@@ -62,6 +61,8 @@ def GetLichessID():
 @app.route('/getLichessInfo', methods=['POST'])
 def GetLichessInfo():
     lichessID = request.get_json().get('lichessId')
+
+    lichessID = "trashboatsr"
 
     return jsonify(GetVariant(lichessID, "rapid"))
 
