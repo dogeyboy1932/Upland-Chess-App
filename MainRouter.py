@@ -166,25 +166,25 @@ def respond():
         return "No data type"
 
 
-    if data['type'] == 'AuthenticationSuccess':
-        access_token = data['data']['accessToken']
-        CreateProfile(access_token)
+    # if data['type'] == 'AuthenticationSuccess':
+    #     access_token = data['data']['accessToken']
+    #     CreateProfile(access_token)
 
         # print(access_token)
         # df = pd.read_excel(filepath)
         # print(df)
     
-    elif data['type'] == 'UserDisconnectedApplication':
-        credentials = GetCredentialsByID(data['data']['userId'])
+    # elif data['type'] == 'UserDisconnectedApplication':
+    #     credentials = GetCredentialsByID(data['data']['userId'])
 
-        if credentials == -1: 
-            print("UNABLE TO DELETE PROFILE")
-            return
+    #     if credentials == -1: 
+    #         print("UNABLE TO DELETE PROFILE")
+    #         return
 
-        uplandId = credentials[0]
-        password = credentials[1]
+    #     uplandId = credentials[0]
+    #     password = credentials[1]
 
-        DeleteProfile(uplandId, password)
+    #     DeleteProfile(uplandId, password)
 
 
     # print("HERE3")
