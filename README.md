@@ -1,7 +1,8 @@
 # How To Use:
 On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
-# Branches:
+# More Info
+**Branches:**
  - Main: For local testing & development
  - Frontend: All code for frontend -> Deployed on Vercel   [Built w/ Node.js & React]
  - Backend: All code for backend -> Deployed on Heroku     [Built w/ Flask & Python]
@@ -9,12 +10,11 @@ On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
 **Packages:**
  - pandas
- -  Flask
- -  openpyxl
- -  berserk
- -  Flask_cors
- 
-- node.js ("npm i" in *Frontend* directory)
+ - Flask
+ - openpyxl
+ - berserk
+ - Flask_cors
+ - node.js ("npm i" in *Frontend* directory)
 
 
 **Function:**
