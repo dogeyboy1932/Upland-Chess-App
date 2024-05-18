@@ -11,8 +11,8 @@ header {
 .title {
   font-family: cursive;
   font-size: 4em;
-  background-image: linear-gradient(to bottom, #d1e389, #ffffff); /* Gradient from Light Green to White */
-  color: #e22a22;
+  background-image: linear-gradient(to bottom, #858885, #bcbcbc); /* Gradient from Light Green to White */
+  color: #ffffff;
   margin: 0px;
   display: inline-block;
   border: 4px solid #000;

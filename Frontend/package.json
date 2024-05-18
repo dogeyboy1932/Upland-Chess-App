@@ -2,8 +2,7 @@
   "name": "chess-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:4000",
-  "homepage": ".",
+
   "dependencies": {
     "@testing-library/react": "^15.0.6",
     "@testing-library/user-event": "^14.5.2",
@@ -18,12 +17,11 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
-    "start": "npm-run-all -p start:react",
-    "go": "npm-run-all -p start:ngrok start:server",
-
+    "start": "npm-run-all -p start:react start:server",
+    
     "start:react": "react-scripts start",
-    "start:ngrok": "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 4000",
     "start:server": "python ../MainRouter.py",
+    "start:ngrok": "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 4000",
 
     "build": "react-scripts build",
     "serve": "serve -s build",
