@@ -165,9 +165,9 @@ def respond():
     print("HERE2\n")
     # print(json_data)
 
-    var = data.get('type', None)
-    if var is None:
-        return "No data type"
+    # var = data.get('type', None)
+    # if var is None:
+    #     return "No data type"
 
 
     # if data['type'] == 'AuthenticationSuccess':
