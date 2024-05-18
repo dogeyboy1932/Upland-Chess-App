@@ -151,9 +151,10 @@ def respond():
 
 
 
-    # var = data.get('type', None)
-    # if var is None:
-    #     return "No data type"
+    var = data.get('type', None)
+    if var is None:
+        print("CAME HERE")
+        return "No data type"
 
 
     # if data['type'] == 'AuthenticationSuccess':
