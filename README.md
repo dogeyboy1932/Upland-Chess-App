@@ -52,7 +52,6 @@ Had to learn:
 
 # Things to work on:
 - RESET PASSWORD OPTION
-- LOADING ICON
 - Using local storage to shift between pages
 - Create spinning icon that will momentarily show on the site when reset button is clicked
 - Make the reset button a component of its own
