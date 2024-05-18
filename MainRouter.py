@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from flask_restful import Api
 import pandas as pd
 import json
 
@@ -24,7 +23,6 @@ from Chess.get_lichess_info import GetVariant
 from flask_cors import CORS 
 
 app = Flask(__name__)
-# api = Api(app)
 
 CORS(app)
 app.logger.disabled = True
@@ -184,9 +182,15 @@ def test():
     except:
         return response_body
 
+    
 
-# api.add_resource(test, '/test')
+
+# HELPER USE THIS ONLY IF SPREADSHEETS ARE EMPTY
+def AddInitial():
+    AppendChallengeHeader()
+    AppendProfileHeader()
 
 
 if __name__ == '__main__':
     app.run()
+
