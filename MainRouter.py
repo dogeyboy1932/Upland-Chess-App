@@ -109,6 +109,10 @@ def Credentials():
     lichessID = request.args.get('lichessID')
     password = request.args.get('password')
 
+    print(uplandID)
+    print(lichessID)
+    print(password)
+
     return FillProfile(uplandID, lichessID, password)   
 
 
@@ -138,7 +142,6 @@ def ChallengeButton():
 
 @app.route('/connect', methods=['POST'])
 def respond():
-    print("START1\n")
 
     try:
         data = request.json
@@ -146,17 +149,10 @@ def respond():
         print("NOT VALID REQUEST")
         return str(-1)
     
-    # for key, value in data.items():
-    #     print(f"{key}: {value}")
-
-
-
     var = data.get('type', None)
     if var is None:
-        print("CAME HERE")
         return "No data type"
 
-    print(var)
 
     if var == 'AuthenticationSuccess':
         access_token = data['data']['accessToken']
@@ -177,9 +173,6 @@ def respond():
         password = credentials[1]
 
         DeleteProfile(uplandId, password)
-
-
-    print("HERE3")
 
     return "success"
 

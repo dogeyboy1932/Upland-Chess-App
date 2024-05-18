@@ -9,6 +9,8 @@ from Upland.SpreadsheetEditing.edit_profile import FillingLichessInfo
 
 
 def FillProfile(uplandID, lichessID, password):   # Called when you submit a created profile
+    print("REACHED HERE")
+    
     worksheet = load_workbook(filepath)['Sheet']
 
     # Clearing up errors    
