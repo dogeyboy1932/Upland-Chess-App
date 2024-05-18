@@ -146,8 +146,8 @@ def respond():
         print("NOT VALID REQUEST")
         return str(-1)
     
-    for key, value in data.items():
-        print(f"{key}: {value}")
+    # for key, value in data.items():
+    #     print(f"{key}: {value}")
 
 
 
