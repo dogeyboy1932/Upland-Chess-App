@@ -177,7 +177,7 @@ def test():
 
 
     try:
-        var = request.json()
+        var = request
         return var
     except:
         return response_body
