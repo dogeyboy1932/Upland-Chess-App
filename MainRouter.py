@@ -141,11 +141,11 @@ def respond():
     print("START\n")
 
 
-    try:
-        data = request.data
-    except:
-        print("NOT VALID REQUEST")
-        return str(-1)
+    # try:
+    #     data = request.data
+    # except:
+    #     print("NOT VALID REQUEST")
+    #     return str(-1)
     
     print(request)
 
