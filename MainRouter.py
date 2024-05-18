@@ -176,8 +176,8 @@ def test():
     }
 
 
-    if (request.get_json()):
-        return request.get_json()
+    if (request):
+        return request
 
     return response_body
 
