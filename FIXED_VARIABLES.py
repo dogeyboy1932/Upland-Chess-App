@@ -26,8 +26,8 @@ client = berserk.Client(session=session)
 
 
 # Spreadsheet Paths
-filepath = r"/Users/gogin/Desktop/ChessApp/ChessApp Backend Code/XL Spreadsheets/ProfileDatabase.xlsx"
-cfilepath = r"/Users/gogin/Desktop/ChessApp/ChessApp Backend Code/XL Spreadsheets/ChallengeMap.xlsx"
+filepath = r"/app/XL Spreadsheets/ProfileDatabase.xlsx"
+cfilepath = r"/app/XL Spreadsheets/ChallengeMap.xlsx"
 
 
 # Smoothing Methods
