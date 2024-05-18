@@ -102,7 +102,6 @@ def Deleted():
     return ChallengeDeleted(link)
     
 
-
 @app.route('/credentials', methods=['POST'])
 def Credentials():
     uplandID = request.json.get('uplandID')
