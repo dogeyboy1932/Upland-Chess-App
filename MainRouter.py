@@ -161,9 +161,8 @@ def respond():
     # print(parameters)
     # print("HERE2\n")
 
-    try:
-        var = data['type']
-    except:
+    var = data.get('type', None)
+    if var is None:
         return "No data type"
 
 
