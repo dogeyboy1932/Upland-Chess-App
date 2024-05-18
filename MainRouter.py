@@ -46,28 +46,28 @@ def Auth():
 
 @app.route('/password', methods=['POST'])
 def Password():
-    uplandID = request.get_json().get('uplandID')
+    uplandID = request.args.get('uplandID')
 
     return str(QueryForPassword(uplandID))
 
 
 @app.route('/getLichessID', methods=['POST'])
 def GetLichessID():
-    uplandID = request.get_json().get('uplandID')
+    uplandID = request.args.get('uplandID')
 
     return str(QueryForLichessID(uplandID))
 
 
 @app.route('/getLichessInfo', methods=['POST'])
 def GetLichessInfo():
-    lichessID = request.get_json().get('lichessId')
+    lichessID = request.args.get('lichessId')
 
     return jsonify(GetVariant(lichessID, "rapid"))
 
 
 @app.route('/getEscrow', methods=['POST'])
 def GetEscrow():
-    escrowId = request.get_json().get('escrowId')
+    escrowId = request.args.get('escrowId')
 
     # print(jsonify(GetEscrowContainer(escrowId)))
 
@@ -78,8 +78,8 @@ def GetEscrow():
 def Accepted():
     Iterate()
 
-    accepter = request.get_json().get('currentUserUplandID')
-    link = request.get_json().get('link')
+    accepter = request.args.get('currentUserUplandID')
+    link = request.args.get('link')
 
     res = ChallengeAccepted(link, accepter)
         
@@ -88,7 +88,7 @@ def Accepted():
 
 @app.route('/cancel', methods=['POST'])
 def Cancel():
-    link = request.get_json().get('link')
+    link = request.args.get('link')
     
     ChallengeCanceled(link)
     return "Success"
@@ -96,7 +96,7 @@ def Cancel():
 
 @app.route('/delete', methods=['POST'])
 def Deleted():
-    link = request.get_json().get('link')
+    link = request.args.get('link')
 
     return ChallengeDeleted(link)
     
@@ -104,17 +104,17 @@ def Deleted():
 
 @app.route('/credentials', methods=['POST'])
 def Credentials():
-    uplandID = request.get_json().get('uplandID')
-    lichessID = request.get_json().get('lichessID')
-    password = request.get_json().get('password')
+    uplandID = request.args.get('uplandID')
+    lichessID = request.args.get('lichessID')
+    password = request.args.get('password')
 
     return FillProfile(uplandID, lichessID, password)   
 
 
 @app.route('/deleteProfile', methods=['POST'])
 def DeleteProf():
-    uplandID = request.get_json().get('uplandIDRemove')
-    password = request.get_json().get('passwordRemove')
+    uplandID = request.args.get('uplandIDRemove')
+    password = request.args.get('passwordRemove')
 
     return DeleteProfile(uplandID, password)  
 
@@ -122,7 +122,7 @@ def DeleteProf():
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
     
-    data = request.get_json()
+    data = request.args
 
     uplandID = data.get('upland')
     rated = data.get('rated')
