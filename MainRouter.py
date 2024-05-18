@@ -176,10 +176,13 @@ def test():
     }
 
 
-    # if (request):
-    #     return request + " ..."
+    try:
+        var = request.json()
+        return var
+    except:
+        return response_body
 
-    return response_body
+    
 
 
 # HELPER USE THIS ONLY IF SPREADSHEETS ARE EMPTY
