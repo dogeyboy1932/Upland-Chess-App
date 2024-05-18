@@ -139,17 +139,17 @@ def ChallengeButton():
 @app.route('/')
 def respond():
     try:
-        data = request
+        data = request.data
     except:
         print("NOT VALID REQUEST")
         return str(-1)
     
-    
+
     print("HERE\n")
-    print("1: ", request.headers)
-    print("2: ",request.url)
-    print("3: ",request.data)
-    print("4: ",data)
+    print("1: ", data.body)
+    # print("2: ",request.url)
+    # print("3: ",request.data)
+    # print("4: ",data)
     print("HERE2\n")
 
     if data['type'] == 'AuthenticationSuccess':
