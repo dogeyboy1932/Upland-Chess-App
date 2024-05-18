@@ -151,7 +151,8 @@ def respond():
 
     print("HERE\n")
     # Decode the bytes string to a regular string and parse the JSON
-    json_data = json.loads(data.decode('utf-8'))
+    # json_data = json.loads(data.decode('utf-8'))
+    json_data = data
 
     # Extract all parameters
     parameters = {}
@@ -165,30 +166,30 @@ def respond():
     print("HERE2\n")
     print(json_data)
 
-    var = data.get('type', None)
-    if var is None:
-        return "No data type"
+    # var = data.get('type', None)
+    # if var is None:
+    #     return "No data type"
 
 
-    if data['type'] == 'AuthenticationSuccess':
-        access_token = data['data']['accessToken']
-        CreateProfile(access_token)
+    # if data['type'] == 'AuthenticationSuccess':
+    #     access_token = data['data']['accessToken']
+    #     CreateProfile(access_token)
 
-        # print(access_token)
-        # df = pd.read_excel(filepath)
-        # print(df)
+    #     # print(access_token)
+    #     # df = pd.read_excel(filepath)
+    #     # print(df)
     
-    elif data['type'] == 'UserDisconnectedApplication':
-        credentials = GetCredentialsByID(data['data']['userId'])
+    # elif data['type'] == 'UserDisconnectedApplication':
+    #     credentials = GetCredentialsByID(data['data']['userId'])
 
-        if credentials == -1: 
-            print("UNABLE TO DELETE PROFILE")
-            return
+    #     if credentials == -1: 
+    #         print("UNABLE TO DELETE PROFILE")
+    #         return
 
-        uplandId = credentials[0]
-        password = credentials[1]
+    #     uplandId = credentials[0]
+    #     password = credentials[1]
 
-        DeleteProfile(uplandId, password)
+    #     DeleteProfile(uplandId, password)
 
 
     print("HERE3")
