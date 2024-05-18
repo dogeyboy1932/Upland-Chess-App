@@ -175,7 +175,9 @@ def test():
         "about" :"Hey! I'm a python stack developer"
     }
 
+    print("HERE\n")
     print(request)
+    print("HERE2\n")
 
     # try:
     #     var = request
