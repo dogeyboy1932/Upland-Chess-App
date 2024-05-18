@@ -1,20 +1,18 @@
-**Branches:**
+# How To Use:
+On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
+
+# Branches:
  - Main: For local testing & development
  - Frontend: All code for frontend -> Deployed on Vercel   [Built w/ Node.js & React]
  - Backend: All code for backend -> Deployed on Heroku     [Built w/ Flask & Python]
  - Akhil: Test branch
 
-
-**How To Use:**
-On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
-
-
 **Packages:**
-- pandas
-- Flask
-- openpyxl
-- berserk
-- Flask_cors
+ - pandas
+ -  Flask
+ -  openpyxl
+ -  berserk
+ -  Flask_cors
  
 - node.js ("npm i" in *Frontend* directory)
 
@@ -40,7 +38,7 @@ Used ngrok to receive webhook requests:
 - [ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000]     <- When connecting to app, this webhook forwards the request to localhost:5000
 
 
-# First Problems/Tasks when Building App
+**First Problems/Tasks when Building App**
 Had to learn:
  - Rest APIs (Berserk, figuring out authentication, escrows, etc)
  - Flask (routing msgs to backend)
