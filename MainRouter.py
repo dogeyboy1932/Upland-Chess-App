@@ -147,7 +147,7 @@ def respond():
         print("NOT VALID REQUEST")
         return str(-1)
     
-    # print(request)
+    print(request)
 
     # print("HERE\n")
     # # Decode the bytes string to a regular string and parse the JSON
