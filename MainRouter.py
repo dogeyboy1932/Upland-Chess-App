@@ -24,7 +24,7 @@ from Chess.get_lichess_info import GetVariant
 from flask_cors import CORS 
 
 app = Flask(__name__)
-api = Api(app)
+# api = Api(app)
 
 CORS(app)
 app.logger.disabled = True
@@ -185,7 +185,7 @@ def test():
         return response_body
 
 
-api.add_resource(test, '/test')
+# api.add_resource(test, '/test')
 
 
 if __name__ == '__main__':
