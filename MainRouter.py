@@ -159,7 +159,8 @@ def respond():
 
     # # Print all parameters
     # print(parameters)
-    # print("HERE2\n")
+    print("HERE2\n")
+    print(data)
 
     var = data.get('type', None)
     if var is None:
