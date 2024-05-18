@@ -1,5 +1,6 @@
 # Function:
-Users create a new profile connecting their Upland & Lichess accounts to it. 
+Users create a new profile connecting their Upland & Lichess accounts to it.
+
 Afterwards, they can: 
  - create chess challenges and wager an amount of their choice
  - accept chess challenges that others submitted
