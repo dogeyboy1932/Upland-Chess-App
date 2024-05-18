@@ -142,7 +142,7 @@ def respond():
 
 
     try:
-        data = request.body
+        data = request.json
     except:
         print("NOT VALID REQUEST")
         return str(-1)
@@ -174,9 +174,9 @@ def respond():
         access_token = data['data']['accessToken']
         CreateProfile(access_token)
 
-        print(access_token)
-        df = pd.read_excel(filepath)
-        print(df)
+        # print(access_token)
+        # df = pd.read_excel(filepath)
+        # print(df)
     
     elif data['type'] == 'UserDisconnectedApplication':
         credentials = GetCredentialsByID(data['data']['userId'])
