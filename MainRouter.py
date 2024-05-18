@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import json
+import os
 
 from FIXED_VARIABLES import NumpyArrayEncoder
 
@@ -175,16 +176,9 @@ def test():
         "about" :"Hey! I'm a python stack developer"
     }
 
-    print(f'Request: {request}')
-    print(f'URL: {request.url}')
-    print(f'Method: {request.method}')
-    print(f'Args: {request.args}')
-
-    # Optionally process the request arguments
-    lichess_id = request.args.get('lichessId')
-    print(f'lichessId: {lichess_id}')
+    current_directory = os.getcwd()
     
-    return response_body
+    return jsonify({'current_directory': current_directory})
 
     
 
