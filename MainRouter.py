@@ -46,7 +46,8 @@ def Auth():
 
 @app.route('/password', methods=['POST'])
 def Password():
-    uplandID = request.get_json().get('uplandID')
+    # uplandID = request.get_json().get('uplandID')
+    uplandID = "dogeyboy19"
 
     return str(QueryForPassword(uplandID))
 
