@@ -24,9 +24,7 @@ On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
  - node.js ("npm i" in *Frontend* directory)
 
 
-
-
-This app is reliant on the functionality of the Upland & Lichess APIs. _For the most part, it works fine._
+*This app is reliant on the functionality of the Upland & Lichess APIs. (For the most part, it works fine.)*
 
 
 **How Escrow Funds are Resolved:**
@@ -35,13 +33,13 @@ This app is reliant on the functionality of the Upland & Lichess APIs. _For the 
  - 10% developers
 
 
-
 *ngrok*
 Used ngrok to receive webhook requests: 
 - [ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000]     <- When connecting to app, this webhook forwards the request to localhost:5000
 
 
 **First Problems/Tasks when Building App**
+
 Had to learn:
  - Rest APIs (Berserk, figuring out authentication, escrows, etc)
  - Flask (routing msgs to backend)
