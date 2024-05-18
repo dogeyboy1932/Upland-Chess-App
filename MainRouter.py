@@ -177,11 +177,12 @@ def test():
     }
 
 
-    try:
-        var = request
-        return var
-    except:
-        return response_body
+    # try:
+    #     var = request
+    #     return var
+    # except:
+    
+    return response_body
 
     
 
