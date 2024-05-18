@@ -18,7 +18,7 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
-    "start": "npm-run-all -p start:react start:ngrok start:server",
+    "start": "npm-run-all -p start:react",
     "go": "npm-run-all -p start:ngrok start:server",
 
     "start:react": "react-scripts start",

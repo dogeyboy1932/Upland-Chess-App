@@ -4,7 +4,7 @@ import json
 
 from FIXED_VARIABLES import NumpyArrayEncoder
 
-from Upland.auth_code import Verify
+from Upland.Auth_code import Verify
 from Upland.SpreadsheetEditing.create_profile import CreateProfile
 from Upland.SpreadsheetEditing.edit_profile import AppendProfileHeader, DeleteProfile
 from Upland.SpreadsheetEditing.fill_profile import FillProfile
@@ -174,6 +174,11 @@ def test():
         "name": "Akhil",
         "about" :"Hello! I'm a python stack developer"
     }
+
+
+    if (request.get_json()):
+        return request.get_json()
+
     return response_body
 
 

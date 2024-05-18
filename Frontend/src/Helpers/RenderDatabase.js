@@ -35,7 +35,7 @@ const RenderDatabase = async () => {
       return challengeData
     } catch (error) {
       console.error('Error processing button click:', error);
-      return RenderDatabase()
+      // return RenderDatabase()
     }
   };
 
