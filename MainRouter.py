@@ -140,31 +140,16 @@ def ChallengeButton():
 def respond():
     print("START1\n")
 
-
     try:
         data = request.json
     except:
         print("NOT VALID REQUEST")
         return str(-1)
     
-    print(data)
+    for key, value in data.items():
+        print(f"{key}: {value}")
 
-    print("HERE\n")
-    # Decode the bytes string to a regular string and parse the JSON
-    # json_data = json.loads(data.decode('utf-8'))
-    json_data = data
 
-    # Extract all parameters
-    parameters = {}
-    parameters['url'] = json_data['url']
-    parameters['id'] = json_data['body']['id']
-    parameters['message'] = json_data['body']['message']
-    parameters['header_parameters'] = json_data['headers']['parameters']
-
-    # Print all parameters
-    print(parameters)
-    print("HERE2\n")
-    print(json_data)
 
     # var = data.get('type', None)
     # if var is None:
