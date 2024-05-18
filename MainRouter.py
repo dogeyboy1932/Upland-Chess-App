@@ -135,15 +135,17 @@ def ChallengeButton():
     return str(ChallengeButtonClicked(uplandID, rated, wager, speed, variant, name, increment))
 
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def respond():
     try:
-        data = request.json['type']
+        data = request.json
     except:
         print("NOT VALID REQUEST")
         return str(-1)
+    
+    # print(data)
 
-    if data == 'AuthenticationSuccess':
+    if data['type'] == 'AuthenticationSuccess':
         access_token = data['data']['accessToken']
         CreateProfile(access_token)
 
@@ -151,7 +153,7 @@ def respond():
         # df = pd.read_excel(filepath)
         # print(df)
     
-    elif data == 'UserDisconnectedApplication':
+    elif data['type'] == 'UserDisconnectedApplication':
         credentials = GetCredentialsByID(data['data']['userId'])
 
         if credentials == -1: 
@@ -166,12 +168,17 @@ def respond():
     return "success"
 
 
-@app.route('/test', methods=['GET'])
+@app.route('/test')
 def test():
     response_body = {
         "name": "Akhil",
         "about" :"Hello! I'm a python stack developer"
     }
+
+
+    if (request.get_json()):
+        return request.get_json()
+
     return response_body
 
 
@@ -182,6 +189,5 @@ def AddInitial():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=4000, debug=True)
     app.run()
 
