@@ -176,7 +176,7 @@ def test():
     }
 
     print("HERE\n")
-    print(request)
+    print(request.json)
     print("HERE2\n")
 
     # try:
