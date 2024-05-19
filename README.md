@@ -38,7 +38,7 @@ On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
 [***ngrok***]
 
-Used ngrok to receive webhook requests: 
+For local testing I used ngrok to receive webhook requests: 
 - [ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000]     <- When connecting to app on Upland, this webhook forwards the request to localhost:5000
 
 
