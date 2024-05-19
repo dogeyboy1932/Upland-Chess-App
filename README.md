@@ -54,7 +54,7 @@ Had to learn:
  - Heroku
  - Vercel
  - CSS, HTML, JS Libraries
- - A bunch of _sluff_ along the way
+ - A bunch of _stuff_ along the way
 
 
 # Things to work on:
