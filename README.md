@@ -51,6 +51,10 @@ Had to learn:
  - React.js + a little CSS
  - Webhooks (forwarding, tunnels  <- This took too long)
  - Integration!!!
+ - Heroku
+ - Vercel
+ - CSS, HTML, JS Libraries
+ - A bunch of _sluff_ along the way
 
 
 # Things to work on:
