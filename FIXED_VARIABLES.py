@@ -7,7 +7,6 @@ from json import JSONEncoder
 import numpy
 
 
-
 # MY EOS BLOCKCHAIN ID
 primeEOS = "mp4n4f2mq3ca"
 
