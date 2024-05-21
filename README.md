@@ -1,19 +1,18 @@
 **OFFICIAL WEBSITE:**
 https://upland-chess.website/
 
-# Function:
+## Function:
 Users create a new profile connecting their Upland & Lichess accounts to it.
 
 Afterwards, they can: 
  - create chess challenges and wager an amount of their choice
  - accept chess challenges that others submitted
 
-# How To Use:
+## How To Use:
 On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
 ** If you run into an error like "error:0308010C:digital envelope routines::unsupported", enter the following cmd into your shell and try again: `set NODE_OPTIONS=--openssl-legacy-provider` **
 
-# More Info
 ## **Branches:**
  - Main: For local testing & development
  - Frontend: All code for frontend -> Deployed on Vercel   [Built w/ Node.js & React]
@@ -38,7 +37,7 @@ On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
  - 10% developers
 
 
-[***ngrok***]
+###[***ngrok***]
 
 For local testing I used ngrok to receive webhook requests: 
 - [ngrok http --domain=vocal-shepherd-select.ngrok-free.app 5000]     <- When connecting to app on Upland, this webhook forwards the request to localhost:5000
@@ -46,7 +45,7 @@ For local testing I used ngrok to receive webhook requests:
 
 ## **First Problems/Tasks when Building App**
 
-### Had to learn:
+Had to learn:
  - Rest APIs (Berserk, figuring out authentication, escrows, etc)
  - Flask (routing msgs to backend)
  - Python (libraries like openpyxl, pandas, http.client, making API calls)
