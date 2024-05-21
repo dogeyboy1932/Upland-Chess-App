@@ -11,7 +11,7 @@ Afterwards, they can:
 # How To Use:
 On branch *Main*, enter *Frontend* directory on your shell & type in "npm start"
 
-** If you run into an error like "error:0308010C:digital envelope routines::unsupported", enter the following cmd into your shell and try again: *set NODE_OPTIONS=--openssl-legacy-provider* **
+** If you run into an error like "error:0308010C:digital envelope routines::unsupported", enter the following cmd into your shell and try again: `set NODE_OPTIONS=--openssl-legacy-provider` **
 
 # More Info
 [**Branches:**]
