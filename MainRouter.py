@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, Response
 import json
-import os
 
 from FIXED_VARIABLES import NumpyArrayEncoder
 
@@ -38,12 +37,9 @@ def ChallengeDatabase():
 
     return encodedNumpyData
 
-#     # return []
-
 
 @app.route('/auth', methods=['POST'])
 def Auth():
-    # print("AUTH1")
     return Verify()
 
 
@@ -52,8 +48,6 @@ def Password():
     uplandID = request.json.get('uplandID')
 
     return str(QueryForPassword(uplandID))
-
-    # return "-1"
 
 
 @app.route('/getLichessID', methods=['POST'])
@@ -73,8 +67,6 @@ def GetLichessInfo():
 @app.route('/getEscrow', methods=['POST'])
 def GetEscrow():
     escrowId = request.json.get('escrowId')
-
-    # print(jsonify(GetEscrowContainer(escrowId)))
 
     return jsonify(GetEscrowContainer(escrowId))
 
@@ -104,7 +96,7 @@ def Deleted():
     link = request.json.get('link')
 
     return ChallengeDeleted(link)
-    # return str(-1)
+
     
 
 
@@ -115,7 +107,7 @@ def Credentials():
     password = request.json.get('password')
 
     return FillProfile(uplandID, lichessID, password)
-    # return str(-1)
+
 
 
 @app.route('/deleteProfile', methods=['POST'])
@@ -124,7 +116,7 @@ def DeleteProf():
     password = request.json.get('passwordRemove')
 
     return str(DeleteProfile(uplandID, password))
-    # return str(-1)
+
 
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
@@ -140,40 +132,40 @@ def ChallengeButton():
     increment = 0
 
     return str(ChallengeButtonClicked(uplandID, rated, wager, speed, variant, name, increment))
-    # return str(-1)
+
 
 @app.route('/connect', methods=['POST'])
 def respond():
-    # try:
-    #     data = request.json
-    #     var = data['type']
-    # except:
-    #     print("NOT VALID REQUEST")
-    #     return str(-1)
+    try:
+        data = request.json
+        var = data['type']
+    except:
+        print("NOT VALID REQUEST")
+        return str(-1)
     
-    # print(data)
+    print(data)
 
-    # if data['type'] == 'AuthenticationSuccess':
-    #     access_token = data['data']['accessToken']
-    #     CreateProfile(access_token)
+    if data['type'] == 'AuthenticationSuccess':
+        access_token = data['data']['accessToken']
+        CreateProfile(access_token)
 
-    #     # print(access_token)
-    #     # df = pd.read_excel(filepath)
-    #     # print(df)
+        # print(access_token)
+        # df = pd.read_excel(filepath)
+        # print(df)
     
-    # elif data['type'] == 'UserDisconnectedApplication':
-    #     credentials = GetCredentialsByID(data['data']['userId'])
+    elif data['type'] == 'UserDisconnectedApplication':
+        credentials = GetCredentialsByID(data['data']['userId'])
 
-    #     print(credentials)
+        print(credentials)
 
-    #     if credentials == -1: 
-    #         print("UNABLE TO DELETE PROFILE")
-    #         return str(-1)
+        if credentials == -1: 
+            print("UNABLE TO DELETE PROFILE")
+            return str(-1)
 
-    #     uplandId = credentials[0]
-    #     password = credentials[1]
+        uplandId = credentials[0]
+        password = credentials[1]
 
-    #     DeleteProfile(uplandId, password)
+        DeleteProfile(uplandId, password)
 
     return "success"
 
@@ -185,9 +177,7 @@ def test():
         "about" :"Hey! I'm a python stack developer"
     }
 
-    current_directory = os.getcwd()
-    
-    return jsonify({'current_directory': current_directory})
+    return response_body
 
     
 if __name__ == '__main__':
