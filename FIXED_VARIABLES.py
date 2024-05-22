@@ -36,15 +36,10 @@ class NumpyArrayEncoder(JSONEncoder):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
 
-# pd.set_option('display.max_colwidth', None)
 
-
-
-
-# Create the connection string
+# MongoDB
 connection_string = 'mongodb+srv://vagogineni:KingBlackMask25@cluster0.rfvxrov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
-# Connect to the MongoDB server
 mongoClient = MongoClient(connection_string)
 
 challenges_db = mongoClient['Upland_Chess_App']['Challenges']
