@@ -6,10 +6,8 @@ import './../App.css'
 
 
 import { HoverPopup } from '../Components/hover';
-
 import { SubmitChallenge } from './SubmitChallenge.js';
 import { RenderDatabase } from '../Helpers/RenderDatabase.js';
-
 import { DeleteProfileModal } from '../Components/DeleteProfileModal';
 import { UserDetails } from '../Components/UserDetails';
 
@@ -391,6 +389,5 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       </>
     )
   }
-  
   
   export {UserSection}
