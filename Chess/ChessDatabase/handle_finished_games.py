@@ -1,6 +1,3 @@
-import pandas as pd
-from openpyxl import load_workbook
-
 from FIXED_VARIABLES import challenges_db
 
 from Chess.ChessDatabase.game_ended import gameEnded, isGameFinished
