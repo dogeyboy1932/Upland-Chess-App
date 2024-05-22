@@ -1,6 +1,4 @@
-from openpyxl import load_workbook
-
-from FIXED_VARIABLES import cfilepath
+from FIXED_VARIABLES import challenges_db
 
 from Chess.get_lichess_info import GetLichessRating
 
@@ -8,9 +6,6 @@ from Upland.Escrow.create_escrow_container import CreateEscrowContainer
 
 
 def AppendChallenge(challenger, wager, thisGame):
-    workbook = load_workbook(cfilepath)
-    worksheet = workbook['Sheet']
-
     # Grabbing Details
     gameID = thisGame['challenge']['id']
     rating = GetLichessRating(challenger, "rapid")
@@ -18,24 +13,19 @@ def AppendChallenge(challenger, wager, thisGame):
     escrowID = CreateEscrowContainer()
 
     # Making data
-    data = [gameID, challenger, rating, wager, link, escrowID, "NO", "blank", "NO"]
+    data = {
+        "gameID": gameID,
+        "challenger": challenger,
+        "rating": rating,
+        "wager": wager,
+        "link": link,
+        "escrowID": escrowID,
+        "accepted?": "NO",
+        "accepter": "blank",
+        "readyStatus": "NO"
+    }
 
     # Appending data to spreadsheet
-    worksheet.append(data)
+    challenges_db.insert_one(data)
 
-    workbook.save(cfilepath)
-    workbook.close()
-
-    return gameID
-
-
-def AppendChallengeHeader():
-    workbook = load_workbook(cfilepath)
-    worksheet = workbook['Sheet']
-
-    data = ["gameID", "challenger", "rating", "wager", "link", "escrowID", "accepted?", "accepter", "readyStatus"]
-
-    worksheet.append(data)
-
-    workbook.save(cfilepath)
-    workbook.close()
+    return escrowID, link

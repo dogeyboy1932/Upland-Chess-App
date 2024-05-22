@@ -64,3 +64,11 @@ Had to learn:
 - Create spinning icon that will momentarily show on the site when reset button is clicked
 - Make the reset button a component of its own
 - "Improve UI"
+
+
+
+
+
+
+
+Webhook from Upland: https://akhil-upland-chess-d17596495d27.herokuapp.com/connect

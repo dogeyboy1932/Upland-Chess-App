@@ -17,7 +17,7 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
-    "start": "npm-run-all -p start:server start:react",
+    "start": "npm-run-all -p start:react",
 
     "start:react": "react-scripts start",
     "start:server": "python ../MainRouter.py",

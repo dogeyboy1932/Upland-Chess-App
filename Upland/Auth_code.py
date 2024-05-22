@@ -20,5 +20,5 @@ def Verify():
     
         return str(data['code'])
     except:
-        print(f'Auth request failed with status code {res.status}')
+        print(f'Auth request failed with status code')
         return -1

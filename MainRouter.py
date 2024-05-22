@@ -6,12 +6,11 @@ from FIXED_VARIABLES import NumpyArrayEncoder
 
 from Upland.Auth_code import Verify
 from Upland.SpreadsheetEditing.create_profile import CreateProfile
-from Upland.SpreadsheetEditing.edit_profile import AppendProfileHeader, DeleteProfile
+from Upland.SpreadsheetEditing.edit_profile import DeleteProfile
 from Upland.SpreadsheetEditing.fill_profile import FillProfile
 from Upland.SpreadsheetEditing.query_spreadsheet import QueryForPassword, QueryForLichessID, GetCredentialsByID
 from Upland.Escrow.get_escrow_container import GetEscrowContainer
 
-from Chess.NewChallenge.append_challenge import AppendChallengeHeader
 from Chess.ChessDatabase.iterate_database import Iterate, UpdateBalances
 from Chess.ChessDatabase.handle_finished_games import HandleFinishedGames
 from Chess.Buttons.delete_button import ChallengeDeleted
@@ -132,13 +131,14 @@ def ChallengeButton():
     name = "Challenge by " + uplandID
     increment = 0
 
-    return str(ChallengeButtonClicked(uplandID, rated, wager, speed, variant, name, increment))
+    return str(ChallengeButtonClicked(uplandID, rated, int(wager), speed, variant, name, increment))
 
 
-@app.route('/', methods=['POST'])
+@app.route('/connect', methods=['POST'])
 def respond():
     try:
         data = request.json
+        var = data['type']
     except:
         print("NOT VALID REQUEST")
         return str(-1)
@@ -156,9 +156,11 @@ def respond():
     elif data['type'] == 'UserDisconnectedApplication':
         credentials = GetCredentialsByID(data['data']['userId'])
 
+        print(credentials)
+
         if credentials == -1: 
             print("UNABLE TO DELETE PROFILE")
-            return
+            return str(-1)
 
         uplandId = credentials[0]
         password = credentials[1]
@@ -180,12 +182,6 @@ def test():
         return request.get_json()
 
     return response_body
-
-
-# HELPER USE THIS ONLY IF SPREADSHEETS ARE EMPTY
-def AddInitial():
-    AppendChallengeHeader()
-    AppendProfileHeader()
 
 
 if __name__ == '__main__':

@@ -1,23 +1,14 @@
-from openpyxl import load_workbook
-
-from FIXED_VARIABLES import cfilepath
+from FIXED_VARIABLES import challenges_db
 
 from Upland.Escrow.refund_escrow import RefundEscrowContainer
-from Upland.SpreadsheetEditing.query_spreadsheet import QueryForIdxByLink
 
 def ChallengeDeleted(link):  # <- Delete Button clicked
-    workbook = load_workbook(cfilepath)
-    worksheet = workbook['Sheet']
-    
-    challengeIdx = QueryForIdxByLink(link)
-    
-    eid = worksheet[challengeIdx][5].value
-    returnVal = RefundEscrowContainer(eid)
-    
+    challenge = challenges_db.find_one({"link": link})
+
+    escrowID = str(challenge.get("escrowID", ""))
+    returnVal = RefundEscrowContainer(escrowID)
+
     if returnVal != "Processing":
-        worksheet.delete_rows(challengeIdx)
-
-    workbook.save(cfilepath)
-    workbook.close()
-
+        challenges_db.delete_one({"link": link})
+        
     return returnVal
