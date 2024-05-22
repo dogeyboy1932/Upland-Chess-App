@@ -3,8 +3,8 @@ import base64
 import berserk
 
 import logging
-from json import JSONEncoder
-import numpy
+# from json import JSONEncoder
+# import numpy
 
 from pymongo import MongoClient
 
@@ -30,11 +30,11 @@ client = berserk.Client(session=session)
 logger = logging.getLogger('werkzeug')
 logger.addHandler(logging.NullHandler())
 
-class NumpyArrayEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, numpy.ndarray):
-            return obj.tolist()
-        return JSONEncoder.default(self, obj)
+# class NumpyArrayEncoder(JSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, numpy.ndarray):
+#             return obj.tolist()
+#         return JSONEncoder.default(self, obj)
 
 # pd.set_option('display.max_colwidth', None)
 
