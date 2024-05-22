@@ -2,12 +2,11 @@ import http.client
 import base64
 import berserk
 
-
-import logging
 from json import JSONEncoder
-import numpy
+import numpy, logging
 
 from pymongo import MongoClient
+
 
 # MY EOS BLOCKCHAIN ID
 primeEOS = "mp4n4f2mq3ca"
@@ -40,7 +39,6 @@ class NumpyArrayEncoder(JSONEncoder):
 
 # MongoDB
 connection_string = 'mongodb+srv://vagogineni:KingBlackMask25@cluster0.rfvxrov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-
 mongoClient = MongoClient(connection_string)
 
 challenges_db = mongoClient['Upland_Chess_App']['Challenges']
