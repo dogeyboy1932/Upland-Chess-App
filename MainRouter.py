@@ -49,7 +49,7 @@ def Auth():
 
 @app.route('/password', methods=['POST'])
 def Password():
-    uplandID = request.get_json().get('uplandID')
+    uplandID = request.json.get('uplandID')
 
     return str(QueryForPassword(uplandID))
 
@@ -58,21 +58,21 @@ def Password():
 
 @app.route('/getLichessID', methods=['POST'])
 def GetLichessID():
-    uplandID = request.get_json().get('uplandID')
+    uplandID = request.json.get('uplandID')
 
     return str(QueryForLichessID(uplandID))
 
 
 @app.route('/getLichessInfo', methods=['POST'])
 def GetLichessInfo():
-    lichessID = request.get_json().get('lichessId')
+    lichessID = request.json.get('lichessId')
 
     return jsonify(GetVariant(lichessID, "rapid"))
 
 
 @app.route('/getEscrow', methods=['POST'])
 def GetEscrow():
-    escrowId = request.get_json().get('escrowId')
+    escrowId = request.json.get('escrowId')
 
     # print(jsonify(GetEscrowContainer(escrowId)))
 
@@ -83,8 +83,8 @@ def GetEscrow():
 def Accepted():
     Iterate()
 
-    accepter = request.get_json().get('currentUserUplandID')
-    link = request.get_json().get('link')
+    accepter = request.json.get('currentUserUplandID')
+    link = request.json.get('link')
 
     res = ChallengeAccepted(link, accepter)
         
@@ -93,7 +93,7 @@ def Accepted():
 
 @app.route('/cancel', methods=['POST'])
 def Cancel():
-    link = request.get_json().get('link')
+    link = request.json.get('link')
     
     ChallengeCanceled(link)
     return "Success"
@@ -101,33 +101,35 @@ def Cancel():
 
 @app.route('/delete', methods=['POST'])
 def Deleted():
-    link = request.get_json().get('link')
+    link = request.json.get('link')
 
     return ChallengeDeleted(link)
+    # return str(-1)
     
 
 
 @app.route('/credentials', methods=['POST'])
 def Credentials():
-    uplandID = request.get_json().get('uplandID')
-    lichessID = request.get_json().get('lichessID')
-    password = request.get_json().get('password')
+    uplandID = request.json.get('uplandID')
+    lichessID = request.json.get('lichessID')
+    password = request.json.get('password')
 
-    return FillProfile(uplandID, lichessID, password)   
+    return FillProfile(uplandID, lichessID, password)
+    # return str(-1)
 
 
 @app.route('/deleteProfile', methods=['POST'])
 def DeleteProf():
-    uplandID = request.get_json().get('uplandIDRemove')
-    password = request.get_json().get('passwordRemove')
+    uplandID = request.json.get('uplandIDRemove')
+    password = request.json.get('passwordRemove')
 
     return str(DeleteProfile(uplandID, password))
-
+    # return str(-1)
 
 @app.route('/submit-details', methods=['POST'])
 def ChallengeButton():
     
-    data = request.get_json()
+    data = request.json
 
     uplandID = data.get('upland')
     rated = data.get('rated')
@@ -138,40 +140,40 @@ def ChallengeButton():
     increment = 0
 
     return str(ChallengeButtonClicked(uplandID, rated, wager, speed, variant, name, increment))
-
+    # return str(-1)
 
 @app.route('/connect', methods=['POST'])
 def respond():
-    try:
-        data = request.json
-        var = data['type']
-    except:
-        print("NOT VALID REQUEST")
-        return str(-1)
+    # try:
+    #     data = request.json
+    #     var = data['type']
+    # except:
+    #     print("NOT VALID REQUEST")
+    #     return str(-1)
     
-    print(data)
+    # print(data)
 
-    if data['type'] == 'AuthenticationSuccess':
-        access_token = data['data']['accessToken']
-        CreateProfile(access_token)
+    # if data['type'] == 'AuthenticationSuccess':
+    #     access_token = data['data']['accessToken']
+    #     CreateProfile(access_token)
 
-        # print(access_token)
-        # df = pd.read_excel(filepath)
-        # print(df)
+    #     # print(access_token)
+    #     # df = pd.read_excel(filepath)
+    #     # print(df)
     
-    elif data['type'] == 'UserDisconnectedApplication':
-        credentials = GetCredentialsByID(data['data']['userId'])
+    # elif data['type'] == 'UserDisconnectedApplication':
+    #     credentials = GetCredentialsByID(data['data']['userId'])
 
-        print(credentials)
+    #     print(credentials)
 
-        if credentials == -1: 
-            print("UNABLE TO DELETE PROFILE")
-            return str(-1)
+    #     if credentials == -1: 
+    #         print("UNABLE TO DELETE PROFILE")
+    #         return str(-1)
 
-        uplandId = credentials[0]
-        password = credentials[1]
+    #     uplandId = credentials[0]
+    #     password = credentials[1]
 
-        DeleteProfile(uplandId, password)
+    #     DeleteProfile(uplandId, password)
 
     return "success"
 

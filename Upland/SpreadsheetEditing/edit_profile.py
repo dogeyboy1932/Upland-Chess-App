@@ -1,53 +1,28 @@
-from openpyxl import load_workbook
-
-from FIXED_VARIABLES import filepath
-
-from Upland.SpreadsheetEditing.query_spreadsheet import QueryUplandIDRow
+from FIXED_VARIABLES import profiles_db
 
 
-def FillingLichessInfo(uplandIdx, lichessID, lichessRating, password):
-   workbook = load_workbook(filepath)
-   worksheet = workbook['Sheet']
-
-   if password == -1: 
-      replaceCount = 1 if not worksheet[uplandIdx][8].value else worksheet[uplandIdx][8].value + 1
-      worksheet[uplandIdx][8].value = replaceCount   # This count cannot exceed too many times or account is banned
+def FillingLichessInfo(uplandID, lichessID, lichessRating, password):
+   user = profiles_db.find_one({"Upland Username": uplandID})
+   
+   update_operation = {}
+   if password == -1:
+      update_operation["LichessReplaced"] = user.get('LichessReplaced') + 1
    else:
-      worksheet[uplandIdx][6].value = password
+      update_operation["Password"] = password
 
-   worksheet[uplandIdx][0].value = lichessID 
-   worksheet[uplandIdx][2].value = lichessRating   
+   update_operation["Lichess ID"] = lichessID
+   update_operation["Lichess Rating"] = lichessRating
 
-   workbook.save(filepath)
-   workbook.close()
+   profiles_db.update_one({"Upland Username": uplandID}, {"$set": update_operation})
 
-
-def AppendProfile(data):
-    workbook = load_workbook(filepath)
-    worksheet = workbook['Sheet']
-
-    worksheet.append(data)
-
-    workbook.save(filepath)
-    workbook.close()
 
 
 def DeleteProfile(uplandID, password):
-    workbook = load_workbook(filepath)
-    worksheet = workbook['Sheet']
+   user = profiles_db.find_one({"Upland Username": uplandID})
+   if not user: return -1
 
-    idx = QueryUplandIDRow(uplandID)
+   if user.get("Password") != password: return "Incorrect Password"
 
-    if worksheet[idx][6].value != password: return "Incorrect Password"
-    worksheet.delete_rows(idx)
+   profiles_db.delete_one({"Upland Username": uplandID})
 
-    workbook.save(filepath)
-    workbook.close()
-
-    return "success"
-
-
-def AppendProfileHeader():
-   data = ["Lichess ID", "Upland Username", "Lichess Rating", "Balance", "Bearer Token", "Eos Upland ID", "Password", "UserId"]
-    
-   AppendProfile(data)
+   return "success"

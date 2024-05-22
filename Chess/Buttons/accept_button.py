@@ -1,15 +1,11 @@
-from openpyxl import load_workbook
-
-from FIXED_VARIABLES import cfilepath
+from FIXED_VARIABLES import challenges_db
 
 from Upland.Escrow.join_escrow_container import JoinEscrow
 from Upland.get_user_profile import GetUserProfile
-from Upland.SpreadsheetEditing.query_spreadsheet import GetBearerToken, QueryForIdxByLink
+from Upland.SpreadsheetEditing.query_spreadsheet import GetBearerToken, QueryForEOS, QueryForWager, QueryGameIDByLink
 
 
 def ChallengeAccepted(link, accepter):  # <- Accept Button clicked
-    workbook = load_workbook(cfilepath)
-    worksheet = workbook['Sheet']
 
     # Eliminate Errors
     try:
@@ -21,18 +17,22 @@ def ChallengeAccepted(link, accepter):  # <- Accept Button clicked
         return -1
     
     # Mark challenge accepted
-    challengeIdx = QueryForIdxByLink(link)
-    worksheet[challengeIdx][6].value = "YES"
-    worksheet[challengeIdx][7].value = accepter
-    
-    workbook.save(cfilepath)
-    workbook.close()
-    
+    challenges_db.update_one(
+        {"link": link},
+        {"$set": {
+            "accepted?": "YES",
+            "accepter": accepter,
+            "readyStatus": "NO"  # assuming you want to set this field as well
+        }}
+    )
 
+
+    gameID = QueryGameIDByLink(link)
+    
     # Join Escrow
     bearer = GetBearerToken(accepter)
-    eid = worksheet[challengeIdx][5].value
-    wager = worksheet[challengeIdx][3].value
+    eid = QueryForEOS(gameID)
+    wager = QueryForWager(gameID)
     
     JoinEscrow(bearer, eid, wager)
 

@@ -6,6 +6,7 @@ import logging
 from json import JSONEncoder
 import numpy
 
+from pymongo import MongoClient
 
 # MY EOS BLOCKCHAIN ID
 primeEOS = "mp4n4f2mq3ca"
@@ -25,11 +26,6 @@ session = berserk.TokenSession(token)
 client = berserk.Client(session=session)
 
 
-# Spreadsheet Paths
-filepath = r"/app/XL Spreadsheets/ProfileDatabase.xlsx"
-cfilepath = r"/app/XL Spreadsheets/ChallengeMap.xlsx"
-
-
 # Smoothing Methods
 logger = logging.getLogger('werkzeug')
 logger.addHandler(logging.NullHandler())
@@ -41,3 +37,16 @@ class NumpyArrayEncoder(JSONEncoder):
         return JSONEncoder.default(self, obj)
 
 # pd.set_option('display.max_colwidth', None)
+
+
+
+
+# Create the connection string
+connection_string = 'mongodb+srv://vagogineni:KingBlackMask25@cluster0.rfvxrov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+
+# Connect to the MongoDB server
+mongoClient = MongoClient(connection_string)
+
+challenges_db = mongoClient['Upland_Chess_App']['Challenges']
+profiles_db = mongoClient['Upland_Chess_App']['Profiles']
+test_db = mongoClient['Upland_Chess_App']['Test']
