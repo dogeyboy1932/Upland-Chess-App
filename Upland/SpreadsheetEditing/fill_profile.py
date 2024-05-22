@@ -2,7 +2,6 @@ from FIXED_VARIABLES import profiles_db
 
 from Chess.get_lichess_info import GetLichessRating
 
-from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, QueryForPassword
 from Upland.SpreadsheetEditing.edit_profile import FillingLichessInfo
 
 
@@ -11,14 +10,15 @@ def FillProfile(uplandID, lichessID, password):   # Called when you submit a cre
     lichessRating = GetLichessRating(lichessID, "rapid")
     if (lichessRating == -1): return 'invalid lichess'
 
-    if not profiles_db.find_one({"Upland Username": uplandID}): return 'no profile found'
+    profile = profiles_db.find_one({"Upland Username": uplandID})
 
-    prof_pass = QueryForPassword(uplandID)
+    if profile: prof_pass = profile.get("Password", -1)
+    else: prof_pass = -1
 
     # Depending on parameters, the profile will either be edited or errors will be returned
     if (prof_pass):
         if (prof_pass == password):
-            if (lichessID != QueryForLichessID(uplandID)):
+            if (lichessID != profile.get("Lichess ID", -1)):
                 FillingLichessInfo(uplandID, lichessID, lichessRating, -1)
                 return 'replaced'
             else:

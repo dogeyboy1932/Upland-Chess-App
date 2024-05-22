@@ -3,8 +3,6 @@ from Chess.NewChallenge.append_challenge import AppendChallenge
 
 from Upland.get_user_profile import GetUserProfile
 from Upland.Escrow.join_escrow_container import JoinEscrow
-
-
 from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, GetBearerToken, GetUserBalanceOnSheet
 
 
