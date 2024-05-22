@@ -13,7 +13,7 @@ const MainPage = () => {
   
 
   useEffect(() => {
-    resetChallenges();
+    // resetChallenges();
   }, []);
 
   const resetChallenges = async () => {

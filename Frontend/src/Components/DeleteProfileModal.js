@@ -21,6 +21,8 @@ const DeleteProfileModal = ({isDeleteOpen, setIsDeleteOpen}) => {
 
     const deleteProfile = async () => {
         const res = (await axios.post(baseUrl + '/deleteProfile', {uplandIDRemove, passwordRemove})).data;
+        
+        console.log(res)
 
         if (res === -1) {
             setDeleteError(true)

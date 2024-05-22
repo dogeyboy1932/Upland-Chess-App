@@ -82,6 +82,8 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
     const handleLogin = async () => {
       let realPassword = (await axios.post(baseUrl +'/password', {uplandID})).data;
 
+      console.log(realPassword)
+
       if (password === realPassword && realPassword !== -1) {
           
         setLoggedIn(true)
