@@ -108,6 +108,10 @@ def Credentials():
     lichessID = request.json.get('lichessID')
     password = request.json.get('password')
 
+    print(uplandID)
+    print(lichessID)
+    print(password)
+
     return FillProfile(uplandID, lichessID, password)   
 
 
@@ -176,13 +180,20 @@ def respond():
 def test():
     response_body = {
         "name": "Akhil",
-        "about" :"Hello! I'm a python stack developer"
+        "about" :"Hey! I'm a python stack developer"
     }
 
-    if (request.json):
-        return request.json()
+    current_directory = os.getcwd()
+    
+    return jsonify({'current_directory': current_directory})
 
-    return response_body
+    
+
+
+# HELPER USE THIS ONLY IF SPREADSHEETS ARE EMPTY
+def AddInitial():
+    AppendChallengeHeader()
+    AppendProfileHeader()
 
 
 if __name__ == '__main__':
