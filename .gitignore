@@ -10,9 +10,6 @@
 
 # production
 frontend/build
-__pycache__
-Chess/__pycache__
-Upland/__pycache__
 
 # misc
 .DS_Store
@@ -25,11 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-TEST.py
-frontend/node_modules
-XL Spreadsheets
-
 OLD_CODE
 node_modules
 build
-.emv
+.env
