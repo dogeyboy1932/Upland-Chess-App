@@ -26,12 +26,20 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
     const [visitorError, setVisitorError] = useState(false);
     const [invalidBearerError, setInvalidBearerError] = useState(false);
     const [apiError, setApiError] = useState(false);
+    const [insufficientError, setInsufficientError] = useState(false);
     
     const [rated, setRated] = useState('');
     const [wager, setWager] = useState('');
     
 
     const handleChallengeSubmit = async () => {
+
+        if (wager < 10) {
+          setInsufficientError();
+          setTimeout(() => setInsufficientError(1), 5000);
+          return
+        }
+
         const res = await submitDetails(rated, wager, finalUserUplandID);
         
         if (res === -1 || res === -2 || res === -3 || res === -4) {
@@ -147,6 +155,13 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
             {apiError && (
                 <div className={`notification notification-error`}>
                 This is an API call error where we were unable to extract ur balance. Right now it's recorded as $0. If this keeps popping up, you might need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
+                </div>
+            )}
+
+
+            {insufficientError && (
+                <div className={`notification notification-error`}>
+                Must wager at least 10
                 </div>
             )}
         </> 
