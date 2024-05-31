@@ -6,7 +6,7 @@ import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES"
 const RenderDatabase = async () => {
     try {
       const response = await axios.post(baseUrl + '/database');
-      // console.log(response);
+      console.log(response);
       
       const challengeTable = response.data.array;
       const challengeData = []
