@@ -35,8 +35,8 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
     const handleChallengeSubmit = async () => {
 
         if (wager < 10) {
-          setInsufficientError();
-          setTimeout(() => setInsufficientError(1), 5000);
+          setInsufficientError(true);
+          setTimeout(() => setInsufficientError(false), 5000);
           return
         }
 
