@@ -20,7 +20,7 @@ def MarkResolving(gameID): # THIS INDICATES THAT THE CHESS GAME IS OVER AND THE 
 
 
 def MarkReadyStatus(escrowID):  # THIS INDICATES THAT THE FUNDS HAVE TRANSFERRED TO THE ESCROW
-    escrow = GetEscrowContainer(escrowID))
+    escrow = GetEscrowContainer(escrowID)
 
     if (escrow != -1):
         success = True
