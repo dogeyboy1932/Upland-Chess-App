@@ -27,10 +27,8 @@ def gameEnded(gameID):
     eid = int(challenge.get("escrowID", ""))
     wager = int(challenge.get("wager", ""))
 
-    status = GetEscrowContainer(eid)['status']
-    print("STATUS: ", status)
-    if status == 'resolving':
-        return -3 # Escrow is still resolving
+    if GetEscrowContainer(eid)['status'] == 'resolved':
+        return -3 # Escrow is fully resolved
     
     return ResolveEscrow(eid, winner, loser, drawStatus, wager)
 
