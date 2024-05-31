@@ -40,4 +40,4 @@ def UpdateBalance(upland_access_token):
 
 def UpdateBalances():
     for profile in profiles_db.find():
-        UpdateBalance(profile.get('Bearer Token'))            
+        UpdateBalance(profile.get('Bearer Token'))
