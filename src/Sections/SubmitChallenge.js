@@ -25,6 +25,7 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
     const [challengeError, setChallengeError] = useState("-1");
     const [visitorError, setVisitorError] = useState(false);
     const [invalidBearerError, setInvalidBearerError] = useState(false);
+    const [apiError, setApiError] = useState(false);
     
     const [rated, setRated] = useState('');
     const [wager, setWager] = useState('');
@@ -42,6 +43,9 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
         } else if (res === -6) {
           setVisitorError(true);
           setTimeout(() => setVisitorError(false), 5000);
+        } else if (res === -7) {
+          setApiError(true);
+          setTimeout(() => setApiError(false), 5000);
         } else {
           setChallengeSubmitted(true);
           setTimeout(() => setChallengeSubmitted(false), 5000);
@@ -136,7 +140,13 @@ const SubmitChallenge = ({finalUserUplandID, setLoginOpen, setCreateOpen, setIsG
 
             {invalidBearerError && (
                 <div className={`notification notification-error`}>
-                Unknown error...most likely cause is YOUR BEARER TOKEN IS INVALID. If this keeps popping up, you might need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
+                Unknown error...most likely cause is YOUR BEARER TOKEN IS INVALID. 
+                </div>
+            )}
+
+            {apiError && (
+                <div className={`notification notification-error`}>
+                This is an API call error where we were unable to extract ur balance. Right now it's recorded as $0. If this keeps popping up, you might need to create a new profile. Please disconnect from this app and reconnect w/ a new code.
                 </div>
             )}
         </> 
