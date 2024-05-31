@@ -59,7 +59,7 @@ def HandleFinishedGames():
     
 
     for game in finishedGames:
-        if (gameEnded(game) == -1):   # This means escrow was not resolvable (due to insufficient funds)
+        if (gameEnded(game) == -1 or GetEscrowContainer(escrowID)['status'] == 'resolving'):   # This means escrow was not resolvable (due to insufficient funds)
             MarkResolving(game)
         else:
             FindAndRemoveRow(game)
