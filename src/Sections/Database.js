@@ -3,14 +3,13 @@ import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
-import { RenderDatabase } from '../Helpers/RenderDatabase.js';
 import './../App.css'
 
 import { HoverPopup } from '../Components/hover.js'
 
 
 
-const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
+const ChessChallengesTable = ({ challenges, currentUserUplandID, resetChallenges}) => {
     // const [acceptedChallenge, setAcceptedChallenges] = useState([]);
     const [cancelledChallenge, setCancelledChallenge] = useState(false);
     
@@ -41,7 +40,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       try {
         const res = await axios.post(baseUrl + '/accepted', { link, currentUserUplandID});
-        RenderDatabase();
+        resetChallenges();
 
         if (res.data === -1) {
           setVisitorError(true)
@@ -65,7 +64,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       try {
         await axios.post(baseUrl + '/cancel', { link });
-        RenderDatabase();
+        resetChallenges()
         // setAcceptedChallenges(updatedAcceptedChallenges);
 
         setCancelledChallenge(true)
@@ -80,7 +79,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       try {
         const res = await axios.post(baseUrl + '/delete', { link });
-        RenderDatabase();
+        resetChallenges();
 
         if (res.data === 'Success') {
           setDeletedChallege(true)
