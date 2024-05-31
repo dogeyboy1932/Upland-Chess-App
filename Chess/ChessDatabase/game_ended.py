@@ -2,6 +2,7 @@ from FIXED_VARIABLES import challenges_db, client
 
 from Chess.ChessDatabase.game_winner import GameWinner
 
+from Upland.Escrow.get_escrow_container import GetEscrowContainer
 from Upland.Escrow.resolve_escrow_container import ResolveEscrow
 from Upland.SpreadsheetEditing.query_spreadsheet import QueryForEOSID
 
@@ -25,6 +26,9 @@ def gameEnded(gameID):
     drawStatus = gameResult[2]
     eid = int(challenge.get("escrowID", ""))
     wager = int(challenge.get("wager", ""))
+
+    if GetEscrowContainer(eid)['status'] == 'resolving':
+        return -3 # Escrow is still resolving
     
     return ResolveEscrow(eid, winner, loser, drawStatus, wager)
 
