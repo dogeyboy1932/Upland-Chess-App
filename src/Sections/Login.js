@@ -313,12 +313,11 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
             
 
             {/* USER DETAILS */}
-            <div style={{marginRight: '20%', justifyContent: 'space-between'}}>
-              <UserDetails
-                currentUserUplandID={currentUserUplandID}
-                currentUserLichessID={currentUserLichessID}
-              />
-            </div>
+            <UserDetails
+              currentUserUplandID={currentUserUplandID}
+              currentUserLichessID={currentUserLichessID}
+            />
+            
 
 
             {/* RESET BUTTON */}
