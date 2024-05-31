@@ -5,9 +5,11 @@ from Upland.get_user_balance import GetUserBalance
 
 def CreateProfile(bearer_token):   # Called when connecting to ChessApp on Upland
     user_profile = GetUserProfile(bearer_token)
-    
-    uplandUsername = user_profile['username']
     balance = GetUserBalance(bearer_token)
+
+    print(balance)
+
+    uplandUsername = user_profile['username']
     eosId = user_profile['eosId']
     userId = user_profile['id']
     
