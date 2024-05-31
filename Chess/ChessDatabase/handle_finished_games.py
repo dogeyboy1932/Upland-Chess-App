@@ -34,10 +34,8 @@ def MarkReadyStatus(escrowID):  # THIS INDICATES THAT THE FUNDS HAVE TRANSFERRED
                 break
             
         if success:
-            print("CHANGING")
-            print(escrowID)
             challenges_db.update_one(
-                {"escrowID": int(escrowID)},
+                {"escrowID": escrowID},
                 {"$set": {
                     "readyStatus": "YES",
                 }}
@@ -50,7 +48,7 @@ def HandleFinishedGames():
     finishedGames = []
     for challenge in challenges:
         gameID = str(challenge.get("gameID", ""))
-        escrowID = str(challenge.get("escrowID", ""))
+        escrowID = challenge.get("escrowID", "")
         isAccepted = str(challenge.get("accepted?", ""))
         
         if isGameFinished(gameID):
