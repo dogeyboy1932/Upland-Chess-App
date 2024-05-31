@@ -33,7 +33,7 @@ def gameEnded(gameID):
         if escrow['status'] == 'resolved':
             return -3 # Escrow is fully resolved
         elif escrow['status'] == 'resolving':
-            return "success"
+            return -2
     
     return ResolveEscrow(eid, winner, loser, drawStatus, wager)
 
