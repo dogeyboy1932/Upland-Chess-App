@@ -9,6 +9,11 @@ from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, GetBe
 # TOO MANY QUERIES
 def ChallengeButtonClicked(uplandID, rated_, wager_, speed, variant, name, increment):
     
+    balance = GetUserBalanceOnSheet(uplandID)    
+    if (balance == -1):
+        # print("GET BALANCE API MESS UP")
+        return -7
+    
     # Eliminating all Errors
     if QueryForLichessID(uplandID) == -1:
         # print("UPLAND-ID DOES NOT EXIST")
@@ -22,7 +27,7 @@ def ChallengeButtonClicked(uplandID, rated_, wager_, speed, variant, name, incre
         # print("Invalid Wager")
         return -3
 
-    if (int(wager_) > GetUserBalanceOnSheet(uplandID)):
+    if (int(wager_) > balance):
         # print("NOT ENOUGH BALANCE")
         return -4
     
