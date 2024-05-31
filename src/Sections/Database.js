@@ -3,6 +3,7 @@ import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
+import { RenderDatabase } from '../Helpers/RenderDatabase.js';
 import './../App.css'
 
 import { HoverPopup } from '../Components/hover.js'
@@ -24,12 +25,12 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
     
     
 
-    useEffect(() => {
-      // Store state variables in localStorage when component unmounts
+    // useEffect(() => {
+    //   // Store state variables in localStorage when component unmounts
       
-      console.log("CHALLENGES: ", challenges)
+    //   console.log("CHALLENGES: ", challenges)
       
-    }, [challenges]);
+    // }, [challenges]);
 
     const AcceptChallenge = async (link, index) => {
       if (currentUserUplandID === "BLANK") {
@@ -40,6 +41,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       try {
         const res = await axios.post(baseUrl + '/accepted', { link, currentUserUplandID});
+        RenderDatabase();
 
         if (res.data === -1) {
           setVisitorError(true)
@@ -63,6 +65,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       try {
         await axios.post(baseUrl + '/cancel', { link });
+        RenderDatabase();
         // setAcceptedChallenges(updatedAcceptedChallenges);
 
         setCancelledChallenge(true)
@@ -77,6 +80,7 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
       
       try {
         const res = await axios.post(baseUrl + '/delete', { link });
+        RenderDatabase();
 
         if (res.data === 'Success') {
           setDeletedChallege(true)
