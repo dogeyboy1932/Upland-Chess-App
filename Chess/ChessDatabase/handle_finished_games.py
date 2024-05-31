@@ -33,7 +33,8 @@ def MarkReadyStatus(escrowID):  # THIS INDICATES THAT THE FUNDS HAVE TRANSFERRED
                 success = False
                 break
             
-        if success: 
+        if success:
+            print("CHANGING")
             challenges_db.update_one(
                 {"escrowID": escrowID},
                 {"$set": {
