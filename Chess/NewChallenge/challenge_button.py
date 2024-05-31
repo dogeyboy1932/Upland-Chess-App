@@ -9,7 +9,7 @@ from Upland.SpreadsheetEditing.query_spreadsheet import QueryForLichessID, GetBe
 # TOO MANY QUERIES
 def ChallengeButtonClicked(uplandID, rated_, wager_, speed, variant, name, increment):
     
-    balance = GetUserBalanceOnSheet(uplandID)    
+    balance = GetUserBalanceOnSheet(uplandID)
     if (balance == -1):
         # print("GET BALANCE API MESS UP")
         return -7
