@@ -156,7 +156,7 @@ def respond():
     elif data['type'] == 'UserDisconnectedApplication':
         credentials = GetCredentialsByID(data['data']['userId'])
 
-        print(credentials)
+        # print(credentials)
 
         if credentials == -1: 
             print("UNABLE TO DELETE PROFILE")

@@ -11,18 +11,18 @@ def GetUserBalance(upland_access_token):
         'Authorization': f'Bearer {upland_access_token}',
     }
 
-    print(upland_access_token)
+    # print(upland_access_token)
 
     try:
         conn.request("GET", url, payload, headers)
         
         res = conn.getresponse()
 
-        print(res)
+        # print(res)
 
         data = json.loads(res.read().decode("utf-8"))
 
-        print(data)
+        # print(data)
         
         return data['availableUpx'] 
     except:

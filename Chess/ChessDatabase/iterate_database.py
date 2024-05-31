@@ -29,7 +29,6 @@ def Iterate():  # <- Translates spreadsheet into frontend database
 def UpdateBalance(upland_access_token):
     availableUpx = GetUserBalance(upland_access_token)
 
-    print("AVAIL: ", availableUpx)
     if availableUpx == -1: return -1
 
     profiles_db.update_one(

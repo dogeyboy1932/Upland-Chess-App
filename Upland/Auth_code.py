@@ -12,7 +12,7 @@ def Verify():
         # 'Cookie': 'sticky-session-1=1701556690.435.2069.742375|9a5cc3e4d08faea009d8e16f5c97bee9'
     }
 
-    print("VERIFY")
+    # print("VERIFY")
 
     try:
         conn.request("POST", url, payload, headers)
