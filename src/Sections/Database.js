@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -23,6 +23,13 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID}) => {
     const [invalidBearerError, setInvalidBearerError] = useState(false);
     
     
+
+    useEffect(() => {
+      // Store state variables in localStorage when component unmounts
+      
+      console.log("CHALLENGES: ", challenges)
+      
+    }, [challenges]);
 
     const AcceptChallenge = async (link, index) => {
       if (currentUserUplandID === "BLANK") {
