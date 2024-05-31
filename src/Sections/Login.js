@@ -49,6 +49,12 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       if (res === "same") {
         setCreateError(res)
         setTimeout(() => setCreateError("default"), 3000);
+      } else if (res === "no profile found") {
+        setCreateError(res)
+        setTimeout(() => setCreateError("default"), 3000);
+      } else if (res === "taken") {
+        setCreateError(res)
+        setTimeout(() => setCreateError("default"), 3000);
       } else if (res === "wrong password") {
         setProfileCreated(res)
         setTimeout(() => setProfileCreated("default"), 3000);
@@ -57,9 +63,6 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
         setTimeout(() => setProfileCreated("default"), 3000);
         closeCreateProfileModal();
         handleLogin()
-      } else if (res === "no profile found") {
-        setCreateError(res)
-        setTimeout(() => setCreateError("default"), 3000);
       } else if (res === "invalid lichess") {
         setLichessError(res)
         setTimeout(() => setLichessError("default"), 3000);
@@ -104,6 +107,7 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
       setUplandID("")
       setLichessID("")
     };
+
 
     // Logout
     const Logout = async () => {
@@ -346,6 +350,12 @@ const UserSection = ({setFinalUserUplandID, setChallengesData}) => {
         {CreateError === "no profile found" && (
           <div className={`notification notification-error`}>
             Your UplandID is not on our record. PLEASE MAKE SURE TO AUTHENTICATE FIRST        
+          </div>
+        )}
+
+        {CreateError === "taken" && (
+          <div className={`notification notification-error`}>
+            Someone else is using this account!
           </div>
         )}
 
