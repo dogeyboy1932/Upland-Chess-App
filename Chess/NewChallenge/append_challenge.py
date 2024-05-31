@@ -20,8 +20,8 @@ def AppendChallenge(challenger, wager, thisGame):
         "wager": wager,
         "link": link,
         "escrowID": escrowID,
-        "accepted?": "NO",
         "accepter": "blank",
+        "accepted?": "NO",
         "readyStatus": "NO"
     }
 
