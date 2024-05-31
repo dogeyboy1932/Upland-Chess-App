@@ -232,14 +232,6 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID, setChallengesDa
                     </button>
                   )}
 
-                  {/* {challenge.uplandID === -1 && (
-                    <HoverPopup text="Once wager transactions on the escrow is confirmed on the EOS blockchain, it will be resolved">
-                      <span className='textOutliner completed'>
-                        COMPLETED
-                      </span>
-                    </HoverPopup>
-                  )} */}
-
                 </td>
 
 
