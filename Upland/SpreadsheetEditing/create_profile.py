@@ -7,7 +7,7 @@ def CreateProfile(bearer_token):   # Called when connecting to ChessApp on Uplan
     user_profile = GetUserProfile(bearer_token)
     balance = GetUserBalance(bearer_token)
 
-    print(balance)
+    print("CREATE BALANCE: ", balance)
 
     uplandUsername = user_profile['username']
     eosId = user_profile['eosId']
