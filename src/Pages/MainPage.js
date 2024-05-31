@@ -36,7 +36,7 @@ const MainPage = () => {
 
       <UserSection setFinalUserUplandID={setFinalUserUplandID} setChallengesData={setChallengesData}/>
 
-      <ChessChallengesTable challenges={challengeData} currentUserUplandID={finalUserUplandID} resetChallenges={resetChallenges}  />
+      <ChessChallengesTable challenges={challengeData} currentUserUplandID={finalUserUplandID} setChallengesData={setChallengesData}  />
     </>
   );
 };

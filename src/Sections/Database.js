@@ -6,10 +6,11 @@ import {BASE_URL as baseUrl} from "../FIXED_FRONTEND_VARIABLES.js"
 import './../App.css'
 
 import { HoverPopup } from '../Components/hover.js'
+import { RenderDatabase } from '../Helpers/RenderDatabase.js';
 
 
 
-const ChessChallengesTable = ({ challenges, currentUserUplandID, resetChallenges}) => {
+const ChessChallengesTable = ({ challenges, currentUserUplandID, setChallengesData}) => {
     // const [acceptedChallenge, setAcceptedChallenges] = useState([]);
     const [cancelledChallenge, setCancelledChallenge] = useState(false);
     
@@ -24,12 +25,6 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID, resetChallenges
     
     
 
-    // useEffect(() => {
-    //   // Store state variables in localStorage when component unmounts
-      
-    //   console.log("CHALLENGES: ", challenges)
-      
-    // }, [challenges]);
 
     const AcceptChallenge = async (link, index) => {
       if (currentUserUplandID === "BLANK") {
@@ -98,6 +93,13 @@ const ChessChallengesTable = ({ challenges, currentUserUplandID, resetChallenges
       } catch (error) {
         console.error('Error:', error);
       }
+    };
+
+
+    const resetChallenges = async () => {
+      const challengeTableData = await RenderDatabase();
+
+      setChallengesData(challengeTableData);
     };
 
 
