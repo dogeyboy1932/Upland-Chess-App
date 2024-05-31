@@ -13,8 +13,16 @@ def MarkResolving(gameID): # THIS INDICATES THAT THE CHESS GAME IS OVER AND THE 
     challenges_db.update_one(
         {"gameID": gameID},
         {"$set": {
-            "accepted?": "COMPLETED",
             "readyStatus": "RESOLVING",
+        }}
+    )
+
+
+def MarkCompleted(gameID): # THIS INDICATES THAT THE CHESS GAME IS OVER AND THE ESCROW IS BEING RESOLVED
+    challenges_db.update_one(
+        {"gameID": gameID},
+        {"$set": {
+            "accepted?": "COMPLETED",
         }}
     )
 
@@ -66,5 +74,6 @@ def HandleFinishedGames():
             FindAndRemoveRow(game)
         elif (status == -2):
             MarkResolving(game)
-            
+        
+        MarkCompleted(game)
             
