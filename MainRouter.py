@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import pandas as pd
 import json
 
 from FIXED_VARIABLES import NumpyArrayEncoder
@@ -20,7 +19,8 @@ from Chess.Buttons.accept_button import ChallengeAccepted
 from Chess.Buttons.cancel_button import ChallengeCanceled
 from Chess.get_lichess_info import GetVariant
 
-from flask_cors import CORS 
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 

@@ -2,7 +2,6 @@
   "name": "chess-frontend",
   "version": "0.1.0",
   "private": true,
-
   "dependencies": {
     "@testing-library/react": "^15.0.6",
     "@testing-library/user-event": "^14.5.2",
@@ -14,15 +13,14 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "^3.4.4",
     "requests": "^0.3.0",
+    "socket.io": "^4.7.5",
     "web-vitals": "^3.5.2"
   },
-  "scripts": {
-    "start": "npm-run-all -p start:server start:react",
-
+    "scripts": {
+    "start": "npm-run-all -p start:react start:server",
     "start:react": "react-scripts start",
     "start:server": "python ../MainRouter.py",
     "start:setSSL": "set NODE_OPTIONS=--openssl-legacy-provider",
-
     "start:ngrok": "ngrok http --domain=vocal-shepherd-select.ngrok-free.app 4000",
     "build": "react-scripts build",
     "serve": "serve -s build",
