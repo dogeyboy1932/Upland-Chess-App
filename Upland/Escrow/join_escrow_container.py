@@ -10,11 +10,7 @@ def JoinEscrow(bearerToken, containerId, upxAmount):
         "containerId": containerId,
         "upxAmount": upxAmount,
         "sparkAmount": 0,
-        "assets": [
-            {
-                "category": "string"
-            }
-        ],
+        "assets": [],
     })
 
     bearer = 'Bearer ' + str(bearerToken)
