@@ -7,9 +7,13 @@ from Upland.Escrow.create_escrow_container import CreateEscrowContainer
 
 def AppendChallenge(challenger, wager, thisGame):
     # Grabbing Details
-    gameID = thisGame['challenge']['id']
+
+    # print("HERE")
+    # print(thisGame)
+
+    gameID = thisGame['id']
     rating = GetLichessRating(challenger, "rapid")
-    link = thisGame['challenge']['url']
+    link = thisGame['url']
     escrowID = CreateEscrowContainer()
 
     # Making data
@@ -25,7 +29,11 @@ def AppendChallenge(challenger, wager, thisGame):
         "readyStatus": "NO"
     }
 
+    print("HERE3")
+
     # Appending data to spreadsheet
     challenges_db.insert_one(data)
+
+    print("HERE4")
 
     return escrowID, link
