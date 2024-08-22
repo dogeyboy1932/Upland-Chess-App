@@ -15,9 +15,6 @@ def RefundEscrowContainer(escrowId):
         if i['status'] == 'changing_ownership':
             return "Processing"
 
-    if escrow['upx'] == 0:
-        return "Nothing to refund"
-
 
     # Refunding Escrow
     url = "/developers-api/containers/" + str(escrowId) + "/refund"
@@ -33,6 +30,9 @@ def RefundEscrowContainer(escrowId):
         
         res = conn.getresponse()
         data = json.loads(res.read().decode("utf-8"))
+
+        if escrow['upx'] == 0:
+            return "Nothing to refund"
         
         print("Refunded Escrow! Transaction Hash:", data["transactionId"])
         return "success"
